@@ -1,0 +1,102 @@
+﻿@model List<StarGuinchos.Models.Solicitacao>
+
+@* 
+    Esta view recebe uma lista de solicitações enviada pelo AdminController.
+    Cada item da lista representa um pedido de guincho feito no site.
+*@
+
+<h2>Solicitações recebidas</h2>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+
+            @* Cabeçalhos da tabela *@
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Veículo</th>
+            <th>Problema</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Data</th>
+            <th>Status</th>
+
+            @* Coluna para botões de ação *@
+            <th>Ações</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @* 
+            Percorre cada solicitação que veio do banco de dados.
+            "Model" é uma lista de Solicitacao.
+        *@
+        @foreach (var s in Model)
+        {
+            <tr>
+
+                @* Nome do cliente *@
+                <td>@s.Nome</td>
+
+                @* Telefone informado no formulário *@
+                <td>@s.Telefone</td>
+
+                @* Modelo do veículo *@
+                <td>@s.Veiculo</td>
+
+                @* Descrição do problema *@
+                <td>@s.Problema</td>
+
+                @* Local onde o cliente está *@
+                <td>@s.Ponto_partida</td>
+
+                @* Para onde o carro deve ser levado *@
+                <td>@s.Destino</td>
+
+                @* 
+                    Formatação da data.
+                    Pode alterar aqui se quiser outro formato.
+                *@
+                <td>@s.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</td>
+
+                @* 
+                    Status atual do serviço.
+                    Pode trocar a cor do badge se quiser.
+                *@
+                <td>
+                    <span class="badge bg-success">
+                        @s.Status_solicitacao
+                    </span>
+                </td>
+
+                <td>
+
+                    @* 
+                        Botão que abre o WhatsApp com a mensagem pronta.
+                        Ele chama a rota do controller:
+
+                        /admin/solicitacoes/{id}/whatsapp
+
+                        O "id" da solicitação é enviado para o controller.
+                        O controller monta a mensagem automaticamente.
+                    *@
+
+                    <a class="btn btn-success btn-sm"
+                       href="/admin/solicitacoes/@s.Id/whatsapp"
+                       target="_blank">
+
+                        Enviar para WhatsApp
+
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

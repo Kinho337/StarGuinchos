@@ -1,0 +1,28 @@
+﻿@model StarGuinchos.Models.Solicitacao
+
+<h2>Solicitar Guincho</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <label>Nome</label>
+    <input asp-for="Nome" />
+
+    <label>Telefone</label>
+    <input asp-for="Telefone" />
+
+    <label>Veículo</label>
+    <input asp-for="Veiculo" />
+
+    <label>Problema</label>
+    <input asp-for="Problema" />
+
+    <label>Ponto de partida</label>
+    <input asp-for="Ponto_partida" />
+
+    <label>Destino</label>
+    <input asp-for="Destino" />
+
+    <button type="submit">Solicitar</button>
+
+</form>

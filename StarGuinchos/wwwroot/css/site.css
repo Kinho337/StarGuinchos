@@ -329,3 +329,440 @@ body {
                                                                 /*Área 3 */
 
 
+/* =========================================
+   SECTION: SERVIÇOS
+   HTML corrigido com bloco central unificado
+   ========================================= */
+
+.home-services {
+    width: calc(100% - 40px);
+    max-width: 1381.19px;
+    margin: 0 auto;
+    padding: clamp(28px, 4vw, 60px) clamp(14px, 3vw, 40px) clamp(24px, 3vw, 42px);
+    background: rgba(1, 0, 5, 0.99);
+    border: 0.5px solid #1E3A8A;
+    border-radius: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+    /* título */
+    .home-services .home-section__title {
+        margin: 0 0 clamp(18px, 2.5vw, 30px);
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(22px, 3vw, 45px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: 0;
+        color: #CBD5F5;
+    }
+
+/* área principal dos 3 blocos */
+.home-services__content {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(20px, 5vw, 130px);
+}
+
+/* cada serviço */
+.home-services__item {
+    width: 100%;
+    display: grid;
+    grid-template-rows: clamp(78px, 10vw, 120px) auto;
+    justify-items: center;
+    align-items: start;
+    row-gap: clamp(16px, 2.8vw, 45px);
+    text-align: center;
+}
+
+    /* imagens gerais */
+    .home-services__item img {
+        display: block;
+        max-width: 100%;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+/* ícone esquerdo */
+.home-services__item--electric img {
+    width: clamp(60px, 8vw, 110px);
+    height: clamp(60px, 8vw, 110px);
+}
+
+/* ícone direito */
+.home-services__item--mechanic img {
+    width: clamp(60px, 8vw, 110px);
+    height: clamp(60px, 8vw, 110px);
+}
+
+/* descrições */
+.home-services__item p {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(12px, 2vw, 30px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: #CBD5F5;
+}
+
+/* largura dos textos laterais */
+.home-services__item--electric p {
+    max-width: 250px;
+}
+
+.home-services__item--mechanic p {
+    max-width: 360px;
+}
+
+/* bloco central */
+.home-services__item--center {
+    grid-template-rows: clamp(78px, 10vw, 120px) auto;
+}
+
+.home-services__vehicles {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 2vw, 30px);
+}
+
+    /* carro */
+    .home-services__vehicles img:first-child {
+        width: clamp(95px, 12vw, 170px);
+        height: clamp(34px, 4.4vw, 60px);
+    }
+
+    /* moto */
+    .home-services__vehicles img:last-child {
+        width: clamp(78px, 10vw, 138px);
+        height: clamp(36px, 4.8vw, 66px);
+    }
+
+.home-services__item--center p {
+    max-width: 360px;
+}
+
+/* OU */
+.home-services__or {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: clamp(18px, 2vw, 28px);
+}
+
+    .home-services__or span {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(12px, 1.9vw, 30px);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0;
+        color: #CBD5F5;
+    }
+
+/* =========================================
+   TABLET
+   ========================================= */
+@media (max-width: 1024px) {
+    .home-services {
+        padding: clamp(24px, 3vw, 34px) clamp(12px, 2vw, 20px) clamp(22px, 3vw, 28px);
+        border-radius: 26px;
+    }
+
+    .home-services__content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.22fr) minmax(0, 1fr);
+        column-gap: clamp(12px, 2vw, 36px);
+    }
+
+    .home-services__item--mechanic p {
+        max-width: 280px;
+    }
+
+    .home-services__item--center p {
+        max-width: 300px;
+    }
+}
+
+/* =========================================
+   MOBILE
+   Mantém horizontal e reduz proporcionalmente
+   ========================================= */
+@media (max-width: 768px) {
+    .home-services {
+        padding: 22px 12px 20px;
+        border-radius: 24px;
+    }
+
+        .home-services .home-section__title {
+            margin-bottom: 16px;
+            font-size: clamp(18px, 5.2vw, 28px);
+        }
+
+    .home-services__content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.14fr) minmax(0, 1fr);
+        column-gap: 10px;
+    }
+
+    .home-services__item {
+        grid-template-rows: 58px auto;
+        row-gap: 10px;
+    }
+
+    .home-services__item--electric img,
+    .home-services__item--mechanic img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .home-services__vehicles {
+        gap: 8px;
+    }
+
+        .home-services__vehicles img:first-child {
+            width: 82px;
+            height: 30px;
+        }
+
+        .home-services__vehicles img:last-child {
+            width: 64px;
+            height: 30px;
+        }
+
+    .home-services__or span {
+        font-size: 11px;
+    }
+
+    .home-services__item p {
+        font-size: 11px;
+        line-height: 1.12;
+    }
+
+    .home-services__item--electric p {
+        max-width: 108px;
+    }
+
+    .home-services__item--center p {
+        max-width: 165px;
+    }
+
+    .home-services__item--mechanic p {
+        max-width: 135px;
+    }
+}
+
+/* =========================================
+   TELAS MUITO ESTREITAS
+   ========================================= */
+@media (max-width: 480px) {
+    .home-services {
+        width: calc(100% - 40px);
+        padding: 18px 10px 16px;
+        border-radius: 20px;
+    }
+
+        .home-services .home-section__title {
+            margin-bottom: 14px;
+            font-size: 16px;
+        }
+
+    .home-services__content {
+        column-gap: 6px;
+    }
+
+    .home-services__item {
+        grid-template-rows: 46px auto;
+        row-gap: 8px;
+    }
+
+    .home-services__item--electric img,
+    .home-services__item--mechanic img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home-services__vehicles {
+        gap: 6px;
+    }
+
+        .home-services__vehicles img:first-child {
+            width: 64px;
+            height: 24px;
+        }
+
+        .home-services__vehicles img:last-child {
+            width: 50px;
+            height: 24px;
+        }
+
+    .home-services__or span {
+        font-size: 10px;
+    }
+
+    .home-services__item p {
+        font-size: 9px;
+        line-height: 1.1;
+    }
+
+    .home-services__item--electric p {
+        max-width: 86px;
+    }
+
+    .home-services__item--center p {
+        max-width: 130px;
+    }
+
+    .home-services__item--mechanic p {
+        max-width: 108px;
+    }
+}
+
+
+                                                                               /*Área 4*/
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,700&family=Montserrat:wght@600;800&display=swap');
+
+.home-steps {
+    width: 100%;
+    background: transparent;
+    padding: clamp(48px, 4vw, 70px) 0 clamp(70px, 6vw, 100px);
+}
+
+.home-steps__container {
+    width: min(100%, 1512px);
+    margin: 0 auto;
+    padding: 0 clamp(16px, 2.4vw, 36px);
+}
+
+/* TÍTULO */
+.home-steps__title,
+.home-steps h2,
+.home-steps .section-title {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 2.976vw, 45px);
+    line-height: normal;
+    letter-spacing: 0;
+    color: #CBD5F5;
+    text-transform: uppercase;
+}
+
+/* CONTEÚDO */
+.home-steps__content {
+    width: 100%;
+    margin-top: clamp(42px, 7.275vw, 110px);
+    padding: 0 clamp(16px, 7.275vw, 110px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    justify-items: center;
+    column-gap: clamp(24px, 22.222vw, 336px);
+}
+
+.home-steps__item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.home-steps__number {
+    margin: 0;
+    font-family: 'Montagu Slab', serif;
+    font-weight: 700;
+    font-size: clamp(88px, 16.534vw, 250px);
+    line-height: 0.82;
+    letter-spacing: 0;
+    color: #FFFFFF;
+}
+
+.home-steps__text {
+    margin: clamp(14px, 3.307vw, 50px) 0 0;
+    max-width: 12ch;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: clamp(14px, 2.646vw, 40px);
+    line-height: normal;
+    letter-spacing: 0;
+    color: #CBD5F5;
+    text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+    .home-steps__content {
+        column-gap: clamp(18px, 4vw, 36px);
+        padding: 0 clamp(12px, 3vw, 28px);
+    }
+
+    .home-steps__number {
+        font-size: clamp(76px, 13vw, 180px);
+    }
+
+    .home-steps__text {
+        font-size: clamp(13px, 2vw, 28px);
+        max-width: 10ch;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-steps {
+        padding: 40px 0 60px;
+    }
+
+    .home-steps__container {
+        padding: 0 12px;
+    }
+
+    .home-steps__content {
+        margin-top: 34px;
+        padding: 0;
+        column-gap: 12px;
+    }
+
+    .home-steps__number {
+        font-size: clamp(60px, 12vw, 110px);
+        line-height: 0.88;
+    }
+
+    .home-steps__text {
+        margin-top: 12px;
+        font-size: clamp(11px, 2.5vw, 16px);
+        max-width: 9ch;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-steps__title,
+    .home-steps h2,
+    .home-steps .section-title {
+        font-size: 20px;
+    }
+
+    .home-steps__content {
+        column-gap: 8px;
+    }
+
+    .home-steps__number {
+        font-size: clamp(48px, 11vw, 78px);
+    }
+
+    .home-steps__text {
+        font-size: clamp(10px, 2.4vw, 13px);
+        max-width: 8ch;
+    }
+}

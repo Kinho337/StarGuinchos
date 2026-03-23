@@ -618,3 +618,219 @@ body {
         padding: 0 12px;
     }
 }
+
+.admin-filters {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.4fr) minmax(180px, 0.8fr) minmax(180px, 0.8fr) auto;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 24px;
+}
+
+.admin-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-filter-group--search {
+    min-width: 0;
+}
+
+.admin-filter-label {
+    font-size: 0.88rem;
+    color: #98A4B5;
+    font-weight: 500;
+}
+
+.admin-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid #232323;
+    background: #121212;
+    color: #F5F7FA;
+    outline: none;
+}
+
+    .admin-input:focus {
+        border-color: #3B5D95;
+    }
+
+    .admin-input::placeholder {
+        color: #687486;
+    }
+
+.admin-filter-actions {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+}
+
+.admin-action-button--clear {
+    background: #181818;
+    color: #DDE5F0;
+    border-color: #2A2A2A;
+}
+
+    .admin-action-button--clear:hover {
+        background: #202020;
+        color: #FFFFFF;
+    }
+
+@media (max-width: 1100px) {
+    .admin-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-filter-actions {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 640px) {
+    .admin-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-filter-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .admin-action-button--clear,
+        .admin-filter-actions .admin-action-button--save {
+            width: 100%;
+        }
+}
+
+
+/*detalhes*/
+
+
+
+.admin-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-action-button--details {
+    background: #181818;
+    color: #E7EDF8;
+    border-color: #2B2B2B;
+}
+
+    .admin-action-button--details:hover {
+        background: #222222;
+        color: #FFFFFF;
+    }
+
+.admin-details-card {
+    background: linear-gradient(180deg, #101010 0%, #0C0C0C 100%);
+    border: 1px solid #1F1F1F;
+    border-radius: 24px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.admin-details-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+    .admin-details-card__header h3 {
+        margin: 0;
+        color: #FFFFFF;
+        font-size: 1.5rem;
+    }
+
+.admin-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.admin-details-item {
+    background: #121212;
+    border: 1px solid #1F1F1F;
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.admin-details-item--full {
+    grid-column: 1 / -1;
+}
+
+.admin-details-item__label {
+    color: #95A0AF;
+    font-size: 0.9rem;
+}
+
+.admin-details-item__value {
+    color: #FFFFFF;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.admin-details-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 780px) {
+    .admin-details-card {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .admin-details-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-details-item--full {
+        grid-column: auto;
+    }
+
+    .admin-details-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .admin-details-actions .admin-action-button {
+            width: 100%;
+        }
+}
+
+.admin-delete-form {
+    margin: 0;
+}
+
+.admin-action-button--delete {
+    background: linear-gradient(180deg, #7A1F1F 0%, #5E1616 100%);
+    color: #FFFFFF;
+    border-color: #8D2A2A;
+}
+
+    .admin-action-button--delete:hover {
+        filter: brightness(1.08);
+        color: #FFFFFF;
+    }

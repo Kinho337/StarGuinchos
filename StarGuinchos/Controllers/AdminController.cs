@@ -28,13 +28,67 @@ namespace StarGuinchos.Controllers
         }
 
         [HttpGet("admin/solicitacoes")]
-        public IActionResult Solicitacoes()
+        public IActionResult Solicitacoes(string busca, string status, DateTime? data)
         {
-            var lista = _context.Solicitacoes
+            var query = _context.Solicitacoes.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(busca))
+            {
+                busca = busca.Trim();
+
+                string buscaTelefone = new string(busca.Where(char.IsDigit).ToArray());
+
+                query = query.Where(s =>
+                    (s.Nome != null && s.Nome.Contains(busca)) ||
+                    (s.Veiculo != null && s.Veiculo.Contains(busca)) ||
+                    (
+                        s.Telefone != null &&
+                        s.Telefone
+                            .Replace("(", "")
+                            .Replace(")", "")
+                            .Replace("-", "")
+                            .Replace(" ", "")
+                            .Contains(buscaTelefone)
+                    )
+                );
+        }
+
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                status = status.Trim().ToLower();
+                query = query.Where(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == status);
+            }
+
+            if (data.HasValue)
+            {
+                var diaInicio = data.Value.Date;
+                var diaFim = diaInicio.AddDays(1);
+
+                query = query.Where(s => s.Data_solicitacao >= diaInicio && s.Data_solicitacao < diaFim);
+            }
+
+            var lista = query
                 .OrderByDescending(s => s.Id)
                 .ToList();
 
+            ViewBag.Busca = busca;
+            ViewBag.Status = status;
+            ViewBag.Data = data?.ToString("yyyy-MM-dd");
+
             return View(lista);
+        }
+
+        [HttpGet("admin/solicitacoes/{id}")]
+        public IActionResult Detalhes(int id)
+        {
+            var solicitacao = _context.Solicitacoes.FirstOrDefault(s => s.Id == id);
+
+            if (solicitacao == null)
+            {
+                return NotFound();
+            }
+
+            return View(solicitacao);
         }
 
         [HttpPost("admin/solicitacoes/{id}/status")]
@@ -63,6 +117,24 @@ namespace StarGuinchos.Controllers
             return RedirectToAction(nameof(Solicitacoes));
         }
 
+        [HttpPost("admin/solicitacoes/{id}/excluir")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Excluir(int id)
+        {
+            var solicitacao = _context.Solicitacoes.FirstOrDefault(s => s.Id == id);
+
+            if (solicitacao == null)
+            {
+                return NotFound();
+            }
+
+            _context.Solicitacoes.Remove(solicitacao);
+            _context.SaveChanges();
+
+            TempData["AdminMensagem"] = $"Solicitação #{id} excluída com sucesso.";
+            return RedirectToAction(nameof(Solicitacoes));
+        }
+
         [HttpGet("admin/solicitacoes/{id}/whatsapp")]
         public IActionResult EnviarWhatsapp(int id)
         {
@@ -72,6 +144,7 @@ namespace StarGuinchos.Controllers
             {
                 return NotFound();
             }
+
 
             string mensagem =
                 $"🚨 NOVA SOLICITAÇÃO DE GUINCHO\n\n" +
@@ -88,6 +161,8 @@ namespace StarGuinchos.Controllers
             string url = $"https://wa.me/?text={mensagemCodificada}";
 
             return Redirect(url);
+
+
         }
     }
 }

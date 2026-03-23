@@ -51,9 +51,53 @@
                 </div>
 
                 <div class="admin-table-panel__count">
-                    Total: <strong>@Model.Count</strong>
+                    Total filtrado: <strong>@Model.Count</strong>
                 </div>
             </div>
+
+            <form method="get" asp-controller="Admin" asp-action="Solicitacoes" class="admin-filters">
+                <div class="admin-filter-group admin-filter-group--search">
+                    <label for="busca" class="admin-filter-label">Busca</label>
+                    <input type="text"
+                           id="busca"
+                           name="busca"
+                           value="@ViewBag.Busca"
+                           class="admin-input"
+                           placeholder="Nome, telefone ou veículo" />
+                </div>
+
+                <div class="admin-filter-group">
+                    <label for="status" class="admin-filter-label">Status</label>
+                    <select id="status" name="status" class="admin-select">
+                        <option value="">Todos</option>
+                        <option value="novo" selected="@(ViewBag.Status == "novo")">novo</option>
+                        <option value="em andamento" selected="@(ViewBag.Status == "em andamento")">em andamento</option>
+                        <option value="concluido" selected="@(ViewBag.Status == "concluido")">concluido</option>
+                        <option value="cancelado" selected="@(ViewBag.Status == "cancelado")">cancelado</option>
+                    </select>
+                </div>
+
+                <div class="admin-filter-group">
+                    <label for="data" class="admin-filter-label">Data</label>
+                    <input type="date"
+                           id="data"
+                           name="data"
+                           value="@ViewBag.Data"
+                           class="admin-input" />
+                </div>
+
+                <div class="admin-filter-actions">
+                    <button type="submit" class="admin-action-button admin-action-button--save">
+                        Filtrar
+                    </button>
+
+                    <a asp-controller="Admin"
+                           asp-action="Solicitacoes"
+                           class="admin-action-button admin-action-button--clear">
+                        Limpar
+                    </a>
+                </div>
+            </form>
 
             <div class="admin-table-wrapper">
                 <table class="admin-table">
@@ -76,9 +120,9 @@
                     <tbody>
                         @foreach (var s in Model)
                         {
-                            var status = (s.Status_solicitacao ?? "novo").ToLower();
+                            var statusAtual = (s.Status_solicitacao ?? "novo").ToLower();
 
-                            var statusClass = status switch
+                            var statusClass = statusAtual switch
                             {
                                 "novo" => "admin-badge admin-badge--novo",
                                 "em andamento" => "admin-badge admin-badge--andamento",
@@ -97,7 +141,7 @@
                                 <td>@s.Destino</td>
                                 <td>@s.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>
-                                    <span class="@statusClass">@status</span>
+                                    <span class="@statusClass">@statusAtual</span>
                                 </td>
                                 <td>
                                     <form asp-controller="Admin"
@@ -108,10 +152,41 @@
                                         @Html.AntiForgeryToken()
 
                                         <select name="novoStatus" class="admin-select">
-                                            <option value="novo" selected="@(status == "novo")">novo</option>
-                                            <option value="em andamento" selected="@(status == "em andamento")">em andamento</option>
-                                            <option value="concluido" selected="@(status == "concluido")">concluido</option>
-                                            <option value="cancelado" selected="@(status == "cancelado")">cancelado</option>
+                                            @if (statusAtual == "novo")
+                                            {
+                                                <option value="novo" selected>novo</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="novo">novo</option>
+                                            }
+
+                                            @if (statusAtual == "em andamento")
+                                            {
+                                                <option value="em andamento" selected>em andamento</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="em andamento">em andamento</option>
+                                            }
+
+                                            @if (statusAtual == "concluido")
+                                            {
+                                                <option value="concluido" selected>concluido</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="concluido">concluido</option>
+                                            }
+
+                                            @if (statusAtual == "cancelado")
+                                            {
+                                                <option value="cancelado" selected>cancelado</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="cancelado">cancelado</option>
+                                            }
                                         </select>
 
                                         <button type="submit" class="admin-action-button admin-action-button--save">
@@ -120,11 +195,18 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <a class="admin-action-button admin-action-button--whatsapp"
-                                           href="/admin/solicitacoes/@s.Id/whatsapp"
-                                           target="_blank">
-                                        WhatsApp
-                                    </a>
+                                    <div class="admin-actions-group">
+                                        <a class="admin-action-button admin-action-button--details"
+                                               href="/admin/solicitacoes/@s.Id">
+                                            Detalhes
+                                        </a>
+
+                                        <a class="admin-action-button admin-action-button--whatsapp"
+                                               href="/admin/solicitacoes/@s.Id/whatsapp"
+                                               target="_blank">
+                                            WhatsApp
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         }

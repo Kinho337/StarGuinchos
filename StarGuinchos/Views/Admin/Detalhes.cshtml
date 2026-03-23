@@ -1,0 +1,127 @@
+﻿@model StarGuinchos.Models.Solicitacao
+
+@{
+    ViewData["Title"] = "Detalhes da Solicitação";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+@{
+    var status = (Model.Status_solicitacao ?? "novo").ToLower();
+
+    var statusClass = status switch
+    {
+        "novo" => "admin-badge admin-badge--novo",
+        "em andamento" => "admin-badge admin-badge--andamento",
+        "concluido" => "admin-badge admin-badge--concluido",
+        "cancelado" => "admin-badge admin-badge--cancelado",
+        _ => "admin-badge"
+    };
+}
+
+<section class="admin-dashboard">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <h1>StarGuinchos</h1>
+            <span>Admin Panel</span>
+        </div>
+
+        <nav class="admin-sidebar__nav">
+            <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link">
+                Dashboard
+            </a>
+
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link active">
+                Solicitações
+            </a>
+        </nav>
+    </aside>
+
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <div>
+                <p class="admin-topbar__eyebrow">Detalhamento</p>
+                <h2>Solicitação #@Model.Id</h2>
+            </div>
+
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-topbar__button">
+                Voltar para solicitações
+            </a>
+        </header>
+
+        <section class="admin-details-card">
+            <div class="admin-details-card__header">
+                <div>
+                    <p class="admin-panel__eyebrow">Informações completas</p>
+                    <h3>Dados da solicitação</h3>
+                </div>
+
+                <span class="@statusClass">@status</span>
+            </div>
+
+            <div class="admin-details-grid">
+                <article class="admin-details-item">
+                    <span class="admin-details-item__label">Nome</span>
+                    <strong class="admin-details-item__value">@Model.Nome</strong>
+                </article>
+
+                <article class="admin-details-item">
+                    <span class="admin-details-item__label">Telefone</span>
+                    <strong class="admin-details-item__value">@Model.Telefone</strong>
+                </article>
+
+                <article class="admin-details-item">
+                    <span class="admin-details-item__label">Veículo</span>
+                    <strong class="admin-details-item__value">@Model.Veiculo</strong>
+                </article>
+
+                <article class="admin-details-item">
+                    <span class="admin-details-item__label">Data da solicitação</span>
+                    <strong class="admin-details-item__value">@Model.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</strong>
+                </article>
+
+                <article class="admin-details-item admin-details-item--full">
+                    <span class="admin-details-item__label">Problema informado</span>
+                    <strong class="admin-details-item__value">@Model.Problema</strong>
+                </article>
+
+                <article class="admin-details-item admin-details-item--full">
+                    <span class="admin-details-item__label">Origem</span>
+                    <strong class="admin-details-item__value">@Model.Ponto_partida</strong>
+                </article>
+
+                <article class="admin-details-item admin-details-item--full">
+                    <span class="admin-details-item__label">Destino</span>
+                    <strong class="admin-details-item__value">@Model.Destino</strong>
+                </article>
+            </div>
+
+            <div class="admin-details-actions">
+                <a class="admin-action-button admin-action-button--whatsapp"
+                       href="/admin/solicitacoes/@Model.Id/whatsapp"
+                       target="_blank">
+                    Enviar para WhatsApp
+                </a>
+
+                <a asp-controller="Admin"
+                       asp-action="Solicitacoes"
+                       class="admin-action-button admin-action-button--clear">
+                    Voltar
+                </a>
+
+                <form asp-controller="Admin"
+                      asp-action="Excluir"
+                      asp-route-id="@Model.Id"
+                      method="post"
+                      class="admin-delete-form"
+                      onsubmit="return confirm('Tem certeza que deseja excluir esta solicitação?');">
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="admin-action-button admin-action-button--delete">
+                        Excluir solicitação
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+</section>

@@ -1,3 +1,30 @@
-﻿<h2>Solicitação enviada!</h2>
+﻿@{
+    ViewData["Title"] = "Solicitação enviada";
+}
 
-<p>Entraremos em contato em breve.</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/solicitacao-success.css" asp-append-version="true" />
+}
+
+<section class="success-wait">
+    <div class="success-wait__container">
+        <div class="success-wait__brand">
+            <img src="~/images/logo-star-guinchos-completa.png" alt="Star Guinchos" class="success-wait__logo" />
+        </div>
+
+        <h1 class="success-wait__title">
+            AGUARDE TRANQUILO<br />
+            ESTAMOS A CAMINHO
+        </h1>
+
+        <p class="success-wait__text">
+            Nossa equipe já recebeu sua solicitação e está se preparando para o atendimento.
+            Em instantes entraremos em contato para confirmar os detalhes e, em breve,
+            estaremos no local para te auxiliar com agilidade e segurança.
+        </p>
+
+        <a asp-controller="Home" asp-action="Index" class="success-wait__button">
+            Voltar para a Home
+        </a>
+    </div>
+</section>

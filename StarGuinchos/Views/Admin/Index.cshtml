@@ -1,7 +1,81 @@
-﻿<h2>Painel Administrativo</h2>
+﻿@{
+    ViewData["Title"] = "Admin";
+}
 
-<p>Área interna do sistema.</p>
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 
-<p>
-    <a asp-controller="Admin" asp-action="Solicitacoes">Ver solicitações</a>
-</p>
+<section class="admin-dashboard">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <h1>StarGuinchos</h1>
+            <span>Admin Panel</span>
+        </div>
+
+        <nav class="admin-sidebar__nav">
+            <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link active">
+                Dashboard
+            </a>
+
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link">
+                Solicitações
+            </a>
+        </nav>
+    </aside>
+
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <div>
+                <p class="admin-topbar__eyebrow">Painel administrativo</p>
+                <h2>Controle interno da operação</h2>
+            </div>
+
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-topbar__button">
+                Ver solicitações
+            </a>
+        </header>
+
+        <section class="admin-summary">
+            <article class="admin-card">
+                <span class="admin-card__label">Total de solicitações</span>
+                <strong class="admin-card__value">@ViewBag.TotalSolicitacoes</strong>
+            </article>
+
+            <article class="admin-card">
+                <span class="admin-card__label">Novas</span>
+                <strong class="admin-card__value">@ViewBag.NovasSolicitacoes</strong>
+            </article>
+
+            <article class="admin-card">
+                <span class="admin-card__label">Em andamento</span>
+                <strong class="admin-card__value">@ViewBag.EmAndamento</strong>
+            </article>
+
+            <article class="admin-card">
+                <span class="admin-card__label">Concluídas</span>
+                <strong class="admin-card__value">@ViewBag.Concluidas</strong>
+            </article>
+
+            <article class="admin-card">
+                <span class="admin-card__label">Canceladas</span>
+                <strong class="admin-card__value">@ViewBag.Canceladas</strong>
+            </article>
+        </section>
+
+        <section class="admin-panel">
+            <div class="admin-panel__content">
+                <p class="admin-panel__eyebrow">Visão geral</p>
+                <h3>Gerencie as solicitações com mais rapidez</h3>
+                <p>
+                    Acompanhe os pedidos recebidos, visualize dados importantes do atendimento
+                    e acesse rapidamente a listagem completa para encaminhamento via WhatsApp.
+                </p>
+            </div>
+
+            <div class="admin-panel__actions">
+                <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-primary-button">
+                    Acessar solicitações
+                </a>
+            </div>
+        </section>
+    </main>
+</section>

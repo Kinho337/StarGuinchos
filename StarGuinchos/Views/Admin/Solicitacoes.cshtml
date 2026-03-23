@@ -1,102 +1,136 @@
 ﻿@model List<StarGuinchos.Models.Solicitacao>
 
-@* 
-    Esta view recebe uma lista de solicitações enviada pelo AdminController.
-    Cada item da lista representa um pedido de guincho feito no site.
-*@
+@{
+    ViewData["Title"] = "Solicitações";
+}
 
-<h2>Solicitações recebidas</h2>
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 
-<table class="table table-striped">
+<section class="admin-dashboard">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <h1>StarGuinchos</h1>
+            <span>Admin Panel</span>
+        </div>
 
-    <thead>
-        <tr>
+        <nav class="admin-sidebar__nav">
+            <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link">
+                Dashboard
+            </a>
 
-            @* Cabeçalhos da tabela *@
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Veículo</th>
-            <th>Problema</th>
-            <th>Origem</th>
-            <th>Destino</th>
-            <th>Data</th>
-            <th>Status</th>
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link active">
+                Solicitações
+            </a>
+        </nav>
+    </aside>
 
-            @* Coluna para botões de ação *@
-            <th>Ações</th>
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <div>
+                <p class="admin-topbar__eyebrow">Operação</p>
+                <h2>Solicitações recebidas</h2>
+            </div>
 
-        </tr>
-    </thead>
+            <a asp-controller="Admin" asp-action="Index" class="admin-topbar__button">
+                Voltar ao dashboard
+            </a>
+        </header>
 
-    <tbody>
-
-        @* 
-            Percorre cada solicitação que veio do banco de dados.
-            "Model" é uma lista de Solicitação.
-        *@
-        @foreach (var s in Model)
+        @if (TempData["AdminMensagem"] != null)
         {
-            <tr>
-
-                @* Nome do cliente *@
-                <td>@s.Nome</td>
-
-                @* Telefone informado no formulário *@
-                <td>@s.Telefone</td>
-
-                @* Modelo do veículo *@
-                <td>@s.Veiculo</td>
-
-                @* Descrição do problema *@
-                <td>@s.Problema</td>
-
-                @* Local onde o cliente está *@
-                <td>@s.Ponto_partida</td>
-
-                @* Para onde o carro deve ser levado *@
-                <td>@s.Destino</td>
-
-                @* 
-                    Formatação da data.
-                    Pode alterar aqui se quiser outro formato.
-                *@
-                <td>@s.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</td>
-
-                @* 
-                    Status atual do serviço.
-                    Pode trocar a cor do badge se quiser.
-                *@
-                <td>
-                    <span class="badge bg-success">
-                        @s.Status_solicitacao
-                    </span>
-                </td>
-
-                <td>
-
-                    @* 
-                        Botão que abre o WhatsApp com a mensagem pronta.
-                        Ele chama a rota do controller:
-
-                        /admin/solicitacoes/{id}/whatsapp
-
-                        O "id" da solicitação é enviado para o controller.
-                        O controller monta a mensagem automaticamente.
-                    *@
-
-                    <a class="btn btn-success btn-sm"
-                       href="/admin/solicitacoes/@s.Id/whatsapp"
-                       target="_blank">
-
-                        Enviar para WhatsApp
-
-                    </a>
-
-                </td>
-
-            </tr>
+            <div class="admin-alert">
+                @TempData["AdminMensagem"]
+            </div>
         }
 
-    </tbody>
+        <section class="admin-table-panel">
+            <div class="admin-table-panel__header">
+                <div>
+                    <p class="admin-panel__eyebrow">Listagem completa</p>
+                    <h3>Gerencie e acompanhe os serviços</h3>
+                </div>
 
-</table>
+                <div class="admin-table-panel__count">
+                    Total: <strong>@Model.Count</strong>
+                </div>
+            </div>
+
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Telefone</th>
+                            <th>Veículo</th>
+                            <th>Problema</th>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                            <th>Data</th>
+                            <th>Status</th>
+                            <th>Atualizar</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var s in Model)
+                        {
+                            var status = (s.Status_solicitacao ?? "novo").ToLower();
+
+                            var statusClass = status switch
+                            {
+                                "novo" => "admin-badge admin-badge--novo",
+                                "em andamento" => "admin-badge admin-badge--andamento",
+                                "concluido" => "admin-badge admin-badge--concluido",
+                                "cancelado" => "admin-badge admin-badge--cancelado",
+                                _ => "admin-badge"
+                            };
+
+                            <tr>
+                                <td>#@s.Id</td>
+                                <td>@s.Nome</td>
+                                <td>@s.Telefone</td>
+                                <td>@s.Veiculo</td>
+                                <td>@s.Problema</td>
+                                <td>@s.Ponto_partida</td>
+                                <td>@s.Destino</td>
+                                <td>@s.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <span class="@statusClass">@status</span>
+                                </td>
+                                <td>
+                                    <form asp-controller="Admin"
+                                          asp-action="AtualizarStatus"
+                                          asp-route-id="@s.Id"
+                                          method="post"
+                                          class="admin-status-form">
+                                        @Html.AntiForgeryToken()
+
+                                        <select name="novoStatus" class="admin-select">
+                                            <option value="novo" selected="@(status == "novo")">novo</option>
+                                            <option value="em andamento" selected="@(status == "em andamento")">em andamento</option>
+                                            <option value="concluido" selected="@(status == "concluido")">concluido</option>
+                                            <option value="cancelado" selected="@(status == "cancelado")">cancelado</option>
+                                        </select>
+
+                                        <button type="submit" class="admin-action-button admin-action-button--save">
+                                            Salvar
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a class="admin-action-button admin-action-button--whatsapp"
+                                           href="/admin/solicitacoes/@s.Id/whatsapp"
+                                           target="_blank">
+                                        WhatsApp
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</section>

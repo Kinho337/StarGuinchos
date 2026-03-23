@@ -766,3 +766,172 @@ body {
         max-width: 8ch;
     }
 }
+
+
+
+
+
+                                                                                /*Área 5*/
+
+
+
+
+
+/* =========================
+   SEÇÃO 05 - AVALIAÇÕES
+   ========================= */
+
+.home-reviews {
+    --reviews-max-width: 1406px;
+    --reviews-side-margin: clamp(14px, 1.98vw, 30px);
+    --reviews-title-size: clamp(24px, 2.98vw, 45px);
+    --reviews-title-to-grid: clamp(40px, 8.8vw, 133px);
+    --reviews-col-gap: clamp(16px, 7.28vw, 110px);
+    --reviews-row-gap: clamp(18px, 8.8vw, 133px);
+    --reviews-card-min-height: clamp(130px, 14.55vw, 220px);
+    --reviews-card-radius: clamp(14px, 1.65vw, 25px);
+    --reviews-card-padding: clamp(10px, 0.99vw, 15px);
+    --reviews-icon-size: clamp(14px, 1.59vw, 24px);
+    --reviews-icon-name-gap: clamp(3px, 0.33vw, 5px);
+    --reviews-name-size: clamp(11px, 1.65vw, 25px);
+    --reviews-text-size: clamp(11px, 1.65vw, 25px);
+    --reviews-name-text-gap: clamp(6px, 0.66vw, 10px);
+    position: relative;
+    width: 100%;
+    padding-left: var(--reviews-side-margin);
+    padding-right: var(--reviews-side-margin);
+    box-sizing: border-box;
+}
+
+    .home-reviews .home-section__title {
+        margin: 0;
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: var(--reviews-title-size);
+        line-height: 1;
+        letter-spacing: 0;
+        color: #CBD5F5;
+    }
+
+.home-reviews__grid {
+    width: min(100%, var(--reviews-max-width));
+    margin: var(--reviews-title-to-grid) auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--reviews-col-gap);
+    row-gap: var(--reviews-row-gap);
+    align-items: stretch;
+}
+
+.home-reviews__card {
+    width: 100%;
+    min-height: var(--reviews-card-min-height);
+    padding: var(--reviews-card-padding);
+    box-sizing: border-box;
+    border: 1px solid #061A35;
+    border-radius: var(--reviews-card-radius);
+    background: rgba(1, 0, 5, 0.99);
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.home-reviews__header {
+    display: flex;
+    align-items: center;
+    gap: var(--reviews-icon-name-gap);
+    margin: 0;
+    padding: 0;
+}
+
+    .home-reviews__header img {
+        width: var(--reviews-icon-size);
+        height: var(--reviews-icon-size);
+        flex: 0 0 var(--reviews-icon-size);
+        object-fit: contain;
+        display: block;
+    }
+
+    .home-reviews__header span {
+        display: block;
+        margin: 0;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 400;
+        font-size: var(--reviews-name-size);
+        line-height: 1.15;
+        letter-spacing: 0;
+        color: #EED4A5;
+    }
+
+.home-reviews__card p {
+    margin: var(--reviews-name-text-gap) 0 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: var(--reviews-text-size);
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    word-break: break-word;
+}
+
+/* =========================
+   AJUSTES RESPONSIVOS
+   Mantém 2 colunas
+   ========================= */
+
+@media (max-width: 900px) {
+    .home-reviews {
+        --reviews-card-min-height: clamp(125px, 18vw, 220px);
+    }
+
+    .home-reviews__card p {
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 640px) {
+    .home-reviews {
+        --reviews-side-margin: 12px;
+        --reviews-col-gap: 12px;
+        --reviews-row-gap: 18px;
+        --reviews-card-padding: 10px;
+        --reviews-card-min-height: 140px;
+        --reviews-name-size: 11px;
+        --reviews-text-size: 11px;
+        --reviews-icon-size: 14px;
+    }
+
+        .home-reviews .home-section__title {
+            line-height: 1.05;
+        }
+
+    .home-reviews__header {
+        align-items: flex-start;
+    }
+
+        .home-reviews__header span,
+        .home-reviews__card p {
+            line-height: 1.2;
+        }
+}
+
+@media (max-width: 420px) {
+    .home-reviews {
+        --reviews-side-margin: 10px;
+        --reviews-col-gap: 10px;
+        --reviews-row-gap: 14px;
+        --reviews-title-to-grid: 30px;
+        --reviews-card-padding: 8px;
+        --reviews-card-min-height: 145px;
+        --reviews-name-size: 10px;
+        --reviews-text-size: 10px;
+        --reviews-icon-size: 12px;
+    }
+}
+
+
+
+

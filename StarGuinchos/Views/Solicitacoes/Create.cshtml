@@ -2,27 +2,64 @@
 
 <h2>Solicitar Guincho</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" id="solicitacaoForm">
     @Html.AntiForgeryToken()
 
-    <label>Nome</label>
-    <input asp-for="Nome" />
+    <div class="form-group">
+        <label asp-for="Nome">Nome</label>
+        <input asp-for="Nome" class="form-control" />
+    </div>
 
-    <label>Telefone</label>
-    <input asp-for="Telefone" />
+    <div class="form-group">
+        <label asp-for="Telefone">Telefone</label>
+        <input asp-for="Telefone" class="form-control" />
+    </div>
 
-    <label>Veículo</label>
-    <input asp-for="Veiculo" />
+    <div class="form-group">
+        <label asp-for="Veiculo">Veículo</label>
+        <input asp-for="Veiculo" class="form-control" />
+    </div>
 
-    <label>Problema</label>
-    <input asp-for="Problema" />
+    <div class="form-group">
+        <label asp-for="Problema">Problema</label>
+        <input asp-for="Problema" class="form-control" />
+    </div>
 
-    <label>Ponto de partida</label>
-    <input asp-for="Ponto_partida" />
+    <div class="form-group location-group">
+        <label asp-for="Ponto_partida">Ponto de partida</label>
 
-    <label>Destino</label>
-    <input asp-for="Destino" />
+        <div class="location-input-wrapper">
+            <input asp-for="Ponto_partida"
+                   class="form-control"
+                   id="pontoPartida"
+                   autocomplete="off"
+                   placeholder="Digite o local de saída" />
+
+            <button type="button" id="usarLocalAtual" class="btn-localizacao">
+                Usar localização atual
+            </button>
+        </div>
+
+        <div id="pontoPartidaSuggestions" class="autocomplete-list"></div>
+
+        <input type="hidden" id="pontoPartidaLat" name="PontoPartidaLat" />
+        <input type="hidden" id="pontoPartidaLng" name="PontoPartidaLng" />
+    </div>
+
+    <div class="form-group location-group">
+        <label asp-for="Destino">Destino</label>
+
+        <input asp-for="Destino"
+               class="form-control"
+               id="destino"
+               autocomplete="off"
+               placeholder="Digite o destino" />
+
+        <div id="destinoSuggestions" class="autocomplete-list"></div>
+
+        <input type="hidden" id="destinoLat" name="DestinoLat" />
+        <input type="hidden" id="destinoLng" name="DestinoLng" />
+    </div>
 
     <button type="submit">Solicitar</button>
-
 </form>

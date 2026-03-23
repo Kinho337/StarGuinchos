@@ -13,5 +13,10 @@ namespace StarGuinchos.Models
         public string? Destino { get; set; }
         public DateTime Data_solicitacao { get; set; }
         public string? Status_solicitacao { get; set; }
+
+        public double? PontoPartidaLat { get; set; }
+        public double? PontoPartidaLng { get; set; }
+        public double? DestinoLat { get; set; }
+        public double? DestinoLng { get; set; }
     }
 }

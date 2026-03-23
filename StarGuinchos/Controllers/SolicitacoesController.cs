@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StarGuinchos.Data;
 using StarGuinchos.Models;
+using StarGuinchos.Services;
 
 namespace StarGuinchos.Controllers
 {
     public class SolicitacoesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITelegramNotifier _telegramNotifier;
 
-        public SolicitacoesController(ApplicationDbContext context)
+        public SolicitacoesController(
+            ApplicationDbContext context,
+            ITelegramNotifier telegramNotifier)
         {
             _context = context;
+            _telegramNotifier = telegramNotifier;
         }
 
         [HttpGet("solicitar")]
@@ -18,9 +23,10 @@ namespace StarGuinchos.Controllers
         {
             return View();
         }
+
         [HttpPost("solicitar")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Solicitacao solicitacao)
+        public async Task<IActionResult> Create(Solicitacao solicitacao)
         {
             try
             {
@@ -28,7 +34,9 @@ namespace StarGuinchos.Controllers
                 solicitacao.Status_solicitacao = "novo";
 
                 _context.Solicitacoes.Add(solicitacao);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+
+                await _telegramNotifier.SendNewServiceAsync(solicitacao);
 
                 return RedirectToAction(nameof(Success));
             }

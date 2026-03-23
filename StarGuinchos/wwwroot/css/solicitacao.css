@@ -1,0 +1,165 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+#solicitacaoForm {
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+    #solicitacaoForm h2,
+    h2 {
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    #solicitacaoForm label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    #solicitacaoForm input,
+    #solicitacaoForm textarea,
+    #solicitacaoForm select {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+        border: 1px solid #d0d7de;
+        border-radius: 10px;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+        #solicitacaoForm input:focus,
+        #solicitacaoForm textarea:focus,
+        #solicitacaoForm select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.location-group {
+    position: relative;
+}
+
+.location-input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+    .location-input-wrapper .form-control {
+        margin-bottom: 0;
+    }
+
+.btn-localizacao {
+    border: none;
+    border-radius: 10px;
+    padding: 0 16px;
+    background: #111827;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+    .btn-localizacao:hover {
+        opacity: 0.92;
+    }
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+    z-index: 50;
+    margin-top: 6px;
+    overflow: hidden;
+    display: none;
+}
+
+.autocomplete-item {
+    padding: 12px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #eef2f7;
+    background: #ffffff;
+    color: #111827;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+    .autocomplete-item:last-child {
+        border-bottom: none;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.active {
+        background: #f3f4f6;
+        color: #111827;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.active {
+        background: #f3f4f6;
+    }
+
+#solicitacaoForm button[type="submit"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+    #solicitacaoForm button[type="submit"]:hover {
+        opacity: 0.95;
+    }
+
+@media (max-width: 640px) {
+    #solicitacaoForm {
+        margin: 24px 16px;
+        padding: 18px;
+    }
+
+    .location-input-wrapper {
+        flex-direction: column;
+    }
+
+    .btn-localizacao {
+        width: 100%;
+        min-height: 44px;
+    }
+}
+
+.field-error {
+    display: block;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 18px;
+}
+
+.input-error {
+    border: 1px solid #dc2626 !important;
+    background: #fef2f2 !important;
+}

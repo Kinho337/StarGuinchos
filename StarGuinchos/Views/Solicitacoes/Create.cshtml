@@ -5,25 +5,18 @@
 <form asp-action="Create" method="post" id="solicitacaoForm">
     @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <label asp-for="Nome">Nome</label>
-        <input asp-for="Nome" class="form-control" />
-    </div>
+    <label>Nome</label>
+    <input asp-for="Nome" class="form-control" />
 
-    <div class="form-group">
-        <label asp-for="Telefone">Telefone</label>
-        <input asp-for="Telefone" class="form-control" />
-    </div>
+    <label>Telefone</label>
+    <input asp-for="Telefone" class="form-control" id="telefone" />
+    <span class="field-error" id="telefoneErro"></span>
 
-    <div class="form-group">
-        <label asp-for="Veiculo">Veículo</label>
-        <input asp-for="Veiculo" class="form-control" />
-    </div>
+    <label>Veículo</label>
+    <input asp-for="Veiculo" class="form-control" />
 
-    <div class="form-group">
-        <label asp-for="Problema">Problema</label>
-        <input asp-for="Problema" class="form-control" />
-    </div>
+    <label>Problema</label>
+    <input asp-for="Problema" class="form-control" />
 
     <div class="form-group location-group">
         <label asp-for="Ponto_partida">Ponto de partida</label>
@@ -40,6 +33,7 @@
             </button>
         </div>
 
+        <span class="field-error" id="pontoPartidaErro"></span>
         <div id="pontoPartidaSuggestions" class="autocomplete-list"></div>
 
         <input type="hidden" id="pontoPartidaLat" name="PontoPartidaLat" />
@@ -49,17 +43,28 @@
     <div class="form-group location-group">
         <label asp-for="Destino">Destino</label>
 
-        <input asp-for="Destino"
-               class="form-control"
-               id="destino"
-               autocomplete="off"
-               placeholder="Digite o destino" />
+        <div class="location-input-wrapper">
+            <input asp-for="Destino"
+                   class="form-control"
+                   id="destino"
+                   autocomplete="off"
+                   placeholder="Digite o destino" />
+        </div>
 
+        <span class="field-error" id="destinoErro"></span>
         <div id="destinoSuggestions" class="autocomplete-list"></div>
 
         <input type="hidden" id="destinoLat" name="DestinoLat" />
         <input type="hidden" id="destinoLng" name="DestinoLng" />
     </div>
 
-    <button type="submit">Solicitar</button>
+    <button type="submit" id="btnSolicitar">Solicitar</button>
 </form>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/solicitacao.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/solicitacao.js" asp-append-version="true"></script>
+}

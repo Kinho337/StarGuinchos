@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using StarGuinchos.Configuracoes;
 using StarGuinchos.Data;
+using StarGuinchos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
+
+builder.Services.Configure<TelegramBotOptions>(
+    builder.Configuration.GetSection("TelegramBot"));
+
+builder.Services.AddHttpClient<ITelegramNotifier, TelegramNotifierService>();
 
 var app = builder.Build();
 

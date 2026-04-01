@@ -1,0 +1,484 @@
+﻿/* =========================
+   ÁREA DE ATENDIMENTO - BASE
+========================= */
+.coverage-page {
+    position: relative;
+    overflow: hidden;
+}
+
+    .coverage-page section {
+        position: relative;
+    }
+
+/* =========================
+   TÍTULOS DE SEÇÃO
+========================= */
+.coverage-section-heading {
+    max-width: 780px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.coverage-section-heading--left {
+    margin: 0 0 32px;
+    text-align: left;
+}
+
+.coverage-section-heading__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 14px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: rgba(238, 212, 165, 0.10);
+    border: 1px solid rgba(238, 212, 165, 0.18);
+    color: #eed4a5;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.coverage-section-heading__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.08;
+}
+
+.coverage-section-heading__text {
+    margin: 18px auto 0;
+    max-width: 700px;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.coverage-section-heading--left .coverage-section-heading__text {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* =========================
+   HERO
+========================= */
+.coverage-hero {
+    padding: 96px 0 72px;
+    isolation: isolate;
+}
+
+.coverage-hero__background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at top center, rgba(30, 64, 175, 0.24), transparent 36%), radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.10), transparent 22%), linear-gradient(180deg, #020617 0%, #030915 45%, #020617 100%);
+}
+
+.coverage-hero__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56vh;
+}
+
+.coverage-hero__content {
+    max-width: 920px;
+    text-align: center;
+}
+
+.coverage-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 16px;
+    margin-bottom: 22px;
+    border-radius: 999px;
+    background: rgba(238, 212, 165, 0.12);
+    border: 1px solid rgba(238, 212, 165, 0.22);
+    color: #eed4a5;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.coverage-hero__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.03;
+}
+
+.coverage-hero__text {
+    margin: 24px auto 0;
+    max-width: 760px;
+    color: #cbd5f5;
+    font-size: 1.05rem;
+    line-height: 1.85;
+}
+
+.coverage-hero__actions {
+    margin-top: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* =========================
+   MAPA / VISÃO GERAL
+========================= */
+.coverage-map {
+    padding: 88px 0;
+}
+
+.coverage-map__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 34px;
+    align-items: stretch;
+}
+
+.coverage-map__content,
+.coverage-map__visual {
+    border-radius: 30px;
+    background: linear-gradient(180deg, rgba(8, 14, 30, 0.92), rgba(3, 8, 20, 0.95));
+    border: 1px solid rgba(203, 213, 245, 0.10);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.16);
+}
+
+.coverage-map__content {
+    padding: 36px 34px;
+}
+
+.coverage-map__text {
+    margin: 0 0 18px;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+    .coverage-map__text:last-of-type {
+        margin-bottom: 0;
+    }
+
+.coverage-map__tags {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.coverage-map__tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+    color: #dbe5ff;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.coverage-map__visual {
+    padding: 20px;
+    display: flex;
+}
+
+.coverage-map__placeholder {
+    width: 100%;
+    min-height: 520px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5f5;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.12), transparent 28%), linear-gradient(180deg, rgba(10, 17, 35, 0.92), rgba(5, 10, 22, 0.98));
+    border: 1px dashed rgba(203, 213, 245, 0.18);
+}
+
+/* =========================
+   MODALIDADES
+========================= */
+.coverage-types {
+    padding: 88px 0;
+}
+
+.coverage-types__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.coverage-type {
+    padding: 28px 24px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(10, 18, 38, 0.92), rgba(4, 10, 24, 0.94));
+    border: 1px solid rgba(203, 213, 245, 0.10);
+}
+
+.coverage-type__title {
+    margin: 0 0 12px;
+    color: #ffffff;
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.coverage-type__text {
+    margin: 0;
+    color: #cbd5f5;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* =========================
+   INFORMAÇÃO
+========================= */
+.coverage-info {
+    padding: 88px 0;
+}
+
+.coverage-info__card {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 34px;
+    border-radius: 30px;
+    background: linear-gradient(180deg, rgba(7, 13, 28, 0.92), rgba(3, 8, 20, 0.96));
+    border: 1px solid rgba(203, 213, 245, 0.10);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.16);
+}
+
+.coverage-info__text {
+    margin: 0 0 18px;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+    .coverage-info__text:last-of-type {
+        margin-bottom: 0;
+    }
+
+/* =========================
+   EXEMPLOS
+========================= */
+.coverage-examples {
+    padding: 88px 0;
+}
+
+.coverage-examples__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.coverage-example {
+    padding: 28px 24px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(10, 18, 38, 0.92), rgba(4, 10, 24, 0.94));
+    border: 1px solid rgba(203, 213, 245, 0.10);
+}
+
+.coverage-example__title {
+    margin: 0 0 12px;
+    color: #ffffff;
+    font-size: 1.08rem;
+    font-weight: 800;
+}
+
+.coverage-example__text {
+    margin: 0;
+    color: #cbd5f5;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* =========================
+   CTA FINAL
+========================= */
+.coverage-cta {
+    padding: 88px 0 104px;
+}
+
+.coverage-cta__card {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 44px 34px;
+    border-radius: 32px;
+    text-align: center;
+    background: radial-gradient(circle at top center, rgba(249, 115, 22, 0.12), transparent 28%), linear-gradient(180deg, rgba(7, 13, 28, 0.94), rgba(3, 8, 20, 0.98));
+    border: 1px solid rgba(203, 213, 245, 0.12);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.20);
+}
+
+.coverage-cta__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.08;
+}
+
+.coverage-cta__text {
+    margin: 18px auto 0;
+    max-width: 680px;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+.coverage-cta__actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.coverage-cta__contact {
+    margin: 22px 0 0;
+    color: #cbd5f5;
+    font-size: 0.96rem;
+    line-height: 1.7;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 1200px) {
+    .coverage-map__container {
+        grid-template-columns: 1fr;
+    }
+
+    .coverage-map__placeholder {
+        min-height: 420px;
+    }
+
+    .coverage-types__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .coverage-examples__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 992px) {
+    .coverage-hero {
+        padding: 82px 0 64px;
+    }
+
+    .coverage-hero__container {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .coverage-hero {
+        padding: 72px 0 56px;
+    }
+
+    .coverage-map,
+    .coverage-types,
+    .coverage-info,
+    .coverage-examples,
+    .coverage-cta {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+
+    .coverage-section-heading {
+        margin-bottom: 34px;
+    }
+
+    .coverage-section-heading__eyebrow {
+        min-height: 32px;
+        font-size: 0.78rem;
+        padding: 0 12px;
+        margin-bottom: 16px;
+    }
+
+    .coverage-section-heading__text,
+    .coverage-hero__text,
+    .coverage-map__text,
+    .coverage-type__text,
+    .coverage-info__text,
+    .coverage-example__text,
+    .coverage-cta__text {
+        font-size: 0.96rem;
+        line-height: 1.8;
+    }
+
+    .coverage-types__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coverage-map__content,
+    .coverage-info__card,
+    .coverage-type,
+    .coverage-example,
+    .coverage-cta__card {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .coverage-map__visual {
+        padding: 14px;
+    }
+
+    .coverage-map__placeholder {
+        min-height: 320px;
+        border-radius: 20px;
+    }
+
+    .coverage-hero__actions {
+        gap: 12px;
+    }
+
+    .coverage-cta__actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .coverage-hero__title {
+        font-size: clamp(2.1rem, 9vw, 3rem);
+    }
+
+    .coverage-section-heading__title,
+    .coverage-cta__title {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+    }
+
+    .coverage-hero__actions {
+        flex-direction: column;
+    }
+
+        .coverage-hero__actions .btn-primary-orange,
+        .coverage-hero__actions .btn-secondary-dark,
+        .coverage-cta__actions .btn-primary-orange {
+            width: 100%;
+        }
+
+    .coverage-type,
+    .coverage-example,
+    .coverage-cta__card {
+        border-radius: 22px;
+    }
+
+    .coverage-map__content,
+    .coverage-info__card {
+        border-radius: 24px;
+    }
+}

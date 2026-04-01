@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Contato";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/contato.css" asp-append-version="true" />
+}
+
+<main class="contact-page">
+
+    <!-- HERO -->
+    <section class="contact-hero">
+        <div class="contact-hero__background"></div>
+
+        <div class="container contact-hero__container">
+            <div class="contact-hero__content">
+                <span class="contact-hero__badge">Fale conosco</span>
+
+                <h1 class="contact-hero__title">Contato</h1>
+
+                <p class="contact-hero__text">
+                    Entre em contato com a StarGuinchos para tirar dúvidas, solicitar informações
+                    ou seguir diretamente para o envio da sua solicitação.
+                </p>
+
+                <div class="contact-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+
+                    <a href="tel:+5511999999999" class="btn-secondary-dark">
+                        Ligar agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CANAIS -->
+    <section class="contact-channels">
+        <div class="container">
+            <div class="contact-section-heading">
+                <span class="contact-section-heading__eyebrow">Canais</span>
+                <h2 class="contact-section-heading__title">Formas de entrar em contato</h2>
+                <p class="contact-section-heading__text">
+                    Escolha o canal mais adequado para falar com a StarGuinchos.
+                </p>
+            </div>
+
+            <div class="contact-channels__grid">
+                <article class="contact-card">
+                    <div class="contact-card__icon"></div>
+                    <h3 class="contact-card__title">Telefone</h3>
+                    <p class="contact-card__text">
+                        Atendimento direto para dúvidas, informações e suporte imediato.
+                    </p>
+                    <a href="tel:+5511999999999" class="contact-card__link">(11) 99999-9999</a>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-card__icon"></div>
+                    <h3 class="contact-card__title">WhatsApp</h3>
+                    <p class="contact-card__text">
+                        Canal prático para conversar com a equipe e alinhar informações do atendimento.
+                    </p>
+                    <a href="#" class="contact-card__link">Falar pelo WhatsApp</a>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-card__icon"></div>
+                    <h3 class="contact-card__title">Solicitação online</h3>
+                    <p class="contact-card__text">
+                        Envie sua solicitação com origem, destino e dados do veículo para análise.
+                    </p>
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="contact-card__link">
+                        Ir para solicitação
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMAÇÕES -->
+    <section class="contact-info">
+        <div class="container contact-info__container">
+            <div class="contact-info__content">
+                <div class="contact-section-heading contact-section-heading--left">
+                    <span class="contact-section-heading__eyebrow">Informações</span>
+                    <h2 class="contact-section-heading__title">Atendimento com clareza e agilidade</h2>
+                </div>
+
+                <p class="contact-info__text">
+                    A StarGuinchos atende São Paulo e região, além de realizar serviços
+                    intermunicipais e interestaduais sob análise, conforme a necessidade do cliente.
+                </p>
+
+                <p class="contact-info__text">
+                    Para atendimentos mais rápidos, o ideal é enviar corretamente as informações
+                    de origem, destino, telefone para contato e dados do veículo.
+                </p>
+
+                <div class="contact-info__tags">
+                    <span class="contact-info__tag">Atendimento 24h</span>
+                    <span class="contact-info__tag">São Paulo e região</span>
+                    <span class="contact-info__tag">Serviços sob análise</span>
+                    <span class="contact-info__tag">Suporte direto</span>
+                </div>
+            </div>
+
+            <div class="contact-info__box">
+                <h3 class="contact-info__box-title">Contato rápido</h3>
+
+                <ul class="contact-info__list">
+                    <li><strong>Telefone:</strong> (11) 99999-9999</li>
+                    <li><strong>Disponibilidade:</strong> 24 horas</li>
+                    <li><strong>Atuação:</strong> São Paulo e região</li>
+                    <li><strong>Viagens:</strong> Sob análise</li>
+                </ul>
+
+                <div class="contact-info__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORIENTAÇÃO -->
+    <section class="contact-guidance">
+        <div class="container">
+            <div class="contact-guidance__card">
+                <div class="contact-section-heading contact-section-heading--left">
+                    <span class="contact-section-heading__eyebrow">Orientação</span>
+                    <h2 class="contact-section-heading__title">O que informar no atendimento</h2>
+                </div>
+
+                <p class="contact-guidance__text">
+                    Para agilizar a análise do serviço, tenha em mãos informações como localização,
+                    destino, telefone para contato e dados básicos do veículo.
+                </p>
+
+                <p class="contact-guidance__text">
+                    Quanto mais claras as informações, mais fácil será direcionar o atendimento
+                    da forma mais adequada.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="contact-cta__card">
+                <h2 class="contact-cta__title">Pronto para solicitar atendimento?</h2>
+
+                <p class="contact-cta__text">
+                    Envie agora sua solicitação e permita que nossa equipe avalie a melhor forma
+                    de atender sua necessidade.
+                </p>
+
+                <div class="contact-cta__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+                </div>
+
+                <p class="contact-cta__contact">
+                    A StarGuinchos está pronta para atender com rapidez, experiência e responsabilidade.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>

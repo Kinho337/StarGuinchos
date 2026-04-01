@@ -1,0 +1,101 @@
+﻿.success-page {
+    position: relative;
+    min-height: calc(100vh - 148px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+    .success-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(30, 58, 138, 0.22), transparent 38%), radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.12), transparent 30%);
+        pointer-events: none;
+    }
+
+.success-page__container {
+    position: relative;
+    z-index: 1;
+}
+
+.success-page__card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    border-radius: 28px;
+    background: rgba(1, 6, 20, 0.88);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    text-align: center;
+}
+
+.success-page__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 14px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: rgba(238, 212, 165, 0.12);
+    border: 1px solid rgba(238, 212, 165, 0.24);
+    color: #eed4a5;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.success-page__title {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.success-page__text {
+    margin: 0 auto;
+    max-width: 620px;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.success-page__actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.success-page__note {
+    margin: 22px 0 0;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .success-page {
+        padding: 56px 0;
+        min-height: auto;
+    }
+
+    .success-page__card {
+        padding: 32px 20px;
+        border-radius: 22px;
+    }
+
+    .success-page__text {
+        font-size: 0.96rem;
+    }
+
+    .success-page__actions {
+        margin-top: 26px;
+        gap: 12px;
+    }
+}

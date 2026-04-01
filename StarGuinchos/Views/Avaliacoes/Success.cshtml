@@ -1,0 +1,68 @@
+﻿@model IEnumerable<StarGuinchos.Models.Avaliacao>
+
+@{
+    ViewData["Title"] = "Avaliações";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/avaliacoes-index.css" asp-append-version="true" />
+}
+
+<main class="reviews-page">
+    <section class="reviews-page__hero">
+        <div class="container">
+            <div class="reviews-page__hero-content">
+                <span class="reviews-page__badge">Prova social</span>
+                <h1 class="reviews-page__title">Avaliações</h1>
+                <p class="reviews-page__text">
+                    Veja o que nossos clientes dizem sobre os atendimentos realizados pela StarGuinchos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-page__list">
+        <div class="container">
+            @if (Model != null && Model.Any())
+            {
+                <div class="reviews-page__grid">
+                    @foreach (var avaliacao in Model)
+                    {
+                        <article class="reviews-page__card">
+                            <div class="reviews-page__stars">
+                                @for (int i = 0; i < avaliacao.Nota; i++)
+                                {
+                                    <span>★</span>
+                                }
+                            </div>
+
+                            <p class="reviews-page__comment">@avaliacao.Comentario</p>
+
+                            <div class="reviews-page__footer">
+                                <strong class="reviews-page__name">@avaliacao.Nome</strong>
+
+                                @if (!string.IsNullOrWhiteSpace(avaliacao.Cidade))
+                                {
+                                    <span class="reviews-page__city">@avaliacao.Cidade</span>
+                                }
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="reviews-page__empty">
+                    <h2>Ainda não há avaliações publicadas</h2>
+                    <p>Assim que novas avaliações forem aprovadas, elas aparecerão aqui.</p>
+                </div>
+            }
+
+            <div class="reviews-page__actions">
+                <a asp-controller="Avaliacoes" asp-action="Create" class="btn-secondary-blue">
+                    Avaliar nosso serviço
+                </a>
+            </div>
+        </div>
+    </section>
+</main>

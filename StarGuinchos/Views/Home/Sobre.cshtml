@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Sobre nós";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/sobre.css" asp-append-version="true" />
+}
+
+<main class="about-page">
+
+    <!-- HERO -->
+    <section class="about-hero">
+        <div class="about-hero__background"></div>
+
+        <div class="container about-hero__container">
+            <div class="about-hero__content">
+                <span class="about-hero__badge">Nossa trajetória</span>
+
+                <h1 class="about-hero__title">Sobre nós</h1>
+
+                <p class="about-hero__text">
+                    A StarGuinchos atua há anos no ramo, construindo sua trajetória com
+                    dedicação, responsabilidade e compromisso com cada atendimento realizado.
+                </p>
+
+                <div class="about-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                        Entrar em contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTÓRIA -->
+    <section class="about-story">
+        <div class="container about-story__container">
+            <div class="about-story__content">
+                <div class="about-section-heading about-section-heading--left">
+                    <span class="about-section-heading__eyebrow">História</span>
+                    <h2 class="about-section-heading__title">Experiência construída na prática</h2>
+                </div>
+
+                <p class="about-story__text">
+                    Ao longo do tempo, a StarGuinchos consolidou sua experiência atuando em
+                    diferentes contextos de atendimento, sempre com foco em agilidade, segurança
+                    e profissionalismo.
+                </p>
+
+                <p class="about-story__text">
+                    Cada serviço realizado contribuiu para fortalecer a confiança de quem busca
+                    suporte em momentos que exigem atenção, cuidado e resposta rápida.
+                </p>
+
+                <p class="about-story__text">
+                    Mais do que transportar veículos, nossa proposta é oferecer tranquilidade,
+                    organização e a certeza de que o cliente será atendido com seriedade.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NÚMEROS -->
+    <section class="about-stats">
+        <div class="container">
+            <div class="about-section-heading">
+                <span class="about-section-heading__eyebrow">Nossos números</span>
+                <h2 class="about-section-heading__title">Uma base construída com constância</h2>
+            </div>
+
+            <div class="about-stats__grid">
+                <article class="about-stat">
+                    <strong class="about-stat__number">10+</strong>
+                    <span class="about-stat__label">Anos de experiência</span>
+                </article>
+
+                <article class="about-stat">
+                    <strong class="about-stat__number">5k+</strong>
+                    <span class="about-stat__label">Atendimentos realizados</span>
+                </article>
+
+                <article class="about-stat">
+                    <strong class="about-stat__number">24/7</strong>
+                    <span class="about-stat__label">Disponibilidade</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALORES -->
+    <section class="about-values">
+        <div class="container">
+            <div class="about-section-heading">
+                <span class="about-section-heading__eyebrow">Valores</span>
+                <h2 class="about-section-heading__title">O que orienta nosso atendimento</h2>
+                <p class="about-section-heading__text">
+                    Nossa atuação é guiada por princípios que reforçam confiança, clareza e responsabilidade.
+                </p>
+            </div>
+
+            <div class="about-values__grid">
+                <article class="about-value">
+                    <h3 class="about-value__title">Agilidade</h3>
+                    <p class="about-value__text">
+                        Responder com rapidez e organização para atender cada necessidade da melhor forma.
+                    </p>
+                </article>
+
+                <article class="about-value">
+                    <h3 class="about-value__title">Segurança</h3>
+                    <p class="about-value__text">
+                        Conduzir cada operação com cuidado, responsabilidade e atenção ao veículo transportado.
+                    </p>
+                </article>
+
+                <article class="about-value">
+                    <h3 class="about-value__title">Confiança</h3>
+                    <p class="about-value__text">
+                        Construir relações baseadas em compromisso, transparência e seriedade no atendimento.
+                    </p>
+                </article>
+
+                <article class="about-value">
+                    <h3 class="about-value__title">Profissionalismo</h3>
+                    <p class="about-value__text">
+                        Atuar com postura profissional em serviços locais, viagens e operações sob análise.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- POSICIONAMENTO -->
+    <section class="about-positioning">
+        <div class="container">
+            <div class="about-positioning__card">
+                <div class="about-section-heading about-section-heading--left">
+                    <span class="about-section-heading__eyebrow">Compromisso</span>
+                    <h2 class="about-section-heading__title">Mais do que um serviço, uma resposta confiável</h2>
+                </div>
+
+                <p class="about-positioning__text">
+                    Em cada solicitação, buscamos oferecer não apenas o deslocamento do veículo,
+                    mas também um atendimento que transmita segurança, organização e tranquilidade.
+                </p>
+
+                <p class="about-positioning__text">
+                    Essa é a base da StarGuinchos: unir experiência prática com responsabilidade,
+                    mantendo um padrão de atendimento sério e preparado para diferentes cenários.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="about-cta">
+        <div class="container">
+            <div class="about-cta__card">
+                <h2 class="about-cta__title">Precisa falar com a StarGuinchos?</h2>
+
+                <p class="about-cta__text">
+                    Entre em contato com nossa equipe ou envie sua solicitação para que possamos
+                    analisar o atendimento necessário.
+                </p>
+
+                <div class="about-cta__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+                </div>
+
+                <p class="about-cta__contact">
+                    Estamos prontos para atender com agilidade, experiência e responsabilidade.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>

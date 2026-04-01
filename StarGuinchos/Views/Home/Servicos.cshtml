@@ -1,0 +1,250 @@
+﻿@{
+    ViewData["Title"] = "Serviços";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/servicos.css" asp-append-version="true" />
+}
+
+<main class="services-page">
+
+    <!-- HERO -->
+    <section class="services-hero">
+        <div class="services-hero__background"></div>
+
+        <div class="container services-hero__container">
+            <div class="services-hero__content">
+                <span class="services-hero__badge">Atendimento profissional</span>
+
+                <h1 class="services-hero__title">Serviços</h1>
+
+                <p class="services-hero__text">
+                    A StarGuinchos realiza atendimentos com agilidade, segurança e experiência,
+                    atuando em São Paulo e região, além de transportes intermunicipais e
+                    interestaduais sob análise.
+                </p>
+
+                <div class="services-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                        Entrar em contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS PRINCIPAIS -->
+    <section class="services-list">
+        <div class="container">
+            <div class="services-section-heading">
+                <span class="services-section-heading__eyebrow">O que fazemos</span>
+                <h2 class="services-section-heading__title">
+                    Atendimentos pensados para diferentes necessidades
+                </h2>
+                <p class="services-section-heading__text">
+                    Conheça os principais tipos de serviço realizados pela StarGuinchos.
+                </p>
+            </div>
+
+            <div class="services-list__grid">
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Guincho 24 horas</h3>
+                    <p class="services-card__text">
+                        Atendimento disponível para situações que exigem suporte rápido,
+                        a qualquer hora do dia ou da noite.
+                    </p>
+                </article>
+
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Remoção de veículos</h3>
+                    <p class="services-card__text">
+                        Transporte seguro de veículos em diferentes contextos,
+                        com cuidado e atenção em cada serviço.
+                    </p>
+                </article>
+
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Atendimento emergencial</h3>
+                    <p class="services-card__text">
+                        Suporte para momentos inesperados em que o cliente precisa
+                        de resposta ágil e atendimento confiável.
+                    </p>
+                </article>
+
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Transporte intermunicipal</h3>
+                    <p class="services-card__text">
+                        Serviços realizados entre cidades, conforme origem, destino
+                        e disponibilidade da operação.
+                    </p>
+                </article>
+
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Transporte interestadual</h3>
+                    <p class="services-card__text">
+                        Atendimentos para deslocamentos mais longos, inclusive entre estados,
+                        sob análise de rota e necessidade.
+                    </p>
+                </article>
+
+                <article class="services-card">
+                    <div class="services-card__icon"></div>
+                    <h3 class="services-card__title">Serviços sob análise</h3>
+                    <p class="services-card__text">
+                        Demandas específicas, trajetos diferenciados e situações fora do padrão
+                        podem ser avaliados pela equipe.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="services-steps">
+        <div class="container">
+            <div class="services-section-heading">
+                <span class="services-section-heading__eyebrow">Processo</span>
+                <h2 class="services-section-heading__title">Como funciona</h2>
+                <p class="services-section-heading__text">
+                    Um processo simples para tornar o atendimento mais claro, rápido e seguro.
+                </p>
+            </div>
+
+            <div class="services-steps__grid">
+                <article class="services-step">
+                    <strong class="services-step__number">1</strong>
+                    <h3 class="services-step__title">Solicitação</h3>
+                    <p class="services-step__text">
+                        O cliente envia as informações do atendimento, incluindo
+                        localização, destino e dados do veículo.
+                    </p>
+                </article>
+
+                <article class="services-step">
+                    <strong class="services-step__number">2</strong>
+                    <h3 class="services-step__title">Análise</h3>
+                    <p class="services-step__text">
+                        A equipe avalia a necessidade do serviço, distância,
+                        viabilidade e melhor forma de atendimento.
+                    </p>
+                </article>
+
+                <article class="services-step">
+                    <strong class="services-step__number">3</strong>
+                    <h3 class="services-step__title">Atendimento</h3>
+                    <p class="services-step__text">
+                        Após a confirmação, o suporte é direcionado com agilidade
+                        e acompanhamento da operação.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- COBERTURA -->
+    <section class="services-coverage">
+        <div class="container">
+            <div class="services-coverage__content">
+                <div class="services-section-heading services-section-heading--left">
+                    <span class="services-section-heading__eyebrow">Cobertura</span>
+                    <h2 class="services-section-heading__title">
+                        Atendimentos locais e viagens sob demanda
+                    </h2>
+                </div>
+
+                <p class="services-coverage__text">
+                    Além dos atendimentos em São Paulo e região, a StarGuinchos também pode buscar
+                    veículos fora do estado para trazê-los a São Paulo ou realizar transportes de
+                    dentro para fora, conforme análise do serviço.
+                </p>
+
+                <div class="services-coverage__tags">
+                    <span class="services-coverage__tag">São Paulo e região</span>
+                    <span class="services-coverage__tag">Transporte entre cidades</span>
+                    <span class="services-coverage__tag">Transporte para outros estados</span>
+                    <span class="services-coverage__tag">Serviços sob demanda</span>
+                </div>
+
+                <div class="services-coverage__actions">
+                    <a asp-controller="Home" asp-action="AreaDeAtendimento" class="btn-secondary-outline">
+                        Ver área de atendimento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section class="services-highlights">
+        <div class="container">
+            <div class="services-section-heading">
+                <span class="services-section-heading__eyebrow">Diferenciais</span>
+                <h2 class="services-section-heading__title">Por que escolher a StarGuinchos</h2>
+            </div>
+
+            <div class="services-highlights__grid">
+                <article class="services-highlight">
+                    <h3 class="services-highlight__title">Atendimento ágil</h3>
+                    <p class="services-highlight__text">
+                        Resposta rápida e suporte com foco na necessidade do cliente.
+                    </p>
+                </article>
+
+                <article class="services-highlight">
+                    <h3 class="services-highlight__title">Experiência no ramo</h3>
+                    <p class="services-highlight__text">
+                        Anos de atuação com compromisso, segurança e profissionalismo.
+                    </p>
+                </article>
+
+                <article class="services-highlight">
+                    <h3 class="services-highlight__title">Disponibilidade 24h</h3>
+                    <p class="services-highlight__text">
+                        Estrutura preparada para diferentes tipos de atendimento ao longo do dia.
+                    </p>
+                </article>
+
+                <article class="services-highlight">
+                    <h3 class="services-highlight__title">Serviços locais e longos</h3>
+                    <p class="services-highlight__text">
+                        Atuação em trajetos regionais e também em transportes mais extensos sob análise.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="services-cta">
+        <div class="container">
+            <div class="services-cta__card">
+                <h2 class="services-cta__title">Precisa de atendimento agora?</h2>
+
+                <p class="services-cta__text">
+                    Envie sua solicitação e receba suporte com rapidez, segurança
+                    e atenção ao seu atendimento.
+                </p>
+
+                <div class="services-cta__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar guincho agora
+                    </a>
+                </div>
+
+                <p class="services-cta__contact">
+                    Ou entre em contato pelo telefone informado no site.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>

@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Atendimentos";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/atendimentos.css" asp-append-version="true" />
+}
+
+<main class="attendance-page">
+
+    <!-- HERO -->
+    <section class="attendance-hero">
+        <div class="attendance-hero__background"></div>
+
+        <div class="container attendance-hero__container">
+            <div class="attendance-hero__content">
+                <span class="attendance-hero__badge">Registros reais</span>
+
+                <h1 class="attendance-hero__title">Nossos atendimentos</h1>
+
+                <p class="attendance-hero__text">
+                    Confira alguns registros reais dos serviços prestados pela StarGuinchos.
+                    Uma visão mais próxima da nossa atuação, experiência e rotina de atendimento.
+                </p>
+
+                <div class="attendance-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                        Entrar em contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="attendance-intro">
+        <div class="container">
+            <div class="attendance-section-heading">
+                <span class="attendance-section-heading__eyebrow">Galeria</span>
+                <h2 class="attendance-section-heading__title">Atuação real, registrada no dia a dia</h2>
+                <p class="attendance-section-heading__text">
+                    Aqui você encontra imagens de atendimentos realizados pela StarGuinchos,
+                    mostrando diferentes contextos, horários e tipos de serviço.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEED ESTILO INSTAGRAM -->
+    <section class="attendance-feed">
+        <div class="container">
+            <div class="attendance-feed__grid">
+                <article class="attendance-post attendance-post--large">
+                    <img src="~/images/atendimentos/atendimento-01.jpg" alt="Atendimento StarGuinchos 1" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Atendimento urbano</span>
+                        <h3 class="attendance-post__title">Serviço realizado com agilidade e segurança</h3>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-02.jpg" alt="Atendimento StarGuinchos 2" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Remoção</span>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-03.jpg" alt="Atendimento StarGuinchos 3" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Operação real</span>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-04.jpg" alt="Atendimento StarGuinchos 4" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Transporte</span>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-05.jpg" alt="Atendimento StarGuinchos 5" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Atendimento noturno</span>
+                    </div>
+                </article>
+
+                <article class="attendance-post attendance-post--wide">
+                    <img src="~/images/atendimentos/atendimento-06.jpg" alt="Atendimento StarGuinchos 6" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Registro de serviço</span>
+                        <h3 class="attendance-post__title">Experiência prática em diferentes cenários de atendimento</h3>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-07.jpg" alt="Atendimento StarGuinchos 7" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Viagem</span>
+                    </div>
+                </article>
+
+                <article class="attendance-post">
+                    <img src="~/images/atendimentos/atendimento-08.jpg" alt="Atendimento StarGuinchos 8" />
+                    <div class="attendance-post__overlay">
+                        <span class="attendance-post__tag">Guincho 24h</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOCOS EXPLICATIVOS -->
+    <section class="attendance-highlights">
+        <div class="container">
+            <div class="attendance-section-heading">
+                <span class="attendance-section-heading__eyebrow">Experiência</span>
+                <h2 class="attendance-section-heading__title">Cada imagem reforça nossa atuação no ramo</h2>
+            </div>
+
+            <div class="attendance-highlights__grid">
+                <article class="attendance-highlight">
+                    <h3 class="attendance-highlight__title">Atendimentos reais</h3>
+                    <p class="attendance-highlight__text">
+                        As imagens mostram parte da rotina de serviços já realizados pela StarGuinchos.
+                    </p>
+                </article>
+
+                <article class="attendance-highlight">
+                    <h3 class="attendance-highlight__title">Diferentes contextos</h3>
+                    <p class="attendance-highlight__text">
+                        Registros de operações urbanas, rodoviárias, noturnas e deslocamentos mais longos.
+                    </p>
+                </article>
+
+                <article class="attendance-highlight">
+                    <h3 class="attendance-highlight__title">Confiança visual</h3>
+                    <p class="attendance-highlight__text">
+                        Uma forma de mostrar ao cliente que a empresa atua de verdade e possui experiência prática.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="attendance-cta">
+        <div class="container">
+            <div class="attendance-cta__card">
+                <h2 class="attendance-cta__title">Precisa de um atendimento como esses?</h2>
+
+                <p class="attendance-cta__text">
+                    Envie sua solicitação e permita que nossa equipe analise o serviço para seguir com o suporte necessário.
+                </p>
+
+                <div class="attendance-cta__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+                </div>
+
+                <p class="attendance-cta__contact">
+                    A StarGuinchos atua com agilidade, experiência e atenção em cada atendimento.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>

@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="~/css/solicitacao-success.css" asp-append-version="true" />
 }
 
-<section class="success-wait">
-    <div class="success-wait__container">
-        <div class="success-wait__brand">
-            <img src="~/images/logo-star-guinchos-completa.png" alt="Star Guinchos" class="success-wait__logo" />
+<section class="success-page">
+    <div class="container success-page__container">
+        <div class="success-page__card">
+            <span class="success-page__badge">Solicitação enviada</span>
+
+            <h1 class="success-page__title">
+                Recebemos seu pedido com sucesso
+            </h1>
+
+            <p class="success-page__text">
+                Nossa equipe já recebeu sua solicitação e em breve fará a análise do atendimento
+                para seguir com o suporte necessário. Obrigado por confiar na StarGuinchos.
+            </p>
+
+            <div class="success-page__actions">
+                <a asp-controller="Home" asp-action="Index" class="btn-secondary-outline">
+                    Voltar para a Home
+                </a>
+
+                <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                    Fazer nova solicitação
+                </a>
+            </div>
+
+            <p class="success-page__note">
+                Em caso de urgência, entre em contato diretamente pelo telefone informado no site.
+            </p>
         </div>
-
-        <h1 class="success-wait__title">
-            AGUARDE TRANQUILO<br />
-            ESTAMOS A CAMINHO
-        </h1>
-
-        <p class="success-wait__text">
-            Nossa equipe já recebeu sua solicitação e está se preparando para o atendimento.
-            Em instantes entraremos em contato para confirmar os detalhes e, em breve,
-            estaremos no local para te auxiliar com agilidade e segurança.
-        </p>
-
-        <a asp-controller="Home" asp-action="Index" class="success-wait__button">
-            Voltar para a Home
-        </a>
     </div>
 </section>

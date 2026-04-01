@@ -1,0 +1,92 @@
+﻿@model StarGuinchos.Models.Avaliacao
+
+@{
+    ViewData["Title"] = "Avaliar serviço";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/avaliacoes-create.css" asp-append-version="true" />
+}
+
+<main class="review-form-page">
+    <section class="review-form">
+        <div class="container review-form__container">
+            <div class="review-form__card">
+                <div class="review-form__header">
+                    <span class="review-form__badge">Sua experiência</span>
+                    <h1 class="review-form__title">Avaliar serviço</h1>
+                    <p class="review-form__text">
+                        Envie sua avaliação sobre o atendimento da StarGuinchos.
+                        Após o envio, ela passará por análise antes da publicação.
+                    </p>
+                </div>
+
+                <form asp-action="Create" method="post" class="review-form__form">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="review-form__validation"></div>
+
+                    <div class="review-form__grid">
+                        <div class="review-form__field">
+                            <label asp-for="Nome"></label>
+                            <input asp-for="Nome" class="review-form__input" />
+                            <span asp-validation-for="Nome" class="review-form__error"></span>
+                        </div>
+
+                        <div class="review-form__field">
+                            <label asp-for="Telefone"></label>
+                            <input asp-for="Telefone" class="review-form__input" />
+                            <span asp-validation-for="Telefone" class="review-form__error"></span>
+                        </div>
+
+                        <div class="review-form__field">
+                            <label asp-for="Cidade"></label>
+                            <input asp-for="Cidade" class="review-form__input" />
+                            <span asp-validation-for="Cidade" class="review-form__error"></span>
+                        </div>
+
+                        <div class="review-form__field">
+                            <label asp-for="Nota"></label>
+                            <select asp-for="Nota" class="review-form__input">
+                                <option value="">Selecione</option>
+                                <option value="5">5 - Excelente</option>
+                                <option value="4">4 - Muito bom</option>
+                                <option value="3">3 - Bom</option>
+                                <option value="2">2 - Regular</option>
+                                <option value="1">1 - Ruim</option>
+                            </select>
+                            <span asp-validation-for="Nota" class="review-form__error"></span>
+                        </div>
+                    </div>
+
+                    <div class="review-form__field">
+                        <label asp-for="Comentario"></label>
+                        <textarea asp-for="Comentario" class="review-form__textarea" rows="6"></textarea>
+                        <span asp-validation-for="Comentario" class="review-form__error"></span>
+                    </div>
+
+                    <div class="review-form__checkbox">
+                        <input asp-for="AutorizadoPublicacao" />
+                        <label asp-for="AutorizadoPublicacao">
+                            Autorizo a publicação desta avaliação no site, após aprovação.
+                        </label>
+                    </div>
+
+                    <div class="review-form__actions">
+                        <button type="submit" class="btn-primary-orange">
+                            Enviar avaliação
+                        </button>
+
+                        <a asp-controller="Avaliacoes" asp-action="Index" class="btn-secondary-outline">
+                            Ver avaliações
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

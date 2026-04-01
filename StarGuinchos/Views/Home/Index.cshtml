@@ -1,233 +1,333 @@
-﻿@{
-    ViewData["Title"] = "StarGuinchos";
+﻿@model StarGuinchos.Models.ViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Início";
 }
-<!-- HERO -->
-<section class="home-hero">
-    <header class="home-header">
-        <div class="home-header__logo">
-            <img src="~/images/logo-star-guinchos.png" alt="Star Guinchos" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+<main class="home-page">
+
+    <!-- HERO -->
+    <section class="home-hero">
+        <div class="home-hero__background"></div>
+
+        <div class="container home-hero__container">
+            <div class="home-hero__content">
+                <span class="home-hero__badge">Atendimento 24h</span>
+
+                <h1 class="home-hero__title">
+                    Guincho 24 horas com atendimento rápido e seguro
+                </h1>
+
+                <p class="home-hero__text">
+                    Atendemos São Paulo e região, além de serviços intermunicipais e
+                    interestaduais com suporte profissional e ágil.
+                </p>
+
+                <div class="home-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar agora
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                        Ligar agora
+                    </a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <nav class="home-header__nav">
-            <a href="#servicos">Serviços</a>
-            <a href="#avaliacoes">Avaliações</a>
-            <a href="#area-atendimento">Área de atendimento</a>
-            <a href="#contato">Contato</a>
-        </nav>
-    </header>
-
-    <div class="home-hero__visual">
-        <div class="home-hero__image"></div>
-        <div class="home-hero__fade"></div>
-
-        <div class="home-hero__card">
-            <h1 class="home-hero__title">GUINCHO 24HORAS</h1>
-            <p class="home-hero__subtitle">Resgate rápido onde você estiver</p>
-
-            <div class="home-hero__truck">
-                <img src="~/images/icone-caminhao.png" alt="Ícone de caminhão" />
+    <!-- DIFERENCIAIS -->
+    <section class="home-differentials" id="servicos">
+        <div class="container">
+            <div class="home-section-heading">
+                <span class="home-section-heading__eyebrow">Nossos diferenciais</span>
+                <h2 class="home-section-heading__title">Atendimento pensado para quem precisa de agilidade e confiança</h2>
+                <p class="home-section-heading__text">
+                    Estruturamos nossos serviços para oferecer rapidez, segurança e suporte em diferentes tipos de atendimento.
+                </p>
             </div>
 
-            <a href="@Url.Action("Create", "Solicitacoes")" class="home-hero__button">
-                SOLICITAR AGORA
-            </a>
+            <div class="home-differentials__grid">
+                <article class="home-differentials__card">
+                    <div class="home-differentials__icon"></div>
+                    <h3 class="home-differentials__card-title">Atendimento rápido</h3>
+                    <p class="home-differentials__card-text">
+                        Chegamos com agilidade para reduzir sua espera e dar suporte quando você mais precisa.
+                    </p>
+                </article>
+
+                <article class="home-differentials__card">
+                    <div class="home-differentials__icon"></div>
+                    <h3 class="home-differentials__card-title">Serviço 24h</h3>
+                    <p class="home-differentials__card-text">
+                        Disponibilidade para emergências a qualquer hora do dia ou da noite.
+                    </p>
+                </article>
+
+                <article class="home-differentials__card">
+                    <div class="home-differentials__icon"></div>
+                    <h3 class="home-differentials__card-title">Equipe experiente</h3>
+                    <p class="home-differentials__card-text">
+                        Anos de atuação no ramo com atendimento seguro, responsável e profissional.
+                    </p>
+                </article>
+
+                <article class="home-differentials__card">
+                    <div class="home-differentials__icon"></div>
+                    <h3 class="home-differentials__card-title">Cobertura ampliada</h3>
+                    <p class="home-differentials__card-text">
+                        Atendimentos em São Paulo, região e transportes para outras cidades e estados.
+                    </p>
+                </article>
+            </div>
+
+            <div class="home-differentials__footer">
+                <a asp-controller="Home" asp-action="Servicos" class="btn-secondary-outline">
+                    Ver todos os serviços
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- HIGHLIGHTS -->
-<section class="home-highlights">
-    <div class="home-highlights__item">
-        <div class="home-highlights__circle">
-            <img src="~/images/icone-rapido.png" alt="Atendimento rápido" />
-        </div>
-        <h2 class="home-highlights__title">RÁPIDO ATENDIMENTO</h2>
-        <p class="home-highlights__text">Chegamos em até 30 minutos</p>
-    </div>
-
-    <div class="home-highlights__item">
-        <div class="home-highlights__circle">
-            <img src="~/images/icone-mapa.png" alt="Disponibilidade na região" />
-        </div>
-        <h2 class="home-highlights__title">DISPONIBILIDADE EM TODA REGIÃO</h2>
-        <p class="home-highlights__text">Diversos motoristas parceiros</p>
-    </div>
-
-    <div class="home-highlights__item">
-        <div class="home-highlights__circle">
-            <img src="~/images/icone-24h.png" alt="Serviço 24 horas" />
-        </div>
-        <h2 class="home-highlights__title">SERVIÇO <br /> 24H</h2>
-        <p class="home-highlights__text">Atendimento imediato</p>
-    </div>
-</section>
-
-<!-- SERVIÇOS -->
-
-<section id="servicos" class="home-services">
-
-    <h2 class="home-section__title">NOSSOS SERVIÇOS</h2>
-
-    <div class="home-services__content">
-
-        <div class="home-services__item home-services__item--electric">
-            <img src="~/images/icone-eletrico.png" alt="Pane elétrica" />
-            <p>Solução de panes elétricos</p>
-        </div>
-
-        <div class="home-services__item home-services__item--center">
-            <div class="home-services__vehicles">
-                <img src="~/images/icone-carro.png" alt="Remoção carro" />
-
-                <div class="home-services__or">
-                    <span>OU</span>
+    <!-- ÁREA DE ATENDIMENTO -->
+    <section class="home-coverage" id="area-atendimento">
+        <div class="container home-coverage__container">
+            <div class="home-coverage__content">
+                <div class="home-section-heading home-section-heading--left">
+                    <span class="home-section-heading__eyebrow">Cobertura</span>
+                    <h2 class="home-section-heading__title">Área de atendimento</h2>
+                    <p class="home-section-heading__text">
+                        Atendemos São Paulo e região com agilidade, além de realizarmos remoções e transportes sob demanda
+                        para outras cidades e estados.
+                    </p>
                 </div>
 
-                <img src="~/images/icone-moto.png" alt="Remoção moto" />
+                <p class="home-coverage__description">
+                    Também buscamos veículos de fora de São Paulo para trazê-los ao estado e, dependendo da necessidade,
+                    realizamos serviços de dentro para fora, como transportes para outras localidades, incluindo rotas mais longas.
+                </p>
+
+                <div class="home-coverage__tags">
+                    <span class="home-coverage__tag">São Paulo e região</span>
+                    <span class="home-coverage__tag">Transporte intermunicipal</span>
+                    <span class="home-coverage__tag">Transporte interestadual</span>
+                    <span class="home-coverage__tag">Serviços sob análise</span>
+                </div>
+
+                <div class="home-coverage__actions">
+                    <a asp-controller="Home" asp-action="AreaDeAtendimento" class="btn-secondary-outline">
+                        Ver área de atendimento completa
+                    </a>
+                </div>
             </div>
 
-            <p>Remoção segura para qualquer local.</p>
-        </div>
-
-        <div class="home-services__item home-services__item--mechanic">
-            <img src="~/images/icone-mecanico.png" alt="Mecânico" />
-            <p>Reparo imediato ou encaminhamento a oficinas parceiras</p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="home-steps">
-
-    <h2 class="home-section__title">COMO FUNCIONA</h2>
-
-    <div class="home-steps__content">
-
-        <div class="home-steps__item">
-            <span class="home-steps__number">1</span>
-            <p class="home-steps__text">FAÇA SUA SOLICITAÇÃO</p>
-        </div>
-
-        <div class="home-steps__item">
-            <span class="home-steps__number">2</span>
-            <p class="home-steps__text">DEFINA ORIGEM E DESTINO</p>
-        </div>
-
-        <div class="home-steps__item">
-            <span class="home-steps__number">3</span>
-            <p class="home-steps__text">ATENDIMENTO IMEDIATO</p>
-        </div>
-
-    </div>
-
-</section>
-
-<section id="avaliacoes" class="home-reviews">
-
-    <h2 class="home-section__title">AVALIAÇÕES</h2>
-
-    <div class="home-reviews__grid">
-
-        <div class="home-reviews__card">
-            <div class="home-reviews__header">
-                <img src="~/images/icone-lampada.png" alt="Ícone" />
-                <span>Edna Silva</span>
+            <div class="home-coverage__map-card">
+                <div class="home-coverage__map-placeholder">
+                    <!-- Futuramente aqui entra o mapa/API -->
+                    <span>Mapa da área de atendimento</span>
+                </div>
             </div>
-            <p>
-                Atendimento rápido, o rapaz foi um anjo na minha vida, estava em uma situação de risco e no fim deu tudo certo.
-            </p>
         </div>
+    </section>
 
-        <div class="home-reviews__card">
-            <div class="home-reviews__header">
-                <img src="~/images/icone-lampada.png" alt="Ícone" />
-                <span>Marcos Silva</span>
-            </div>
-            <p>
-                Atendimento rápido, profissional e com preço justo. Recomendo!
-            </p>
-        </div>
-
-        <div class="home-reviews__card">
-            <div class="home-reviews__header">
-                <img src="~/images/icone-lampada.png" alt="Ícone" />
-                <span>Roberto Almeida</span>
-            </div>
-            <p>
-                Socorro rápido, eficiente e com excelente atendimento do início ao fim.
-            </p>
-        </div>
-
-        <div class="home-reviews__card">
-            <div class="home-reviews__header">
-                <img src="~/images/icone-lampada.png" alt="Ícone" />
-                <span>Luciana Costa</span>
-            </div>
-            <p>
-                Equipe ágil e atenciosa. Chegaram rápido e prestaram um ótimo serviço!
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<section id="contato" class="home-about">
-
-    <div class="home-about__container">
-
-        <h2 class="home-section__title">SOBRE NÓS</h2>
-
-        <div class="home-about__text">
-            <p>
-                A StarGuinchos é uma empresa construída ao longo de gerações, fundamentada em dedicação,
-                confiança e paixão pelo que faz. Nossa trajetória carrega um legado sólido, moldado pelo
-                esforço contínuo e pelo compromisso em oferecer sempre o melhor serviço.
-            </p>
-
-            <p>
-                Hoje, evoluímos sem abrir mão das nossas raízes. Unimos tradição e inovação para entregar
-                soluções eficientes, seguras e ágeis, sempre priorizando a excelência no atendimento e a
-                satisfação dos nossos clientes.
-            </p>
-
-            <p>
-                Mais do que prestar serviços, buscamos ser referência no setor de guinchos, destacando-nos
-                pela credibilidade, profissionalismo e pela qualidade que nos acompanham em cada atendimento.
-            </p>
-        </div>
-
-        <p class="home-about__highlight">
-            StarGuinchos — tradição que move, confiança que conduz.
-        </p>
-
-    </div>
-
-</section>
-
-<footer class="home-footer">
-
-    <div class="home-footer__container">
-
-        <div class="home-footer__top">
-            <img src="~/images/logo-star-guinchos-completa.png" alt="Star Guinchos" />
-        </div>
-
-        <div class="home-footer__bottom">
-
-            <p class="home-footer__copyright">
-                © StarGuinchos 2026 - TODOS OS DIREITOS RESERVADOS
-            </p>
-
-            <div class="home-footer__links">
-                <a href="#contato">Contato</a>
-                <a href="#">Termos e condições de uso</a>
-                <a href="#">Política de privacidade</a>
+    <!-- NOSSOS ATENDIMENTOS -->
+    <section class="home-services-gallery" id="atendimentos">
+        <div class="container">
+            <div class="home-section-heading">
+                <span class="home-section-heading__eyebrow">Atendimentos reais</span>
+                <h2 class="home-section-heading__title">Nossos atendimentos</h2>
+                <p class="home-section-heading__text">
+                    Alguns registros reais dos serviços prestados pela StarGuinchos.
+                </p>
             </div>
 
+            <div class="home-services-gallery__carousel">
+                <button type="button" class="home-carousel__arrow home-carousel__arrow--prev" aria-label="Anterior">
+                    &#10094;
+                </button>
+
+                <div class="home-services-gallery__viewport">
+                    <div class="home-services-gallery__track">
+                        <article class="home-services-gallery__item">
+                            <img src="~/images/atendimentos/atendimento-01.jpg" alt="Atendimento StarGuinchos 1" />
+                        </article>
+
+                        <article class="home-services-gallery__item">
+                            <img src="~/images/atendimentos/atendimento-02.jpg" alt="Atendimento StarGuinchos 2" />
+                        </article>
+
+                        <article class="home-services-gallery__item">
+                            <img src="~/images/atendimentos/atendimento-03.jpg" alt="Atendimento StarGuinchos 3" />
+                        </article>
+
+                        <article class="home-services-gallery__item">
+                            <img src="~/images/atendimentos/atendimento-04.jpg" alt="Atendimento StarGuinchos 4" />
+                        </article>
+                    </div>
+                </div>
+
+                <button type="button" class="home-carousel__arrow home-carousel__arrow--next" aria-label="Próximo">
+                    &#10095;
+                </button>
+            </div>
+
+            <div class="home-services-gallery__footer">
+                <a asp-controller="Home" asp-action="Atendimentos" class="btn-secondary-outline">
+                    Ver mais atendimentos
+                </a>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <!-- SOBRE NÓS -->
+    <section class="home-about" id="sobre">
+        <div class="container home-about__container">
+            <div class="home-about__content">
+                <div class="home-section-heading home-section-heading--left">
+                    <span class="home-section-heading__eyebrow">Nossa história</span>
+                    <h2 class="home-section-heading__title">Sobre nós</h2>
+                </div>
 
-</footer>
+                <div class="home-about__text">
+                    <p>
+                        A StarGuinchos atua há anos no ramo, construindo sua trajetória com dedicação,
+                        confiança e compromisso com cada atendimento.
+                    </p>
+
+                    <p>
+                        Ao longo do tempo, consolidamos nossa experiência prestando serviços com agilidade,
+                        segurança e profissionalismo em diferentes tipos de operação.
+                    </p>
+
+                    <p>
+                        Mais do que transportar veículos, buscamos entregar tranquilidade, confiança e a
+                        certeza de que cada serviço será conduzido com atenção e responsabilidade.
+                    </p>
+                </div>
+
+                <div class="home-about__stats">
+                    <article class="home-about__stat">
+                        <strong>10+</strong>
+                        <span>Anos de experiência</span>
+                    </article>
+
+                    <article class="home-about__stat">
+                        <strong>5k+</strong>
+                        <span>Atendimentos realizados</span>
+                    </article>
+
+                    <article class="home-about__stat">
+                        <strong>24/7</strong>
+                        <span>Disponibilidade</span>
+                    </article>
+                </div>
+
+                <div class="home-about__actions">
+                    <a asp-controller="Home" asp-action="Sobre" class="btn-secondary-outline">
+                        Conheça nossa história
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AVALIAÇÕES -->
+    <section class="home-reviews" id="avaliacoes">
+        <div class="container">
+            <div class="home-section-heading">
+                <span class="home-section-heading__eyebrow">Prova social</span>
+                <h2 class="home-section-heading__title">Avaliações</h2>
+                <p class="home-section-heading__text">
+                    O que nossos clientes dizem sobre nossos serviços.
+                </p>
+            </div>
+
+            @if (Model.Avaliacoes != null && Model.Avaliacoes.Any())
+            {
+                <div class="home-reviews__carousel">
+                    <button type="button" class="home-carousel__arrow home-carousel__arrow--prev" aria-label="Anterior">
+                        &#10094;
+                    </button>
+
+                    <div class="home-reviews__viewport">
+                        <div class="home-reviews__track">
+                            @foreach (var avaliacao in Model.Avaliacoes)
+                            {
+                                <article class="home-reviews__card">
+                                    <div class="home-reviews__stars">
+                                        @for (int i = 0; i < avaliacao.Nota; i++)
+                                        {
+                                            <span>★</span>
+                                        }
+                                    </div>
+
+                                    <p class="home-reviews__comment">
+                                        @avaliacao.Comentario
+                                    </p>
+
+                                    <strong class="home-reviews__name">
+                                        @avaliacao.Nome
+                                    </strong>
+                                </article>
+                            }
+                        </div>
+                    </div>
+
+                    <button type="button" class="home-carousel__arrow home-carousel__arrow--next" aria-label="Próximo">
+                        &#10095;
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="home-reviews__empty">
+                    <p class="home-reviews__empty-text">
+                        As avaliações aprovadas aparecerão aqui em breve.
+                    </p>
+                </div>
+            }
+
+            <div class="home-reviews__actions">
+                <a asp-controller="Avaliacoes" asp-action="Index" class="btn-secondary-outline">
+                    Ver todas as avaliações
+                </a>
+
+                <a asp-controller="Avaliacoes" asp-action="Create" class="btn-secondary-blue">
+                    Avaliar nosso serviço
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="home-cta-final">
+        <div class="container">
+            <div class="home-cta-final__card">
+                <h2 class="home-cta-final__title">Precisa de um guincho agora?</h2>
+
+                <p class="home-cta-final__text">
+                    Clique no botão abaixo para fazer sua solicitação e receber atendimento imediato.
+                </p>
+
+                <div class="home-cta-final__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar guincho agora
+                    </a>
+                </div>
+
+                <p class="home-cta-final__contact">
+                    Ou entre em contato pelo telefone: <strong>(11) 99999-9999</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+@section Scripts {
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}

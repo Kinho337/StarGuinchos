@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Área de atendimento";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/area-atendimento.css" asp-append-version="true" />
+}
+
+<main class="coverage-page">
+
+    <!-- HERO -->
+    <section class="coverage-hero">
+        <div class="coverage-hero__background"></div>
+
+        <div class="container coverage-hero__container">
+            <div class="coverage-hero__content">
+                <span class="coverage-hero__badge">Cobertura de atendimento</span>
+
+                <h1 class="coverage-hero__title">Área de atendimento</h1>
+
+                <p class="coverage-hero__text">
+                    A StarGuinchos atende São Paulo e região com agilidade, além de realizar
+                    transportes intermunicipais e interestaduais sob análise, conforme origem,
+                    destino e necessidade do serviço.
+                </p>
+
+                <div class="coverage-hero__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                        Entrar em contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPA / VISÃO GERAL -->
+    <section class="coverage-map">
+        <div class="container coverage-map__container">
+            <div class="coverage-map__content">
+                <div class="coverage-section-heading coverage-section-heading--left">
+                    <span class="coverage-section-heading__eyebrow">Atuação</span>
+                    <h2 class="coverage-section-heading__title">Atendimento em São Paulo e além</h2>
+                </div>
+
+                <p class="coverage-map__text">
+                    Nossa operação atende São Paulo e região como base principal, oferecendo
+                    suporte com rapidez e organização para diferentes tipos de necessidade.
+                </p>
+
+                <p class="coverage-map__text">
+                    Também realizamos, sob análise, a busca de veículos fora de São Paulo para
+                    trazê-los ao estado, além de serviços partindo de São Paulo para outros
+                    destinos, incluindo cidades e estados mais distantes.
+                </p>
+
+                <div class="coverage-map__tags">
+                    <span class="coverage-map__tag">São Paulo e região</span>
+                    <span class="coverage-map__tag">Transporte intermunicipal</span>
+                    <span class="coverage-map__tag">Transporte interestadual</span>
+                    <span class="coverage-map__tag">Serviços sob análise</span>
+                </div>
+            </div>
+
+            <div class="coverage-map__visual">
+                <div class="coverage-map__placeholder">
+                    <span>Mapa da área de atendimento</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO ATENDEMOS -->
+    <section class="coverage-types">
+        <div class="container">
+            <div class="coverage-section-heading">
+                <span class="coverage-section-heading__eyebrow">Modalidades</span>
+                <h2 class="coverage-section-heading__title">Como nossos atendimentos podem acontecer</h2>
+                <p class="coverage-section-heading__text">
+                    A cobertura da StarGuinchos não se limita apenas a serviços curtos ou locais.
+                </p>
+            </div>
+
+            <div class="coverage-types__grid">
+                <article class="coverage-type">
+                    <h3 class="coverage-type__title">Atendimento local</h3>
+                    <p class="coverage-type__text">
+                        Serviços realizados em São Paulo e região, com foco em agilidade e suporte rápido.
+                    </p>
+                </article>
+
+                <article class="coverage-type">
+                    <h3 class="coverage-type__title">Entre cidades</h3>
+                    <p class="coverage-type__text">
+                        Transportes intermunicipais conforme rota, origem, destino e disponibilidade.
+                    </p>
+                </article>
+
+                <article class="coverage-type">
+                    <h3 class="coverage-type__title">Entre estados</h3>
+                    <p class="coverage-type__text">
+                        Atendimentos mais longos, incluindo deslocamentos interestaduais sob análise.
+                    </p>
+                </article>
+
+                <article class="coverage-type">
+                    <h3 class="coverage-type__title">Busca externa</h3>
+                    <p class="coverage-type__text">
+                        Possibilidade de buscar veículos fora de São Paulo para trazê-los ao estado.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPLICAÇÃO -->
+    <section class="coverage-info">
+        <div class="container">
+            <div class="coverage-info__card">
+                <div class="coverage-section-heading coverage-section-heading--left">
+                    <span class="coverage-section-heading__eyebrow">Importante</span>
+                    <h2 class="coverage-section-heading__title">Cada serviço passa por análise</h2>
+                </div>
+
+                <p class="coverage-info__text">
+                    Alguns atendimentos dependem de fatores como distância, tipo de veículo,
+                    rota, urgência e disponibilidade operacional. Por isso, trajetos mais longos
+                    ou diferenciados podem ser avaliados antes da confirmação.
+                </p>
+
+                <p class="coverage-info__text">
+                    Isso garante mais clareza no atendimento e permite que cada solicitação seja
+                    tratada com responsabilidade e segurança.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXEMPLOS -->
+    <section class="coverage-examples">
+        <div class="container">
+            <div class="coverage-section-heading">
+                <span class="coverage-section-heading__eyebrow">Exemplos</span>
+                <h2 class="coverage-section-heading__title">Situações de atendimento</h2>
+            </div>
+
+            <div class="coverage-examples__grid">
+                <article class="coverage-example">
+                    <h3 class="coverage-example__title">São Paulo e região</h3>
+                    <p class="coverage-example__text">
+                        Atendimentos urbanos e regionais com foco em rapidez e suporte local.
+                    </p>
+                </article>
+
+                <article class="coverage-example">
+                    <h3 class="coverage-example__title">Veículo vindo para SP</h3>
+                    <p class="coverage-example__text">
+                        Busca de veículos em outras localidades para transporte até São Paulo.
+                    </p>
+                </article>
+
+                <article class="coverage-example">
+                    <h3 class="coverage-example__title">Saindo de SP para outro estado</h3>
+                    <p class="coverage-example__text">
+                        Serviços mais longos, como deslocamentos para destinos como o Rio de Janeiro.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="coverage-cta">
+        <div class="container">
+            <div class="coverage-cta__card">
+                <h2 class="coverage-cta__title">Precisa confirmar se atendemos seu trajeto?</h2>
+
+                <p class="coverage-cta__text">
+                    Envie sua solicitação com origem, destino e informações do veículo para que
+                    nossa equipe possa analisar o atendimento.
+                </p>
+
+                <div class="coverage-cta__actions">
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar atendimento
+                    </a>
+                </div>
+
+                <p class="coverage-cta__contact">
+                    Em caso de dúvida, entre em contato diretamente pelos canais da StarGuinchos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>

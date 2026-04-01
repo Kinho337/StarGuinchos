@@ -1,0 +1,60 @@
+﻿<footer class="site-footer">
+    <div class="container site-footer__container">
+        <div class="site-footer__column site-footer__column--brand">
+            <a asp-controller="Home" asp-action="Index" class="site-footer__brand">
+                <img src="~/images/logo/logo-footer.png" alt="StarGuinchos" class="site-footer__logo" />
+            </a>
+
+            <p class="site-footer__text">
+                Tradição que move, confiança que conduz.
+            </p>
+        </div>
+
+        <div class="site-footer__column">
+            <h3 class="site-footer__title">Navegação</h3>
+
+            <ul class="site-footer__list">
+                <li><a asp-controller="Home" asp-action="Servicos">Serviços</a></li>
+                <li><a asp-controller="Home" asp-action="AreaDeAtendimento">Área de atendimento</a></li>
+                <li><a asp-controller="Home" asp-action="Atendimentos">Atendimentos</a></li>
+                <li><a asp-controller="Avaliacoes" asp-action="Index">Avaliações</a></li>
+                <li><a asp-controller="Home" asp-action="Sobre">Sobre nós</a></li>
+                <li><a asp-controller="Home" asp-action="Contato">Contato</a></li>
+            </ul>
+        </div>
+
+        <div class="site-footer__column">
+            <h3 class="site-footer__title">Atendimento</h3>
+
+            <ul class="site-footer__list">
+                <li>São Paulo e região</li>
+                <li>Transporte intermunicipal</li>
+                <li>Transporte interestadual</li>
+                <li>Serviços sob análise</li>
+            </ul>
+        </div>
+
+        <div class="site-footer__column">
+            <h3 class="site-footer__title">Contato</h3>
+
+            <ul class="site-footer__list">
+                <li><a href="tel:+5511946999701">(11) 94699-9701</a></li>
+                <li>Atendimento 24 horas</li>
+                
+                <li>
+                    <a asp-controller="Avaliacoes" asp-action="Create" class="site-footer__secondary-link">
+                        Avaliar serviço
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="site-footer__bottom">
+        <div class="container site-footer__bottom-container">
+            <p class="site-footer__copyright">
+                © @DateTime.Now.Year StarGuinchos. Todos os direitos reservados.
+            </p>
+        </div>
+    </div>
+</footer>

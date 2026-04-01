@@ -1,32 +1,56 @@
 using Microsoft.AspNetCore.Mvc;
-using StarGuinchos.Models;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using StarGuinchos.Data;
+using StarGuinchos.Models.ViewModels;
 
 namespace StarGuinchos.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new HomeIndexViewModel
+            {
+                Avaliacoes = await _context.Avaliacoes
+                    .Where(a => a.Status == "aprovada" && a.AutorizadoPublicacao)
+                    .OrderByDescending(a => a.DataCriacao)
+                    .Take(10)
+                    .ToListAsync()
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult Servicos()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AreaDeAtendimento()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Atendimentos()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public IActionResult Sobre()
+        {
+            return View();
+        }
+
+        public IActionResult Contato()
+        {
+            return View();
         }
     }
 }

@@ -1,29 +1,17 @@
 ﻿@model StarGuinchos.Models.Solicitacao
 
 @{
-    ViewData["Title"] = "Detalhes da Solicitação";
+    ViewData["Title"] = "Detalhes da solicitação";
 }
 
 <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 
-@{
-    var status = (Model.Status_solicitacao ?? "novo").ToLower();
-
-    var statusClass = status switch
-    {
-        "novo" => "admin-badge admin-badge--novo",
-        "em andamento" => "admin-badge admin-badge--andamento",
-        "concluido" => "admin-badge admin-badge--concluido",
-        "cancelado" => "admin-badge admin-badge--cancelado",
-        _ => "admin-badge"
-    };
-}
-
-<section class="admin-dashboard">
+<section class="admin-shell">
     <aside class="admin-sidebar">
         <div class="admin-sidebar__brand">
-            <h1>StarGuinchos</h1>
-            <span>Admin Panel</span>
+            <span class="admin-sidebar__eyebrow">StarGuinchos</span>
+            <h1 class="admin-sidebar__title">Admin</h1>
+            <p class="admin-sidebar__text">Painel operacional</p>
         </div>
 
         <nav class="admin-sidebar__nav">
@@ -34,94 +22,189 @@
             <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link active">
                 Solicitações
             </a>
+
+            <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link">
+                Avaliações
+            </a>
         </nav>
     </aside>
 
-    <main class="admin-content">
-        <header class="admin-topbar">
+    <main class="admin-main">
+        <header class="admin-header">
             <div>
-                <p class="admin-topbar__eyebrow">Detalhamento</p>
-                <h2>Solicitação #@Model.Id</h2>
+                <span class="admin-header__eyebrow">Ficha operacional</span>
+                <h2 class="admin-header__title">Solicitação #@Model.Id</h2>
+                <p class="admin-header__text">
+                    Visualize os dados completos da solicitação, atualize o status,
+                    encaminhe para WhatsApp ou exclua o registro.
+                </p>
             </div>
 
-            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-topbar__button">
-                Voltar para solicitações
-            </a>
+            <div class="admin-header__actions">
+                <a asp-controller="Admin" asp-action="Solicitacoes" class="btn btn-outline-light">
+                    Voltar para solicitações
+                </a>
+            </div>
         </header>
 
-        <section class="admin-details-card">
-            <div class="admin-details-card__header">
-                <div>
-                    <p class="admin-panel__eyebrow">Informações completas</p>
-                    <h3>Dados da solicitação</h3>
+        <section class="admin-detail-hero">
+            <div class="admin-detail-hero__main">
+                <div class="admin-detail-hero__top">
+                    <div>
+                        <span class="admin-detail-hero__label">Cliente</span>
+                        <h3 class="admin-detail-hero__title">
+                            @(string.IsNullOrWhiteSpace(Model.Nome) ? "Cliente não informado" : Model.Nome)
+                        </h3>
+                    </div>
+
+                    <span class="admin-status-badge @GetStatusClass(Model.Status_solicitacao)">
+                        @(string.IsNullOrWhiteSpace(Model.Status_solicitacao) ? "novo" : Model.Status_solicitacao)
+                    </span>
                 </div>
 
-                <span class="@statusClass">@status</span>
+                <div class="admin-detail-hero__meta">
+                    <span><strong>Telefone:</strong> @Model.Telefone</span>
+                    <span><strong>Data:</strong> @Model.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</span>
+                </div>
             </div>
 
-            <div class="admin-details-grid">
-                <article class="admin-details-item">
-                    <span class="admin-details-item__label">Nome</span>
-                    <strong class="admin-details-item__value">@Model.Nome</strong>
-                </article>
-
-                <article class="admin-details-item">
-                    <span class="admin-details-item__label">Telefone</span>
-                    <strong class="admin-details-item__value">@Model.Telefone</strong>
-                </article>
-
-                <article class="admin-details-item">
-                    <span class="admin-details-item__label">Veículo</span>
-                    <strong class="admin-details-item__value">@Model.Veiculo</strong>
-                </article>
-
-                <article class="admin-details-item">
-                    <span class="admin-details-item__label">Data da solicitação</span>
-                    <strong class="admin-details-item__value">@Model.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</strong>
-                </article>
-
-                <article class="admin-details-item admin-details-item--full">
-                    <span class="admin-details-item__label">Problema informado</span>
-                    <strong class="admin-details-item__value">@Model.Problema</strong>
-                </article>
-
-                <article class="admin-details-item admin-details-item--full">
-                    <span class="admin-details-item__label">Origem</span>
-                    <strong class="admin-details-item__value">@Model.Ponto_partida</strong>
-                </article>
-
-                <article class="admin-details-item admin-details-item--full">
-                    <span class="admin-details-item__label">Destino</span>
-                    <strong class="admin-details-item__value">@Model.Destino</strong>
-                </article>
-            </div>
-
-            <div class="admin-details-actions">
-                <a class="admin-action-button admin-action-button--whatsapp"
-                       href="/admin/solicitacoes/@Model.Id/whatsapp"
-                       target="_blank">
+            <div class="admin-detail-hero__actions">
+                <a asp-controller="Admin"
+                       asp-action="EnviarWhatsapp"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-success">
                     Enviar para WhatsApp
                 </a>
+            </div>
+        </section>
 
-                <a asp-controller="Admin"
-                       asp-action="Solicitacoes"
-                       class="admin-action-button admin-action-button--clear">
-                    Voltar
-                </a>
+        <div class="admin-detail-grid">
+            <section class="admin-detail-card">
+                <div class="admin-detail-card__header">
+                    <h3>Informações principais</h3>
+                </div>
+
+                <div class="admin-detail-list">
+                    <div class="admin-detail-list__item">
+                        <span class="admin-detail-list__label">Nome</span>
+                        <strong class="admin-detail-list__value">
+                            @(string.IsNullOrWhiteSpace(Model.Nome) ? "-" : Model.Nome)
+                        </strong>
+                    </div>
+
+                    <div class="admin-detail-list__item">
+                        <span class="admin-detail-list__label">Telefone</span>
+                        <strong class="admin-detail-list__value">@Model.Telefone</strong>
+                    </div>
+
+                    <div class="admin-detail-list__item">
+                        <span class="admin-detail-list__label">Veículo</span>
+                        <strong class="admin-detail-list__value">
+                            @(string.IsNullOrWhiteSpace(Model.Veiculo) ? "-" : Model.Veiculo)
+                        </strong>
+                    </div>
+
+                    <div class="admin-detail-list__item">
+                        <span class="admin-detail-list__label">Problema</span>
+                        <strong class="admin-detail-list__value">
+                            @(string.IsNullOrWhiteSpace(Model.Problema) ? "-" : Model.Problema)
+                        </strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="admin-detail-card">
+                <div class="admin-detail-card__header">
+                    <h3>Rota do atendimento</h3>
+                </div>
+
+                <div class="admin-detail-route">
+                    <div class="admin-detail-route__block">
+                        <span class="admin-detail-route__label">Origem</span>
+                        <p class="admin-detail-route__text">
+                            @(string.IsNullOrWhiteSpace(Model.Ponto_partida) ? "-" : Model.Ponto_partida)
+                        </p>
+                    </div>
+
+                    <div class="admin-detail-route__block">
+                        <span class="admin-detail-route__label">Destino</span>
+                        <p class="admin-detail-route__text">
+                            @(string.IsNullOrWhiteSpace(Model.Destino) ? "-" : Model.Destino)
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="admin-detail-grid admin-detail-grid--secondary">
+            <section class="admin-detail-card">
+                <div class="admin-detail-card__header">
+                    <h3>Gerenciamento do status</h3>
+                </div>
+
+                <form asp-controller="Admin"
+                      asp-action="AtualizarStatus"
+                      asp-route-id="@Model.Id"
+                      method="post"
+                      class="admin-detail-form">
+                    @Html.AntiForgeryToken()
+
+                    <div class="admin-detail-form__field">
+                        <label for="novoStatus">Novo status</label>
+                        <select id="novoStatus" name="novoStatus" class="admin-status-select">
+                            <option value="novo" selected="@(Model.Status_solicitacao == "novo")">Novo</option>
+                            <option value="em andamento" selected="@(Model.Status_solicitacao == "em andamento")">Em andamento</option>
+                            <option value="concluido" selected="@(Model.Status_solicitacao == "concluido")">Concluído</option>
+                            <option value="cancelado" selected="@(Model.Status_solicitacao == "cancelado")">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-detail-form__actions">
+                        <button type="submit" class="btn btn-primary">
+                            Atualizar status
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="admin-detail-card admin-detail-card--danger">
+                <div class="admin-detail-card__header">
+                    <h3>Ações sensíveis</h3>
+                </div>
+
+                <p class="admin-detail-card__text">
+                    A exclusão remove permanentemente esta solicitação do sistema.
+                </p>
 
                 <form asp-controller="Admin"
                       asp-action="Excluir"
                       asp-route-id="@Model.Id"
                       method="post"
-                      class="admin-delete-form"
-                      onsubmit="return confirm('Tem certeza que deseja excluir esta solicitação?');">
+                      onsubmit="return confirm('Deseja realmente excluir esta solicitação?');">
                     @Html.AntiForgeryToken()
 
-                    <button type="submit" class="admin-action-button admin-action-button--delete">
+                    <button type="submit" class="btn btn-danger">
                         Excluir solicitação
                     </button>
                 </form>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 </section>
+
+@functions {
+    public string GetStatusClass(string? status)
+    {
+        if (string.IsNullOrWhiteSpace(status))
+            return "admin-status-badge--novo";
+
+        return status.ToLower() switch
+        {
+            "novo" => "admin-status-badge--novo",
+            "em andamento" => "admin-status-badge--andamento",
+            "concluido" => "admin-status-badge--concluido",
+            "cancelado" => "admin-status-badge--cancelado",
+            _ => "admin-status-badge--novo"
+        };
+    }
+}

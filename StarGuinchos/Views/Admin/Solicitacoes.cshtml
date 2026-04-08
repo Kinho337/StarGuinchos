@@ -1,16 +1,22 @@
-﻿@model List<StarGuinchos.Models.Solicitacao>
+﻿@model IEnumerable<StarGuinchos.Models.Solicitacao>
 
 @{
     ViewData["Title"] = "Solicitações";
+
+    string buscaAtual = ViewBag.Busca as string ?? string.Empty;
+    string statusAtual = ViewBag.Status as string ?? string.Empty;
+    string dataAtual = ViewBag.Data as string ?? string.Empty;
+    string? mensagem = TempData["AdminMensagem"] as string;
 }
 
 <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 
-<section class="admin-dashboard">
+<section class="admin-shell">
     <aside class="admin-sidebar">
         <div class="admin-sidebar__brand">
-            <h1>StarGuinchos</h1>
-            <span>Admin Panel</span>
+            <span class="admin-sidebar__eyebrow">StarGuinchos</span>
+            <h1 class="admin-sidebar__title">Admin</h1>
+            <p class="admin-sidebar__text">Painel operacional</p>
         </div>
 
         <nav class="admin-sidebar__nav">
@@ -21,198 +27,217 @@
             <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link active">
                 Solicitações
             </a>
+
+            <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link">
+                Avaliações
+            </a>
         </nav>
     </aside>
 
-    <main class="admin-content">
-        <header class="admin-topbar">
+    <main class="admin-main">
+        <header class="admin-header">
             <div>
-                <p class="admin-topbar__eyebrow">Operação</p>
-                <h2>Solicitações recebidas</h2>
+                <span class="admin-header__eyebrow">Central de operação</span>
+                <h2 class="admin-header__title">Solicitações de serviço</h2>
+                <p class="admin-header__text">
+                    Gerencie os atendimentos recebidos, filtre por critérios importantes,
+                    atualize status, visualize detalhes e encaminhe para WhatsApp.
+                </p>
             </div>
 
-            <a asp-controller="Admin" asp-action="Index" class="admin-topbar__button">
-                Voltar ao dashboard
-            </a>
+            <div class="admin-header__actions">
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-light">
+                    Voltar ao dashboard
+                </a>
+            </div>
         </header>
 
-        @if (TempData["AdminMensagem"] != null)
+        @if (!string.IsNullOrWhiteSpace(mensagem))
         {
-            <div class="admin-alert">
-                @TempData["AdminMensagem"]
+            <div class="admin-alert admin-alert--success">
+                @mensagem
             </div>
         }
 
-        <section class="admin-table-panel">
-            <div class="admin-table-panel__header">
-                <div>
-                    <p class="admin-panel__eyebrow">Listagem completa</p>
-                    <h3>Gerencie e acompanhe os serviços</h3>
-                </div>
-
-                <div class="admin-table-panel__count">
-                    Total filtrado: <strong>@Model.Count</strong>
-                </div>
+        <section class="admin-panel admin-panel--filters">
+            <div class="admin-panel__header">
+                <h3 class="admin-panel__title">Filtros</h3>
             </div>
 
             <form method="get" asp-controller="Admin" asp-action="Solicitacoes" class="admin-filters">
-                <div class="admin-filter-group admin-filter-group--search">
-                    <label for="busca" class="admin-filter-label">Busca</label>
-                    <input type="text"
-                           id="busca"
-                           name="busca"
-                           value="@ViewBag.Busca"
-                           class="admin-input"
-                           placeholder="Nome, telefone ou veículo" />
+                <div class="admin-filters__grid">
+                    <div class="admin-filters__field">
+                        <label for="busca">Buscar</label>
+                        <input id="busca" name="busca" value="@buscaAtual" type="text"
+                               placeholder="Nome, veículo ou telefone" />
+                    </div>
+
+                    <div class="admin-filters__field">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="">Todos</option>
+                            <option value="novo" selected="@(statusAtual == "novo")">Novo</option>
+                            <option value="em andamento" selected="@(statusAtual == "em andamento")">Em andamento</option>
+                            <option value="concluido" selected="@(statusAtual == "concluido")">Concluído</option>
+                            <option value="cancelado" selected="@(statusAtual == "cancelado")">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-filters__field">
+                        <label for="data">Data</label>
+                        <input id="data" name="data" value="@dataAtual" type="date" />
+                    </div>
                 </div>
 
-                <div class="admin-filter-group">
-                    <label for="status" class="admin-filter-label">Status</label>
-                    <select id="status" name="status" class="admin-select">
-                        <option value="">Todos</option>
-                        <option value="novo" selected="@(ViewBag.Status == "novo")">novo</option>
-                        <option value="em andamento" selected="@(ViewBag.Status == "em andamento")">em andamento</option>
-                        <option value="concluido" selected="@(ViewBag.Status == "concluido")">concluido</option>
-                        <option value="cancelado" selected="@(ViewBag.Status == "cancelado")">cancelado</option>
-                    </select>
-                </div>
-
-                <div class="admin-filter-group">
-                    <label for="data" class="admin-filter-label">Data</label>
-                    <input type="date"
-                           id="data"
-                           name="data"
-                           value="@ViewBag.Data"
-                           class="admin-input" />
-                </div>
-
-                <div class="admin-filter-actions">
-                    <button type="submit" class="admin-action-button admin-action-button--save">
+                <div class="admin-filters__actions">
+                    <button type="submit" class="btn btn-primary">
                         Filtrar
                     </button>
 
-                    <a asp-controller="Admin"
-                           asp-action="Solicitacoes"
-                           class="admin-action-button admin-action-button--clear">
+                    <a asp-controller="Admin" asp-action="Solicitacoes" class="btn btn-outline-light">
                         Limpar
                     </a>
                 </div>
             </form>
+        </section>
 
-            <div class="admin-table-wrapper">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Telefone</th>
-                            <th>Veículo</th>
-                            <th>Problema</th>
-                            <th>Origem</th>
-                            <th>Destino</th>
-                            <th>Data</th>
-                            <th>Status</th>
-                            <th>Atualizar</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var s in Model)
-                        {
-                            var statusAtual = (s.Status_solicitacao ?? "novo").ToLower();
-
-                            var statusClass = statusAtual switch
-                            {
-                                "novo" => "admin-badge admin-badge--novo",
-                                "em andamento" => "admin-badge admin-badge--andamento",
-                                "concluido" => "admin-badge admin-badge--concluido",
-                                "cancelado" => "admin-badge admin-badge--cancelado",
-                                _ => "admin-badge"
-                            };
-
-                            <tr>
-                                <td>#@s.Id</td>
-                                <td>@s.Nome</td>
-                                <td>@s.Telefone</td>
-                                <td>@s.Veiculo</td>
-                                <td>@s.Problema</td>
-                                <td>@s.Ponto_partida</td>
-                                <td>@s.Destino</td>
-                                <td>@s.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</td>
-                                <td>
-                                    <span class="@statusClass">@statusAtual</span>
-                                </td>
-                                <td>
-                                    <form asp-controller="Admin"
-                                          asp-action="AtualizarStatus"
-                                          asp-route-id="@s.Id"
-                                          method="post"
-                                          class="admin-status-form">
-                                        @Html.AntiForgeryToken()
-
-                                        <select name="novoStatus" class="admin-select">
-                                            @if (statusAtual == "novo")
-                                            {
-                                                <option value="novo" selected>novo</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="novo">novo</option>
-                                            }
-
-                                            @if (statusAtual == "em andamento")
-                                            {
-                                                <option value="em andamento" selected>em andamento</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="em andamento">em andamento</option>
-                                            }
-
-                                            @if (statusAtual == "concluido")
-                                            {
-                                                <option value="concluido" selected>concluido</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="concluido">concluido</option>
-                                            }
-
-                                            @if (statusAtual == "cancelado")
-                                            {
-                                                <option value="cancelado" selected>cancelado</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="cancelado">cancelado</option>
-                                            }
-                                        </select>
-
-                                        <button type="submit" class="admin-action-button admin-action-button--save">
-                                            Salvar
-                                        </button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <div class="admin-actions-group">
-                                        <a class="admin-action-button admin-action-button--details"
-                                               href="/admin/solicitacoes/@s.Id">
-                                            Detalhes
-                                        </a>
-
-                                        <a class="admin-action-button admin-action-button--whatsapp"
-                                               href="/admin/solicitacoes/@s.Id/whatsapp"
-                                               target="_blank">
-                                            WhatsApp
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <section class="admin-panel">
+            <div class="admin-panel__header">
+                <h3 class="admin-panel__title">Lista de solicitações</h3>
+                <span class="admin-panel__count">@Model.Count() registro(s)</span>
             </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="admin-table-wrap">
+                    <table class="admin-table admin-table--services">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Telefone</th>
+                                <th>Veículo</th>
+                                <th>Origem</th>
+                                <th>Destino</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.Id</td>
+
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(item.Nome) ? "Cliente não informado" : item.Nome)
+                                    </td>
+
+                                    <td>@item.Telefone</td>
+
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(item.Veiculo) ? "-" : item.Veiculo)
+                                    </td>
+
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(item.Ponto_partida) ? "-" : item.Ponto_partida)
+                                    </td>
+
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(item.Destino) ? "-" : item.Destino)
+                                    </td>
+
+                                    <td>
+                                        <span class="admin-status-badge @GetStatusClass(item.Status_solicitacao)">
+                                            @(string.IsNullOrWhiteSpace(item.Status_solicitacao) ? "novo" : item.Status_solicitacao)
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @item.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")
+                                    </td>
+
+                                    <td>
+                                        <div class="admin-actions-stack">
+                                            <a asp-controller="Admin"
+                                                   asp-action="Detalhes"
+                                                   asp-route-id="@item.Id"
+                                                   class="btn btn-outline-light btn-sm">
+                                                Detalhes
+                                            </a>
+
+                                            <a asp-controller="Admin"
+                                                   asp-action="EnviarWhatsapp"
+                                                   asp-route-id="@item.Id"
+                                                   class="btn btn-success btn-sm">
+                                                WhatsApp
+                                            </a>
+
+                                            <form asp-controller="Admin"
+                                                  asp-action="AtualizarStatus"
+                                                  asp-route-id="@item.Id"
+                                                  method="post"
+                                                  class="admin-inline-form">
+                                                @Html.AntiForgeryToken()
+
+                                                <select name="novoStatus" class="admin-status-select">
+                                                    <option value="novo" selected="@(item.Status_solicitacao == "novo")">Novo</option>
+                                                    <option value="em andamento" selected="@(item.Status_solicitacao == "em andamento")">Em andamento</option>
+                                                    <option value="concluido" selected="@(item.Status_solicitacao == "concluido")">Concluído</option>
+                                                    <option value="cancelado" selected="@(item.Status_solicitacao == "cancelado")">Cancelado</option>
+                                                </select>
+
+                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                    Atualizar
+                                                </button>
+                                            </form>
+
+                                            <form asp-controller="Admin"
+                                                  asp-action="Excluir"
+                                                  asp-route-id="@item.Id"
+                                                  method="post"
+                                                  class="admin-inline-form"
+                                                  onsubmit="return confirm('Deseja realmente excluir esta solicitação?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    Excluir
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="admin-empty-state">
+                    <h3>Nenhuma solicitação encontrada</h3>
+                    <p>Não há registros para os filtros aplicados.</p>
+                </div>
+            }
         </section>
     </main>
 </section>
+
+@functions {
+    public string GetStatusClass(string? status)
+    {
+        if (string.IsNullOrWhiteSpace(status))
+            return "admin-status-badge--novo";
+
+        return status.ToLower() switch
+        {
+            "novo" => "admin-status-badge--novo",
+            "em andamento" => "admin-status-badge--andamento",
+            "concluido" => "admin-status-badge--concluido",
+            "cancelado" => "admin-status-badge--cancelado",
+            _ => "admin-status-badge--novo"
+        };
+    }
+}

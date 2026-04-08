@@ -137,3 +137,13 @@
             width: 100%;
         }
 }
+
+.review-form__input {
+    background-color: #0b0d12;
+    color: #f8fafc;
+}
+
+    .review-form__input option {
+        background-color: #0b0d12;
+        color: #f8fafc;
+    }

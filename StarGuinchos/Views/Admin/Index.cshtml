@@ -1,14 +1,20 @@
-﻿@{
+﻿@using StarGuinchos.Models
+@{
     ViewData["Title"] = "Admin";
+
+    var ultimasSolicitacoes = ViewBag.UltimasSolicitacoes as List<Solicitacao> ?? new List<Solicitacao>();
+    var solicitacoesHoje = ViewBag.SolicitacoesHoje as List<Solicitacao> ?? new List<Solicitacao>();
+    var ultimasAvaliacoes = ViewBag.UltimasAvaliacoes as List<Avaliacao> ?? new List<Avaliacao>();
 }
 
 <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 
-<section class="admin-dashboard">
+<section class="admin-shell">
     <aside class="admin-sidebar">
         <div class="admin-sidebar__brand">
-            <h1>StarGuinchos</h1>
-            <span>Admin Panel</span>
+            <span class="admin-sidebar__eyebrow">StarGuinchos</span>
+            <h1 class="admin-sidebar__title">Admin</h1>
+            <p class="admin-sidebar__text">Painel operacional</p>
         </div>
 
         <nav class="admin-sidebar__nav">
@@ -19,63 +25,220 @@
             <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link">
                 Solicitações
             </a>
+
+            <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link">
+                Avaliações
+            </a>
         </nav>
     </aside>
 
-    <main class="admin-content">
-        <header class="admin-topbar">
+    <main class="admin-main">
+        <header class="admin-header">
             <div>
-                <p class="admin-topbar__eyebrow">Painel administrativo</p>
-                <h2>Controle interno da operação</h2>
-            </div>
-
-            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-topbar__button">
-                Ver solicitações
-            </a>
-        </header>
-
-        <section class="admin-summary">
-            <article class="admin-card">
-                <span class="admin-card__label">Total de solicitações</span>
-                <strong class="admin-card__value">@ViewBag.TotalSolicitacoes</strong>
-            </article>
-
-            <article class="admin-card">
-                <span class="admin-card__label">Novas</span>
-                <strong class="admin-card__value">@ViewBag.NovasSolicitacoes</strong>
-            </article>
-
-            <article class="admin-card">
-                <span class="admin-card__label">Em andamento</span>
-                <strong class="admin-card__value">@ViewBag.EmAndamento</strong>
-            </article>
-
-            <article class="admin-card">
-                <span class="admin-card__label">Concluídas</span>
-                <strong class="admin-card__value">@ViewBag.Concluidas</strong>
-            </article>
-
-            <article class="admin-card">
-                <span class="admin-card__label">Canceladas</span>
-                <strong class="admin-card__value">@ViewBag.Canceladas</strong>
-            </article>
-        </section>
-
-        <section class="admin-panel">
-            <div class="admin-panel__content">
-                <p class="admin-panel__eyebrow">Visão geral</p>
-                <h3>Gerencie as solicitações com mais rapidez</h3>
-                <p>
-                    Acompanhe os pedidos recebidos, visualize dados importantes do atendimento
-                    e acesse rapidamente a listagem completa para encaminhamento via WhatsApp.
+                <span class="admin-header__eyebrow">Central de controle</span>
+                <h2 class="admin-header__title">Dashboard executivo</h2>
+                <p class="admin-header__text">
+                    Visão geral das operações da StarGuinchos, com foco em solicitações e avaliações.
                 </p>
             </div>
 
-            <div class="admin-panel__actions">
-                <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-primary-button">
-                    Acessar solicitações
+            <div class="admin-header__actions">
+                <a asp-controller="Admin" asp-action="Solicitacoes" class="btn btn-outline-light">
+                    Ver solicitações
+                </a>
+
+                <a asp-controller="Admin" asp-action="Avaliacoes" class="btn btn-primary">
+                    Gerenciar avaliações
                 </a>
             </div>
+        </header>
+
+        <!-- BLOCO SOLICITAÇÕES -->
+        <section class="admin-section">
+            <div class="admin-section__top">
+                <div>
+                    <span class="admin-section__eyebrow">Operação</span>
+                    <h3 class="admin-section__title">Painel de solicitações</h3>
+                </div>
+            </div>
+
+            <div class="admin-stats-grid">
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Total</span>
+                    <strong class="admin-stat-card__number">@ViewBag.TotalSolicitacoes</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Novas</span>
+                    <strong class="admin-stat-card__number">@ViewBag.NovasSolicitacoes</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Em andamento</span>
+                    <strong class="admin-stat-card__number">@ViewBag.EmAndamento</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Concluídas</span>
+                    <strong class="admin-stat-card__number">@ViewBag.Concluidas</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Canceladas</span>
+                    <strong class="admin-stat-card__number">@ViewBag.Canceladas</strong>
+                </article>
+            </div>
+
+            <div class="admin-panels-grid">
+                <section class="admin-panel">
+                    <div class="admin-panel__header">
+                        <h4 class="admin-panel__title">Últimas solicitações</h4>
+                        <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-panel__link">
+                            Ver todas
+                        </a>
+                    </div>
+
+                    @if (ultimasSolicitacoes.Any())
+                    {
+                        <div class="admin-list">
+                            @foreach (var item in ultimasSolicitacoes)
+                            {
+                                <article class="admin-list-item">
+                                    <div class="admin-list-item__main">
+                                        <strong class="admin-list-item__title">
+                                            @(string.IsNullOrWhiteSpace(item.Nome) ? "Cliente não informado" : item.Nome)
+                                        </strong>
+
+                                        <p class="admin-list-item__text">
+                                            @(string.IsNullOrWhiteSpace(item.Veiculo) ? "Veículo não informado" : item.Veiculo)
+                                        </p>
+                                    </div>
+
+                                    <div class="admin-list-item__meta">
+                                        <span class="admin-badge">@item.Status_solicitacao</span>
+                                        <small>@item.Data_solicitacao.ToString("dd/MM/yyyy HH:mm")</small>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="admin-empty-state">
+                            <p>Nenhuma solicitação cadastrada até o momento.</p>
+                        </div>
+                    }
+                </section>
+
+                <section class="admin-panel">
+                    <div class="admin-panel__header">
+                        <h4 class="admin-panel__title">Solicitações de hoje</h4>
+                        <span class="admin-panel__count">@solicitacoesHoje.Count</span>
+                    </div>
+
+                    @if (solicitacoesHoje.Any())
+                    {
+                        <div class="admin-list">
+                            @foreach (var item in solicitacoesHoje)
+                            {
+                                <article class="admin-list-item">
+                                    <div class="admin-list-item__main">
+                                        <strong class="admin-list-item__title">
+                                            @(string.IsNullOrWhiteSpace(item.Nome) ? "Cliente não informado" : item.Nome)
+                                        </strong>
+
+                                        <p class="admin-list-item__text">
+                                            @(string.IsNullOrWhiteSpace(item.Ponto_partida) ? "Origem não informada" : item.Ponto_partida)
+                                        </p>
+                                    </div>
+
+                                    <div class="admin-list-item__meta">
+                                        <span class="admin-badge">@item.Status_solicitacao</span>
+                                        <small>@item.Data_solicitacao.ToString("HH:mm")</small>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="admin-empty-state">
+                            <p>Nenhuma solicitação registrada hoje.</p>
+                        </div>
+                    }
+                </section>
+            </div>
+        </section>
+
+        <!-- BLOCO AVALIAÇÕES -->
+        <section class="admin-section">
+            <div class="admin-section__top">
+                <div>
+                    <span class="admin-section__eyebrow">Reputação</span>
+                    <h3 class="admin-section__title">Painel de avaliações</h3>
+                </div>
+            </div>
+
+            <div class="admin-stats-grid admin-stats-grid--reviews">
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Total</span>
+                    <strong class="admin-stat-card__number">@ViewBag.TotalAvaliacoes</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Pendentes</span>
+                    <strong class="admin-stat-card__number">@ViewBag.AvaliacoesPendentes</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Aprovadas</span>
+                    <strong class="admin-stat-card__number">@ViewBag.AvaliacoesAprovadas</strong>
+                </article>
+
+                <article class="admin-stat-card">
+                    <span class="admin-stat-card__label">Recusadas</span>
+                    <strong class="admin-stat-card__number">@ViewBag.AvaliacoesRecusadas</strong>
+                </article>
+            </div>
+
+            <section class="admin-panel">
+                <div class="admin-panel__header">
+                    <h4 class="admin-panel__title">Últimas avaliações</h4>
+                    <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-panel__link">
+                        Gerenciar
+                    </a>
+                </div>
+
+                @if (ultimasAvaliacoes.Any())
+                {
+                    <div class="admin-reviews">
+                        @foreach (var avaliacao in ultimasAvaliacoes)
+                        {
+                            <article class="admin-review-card">
+                                <div class="admin-review-card__top">
+                                    <strong>@avaliacao.Nome</strong>
+                                    <span class="admin-badge">@avaliacao.Status</span>
+                                </div>
+
+                                <p class="admin-review-card__comment">
+                                    @avaliacao.Comentario
+                                </p>
+
+                                <div class="admin-review-card__bottom">
+                                    <span>Nota: @avaliacao.Nota/5</span>
+                                    <span>@avaliacao.DataCriacao.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="admin-empty-state">
+                        <p>Nenhuma avaliação cadastrada até o momento.</p>
+                    </div>
+                }
+            </section>
         </section>
     </main>
 </section>

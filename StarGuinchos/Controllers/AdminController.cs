@@ -16,13 +16,39 @@ namespace StarGuinchos.Controllers
         [HttpGet("admin")]
         public IActionResult Index()
         {
-            var solicitacoes = _context.Solicitacoes.ToList();
+            var solicitacoes = _context.Solicitacoes
+                .OrderByDescending(s => s.Data_solicitacao)
+                .ToList();
+
+            var hoje = DateTime.Today;
+            var amanha = hoje.AddDays(1);
 
             ViewBag.TotalSolicitacoes = solicitacoes.Count;
             ViewBag.NovasSolicitacoes = solicitacoes.Count(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == "novo");
             ViewBag.EmAndamento = solicitacoes.Count(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == "em andamento");
             ViewBag.Concluidas = solicitacoes.Count(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == "concluido");
             ViewBag.Canceladas = solicitacoes.Count(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == "cancelado");
+
+            ViewBag.UltimasSolicitacoes = solicitacoes
+                .Take(6)
+                .ToList();
+
+            ViewBag.SolicitacoesHoje = solicitacoes
+                .Where(s => s.Data_solicitacao >= hoje && s.Data_solicitacao < amanha)
+                .ToList();
+
+            var avaliacoes = _context.Avaliacoes
+                .OrderByDescending(a => a.DataCriacao)
+                .ToList();
+
+            ViewBag.TotalAvaliacoes = avaliacoes.Count;
+            ViewBag.AvaliacoesPendentes = avaliacoes.Count(a => a.Status != null && a.Status.ToLower() == "pendente");
+            ViewBag.AvaliacoesAprovadas = avaliacoes.Count(a => a.Status != null && a.Status.ToLower() == "aprovada");
+            ViewBag.AvaliacoesRecusadas = avaliacoes.Count(a => a.Status != null && a.Status.ToLower() == "recusada");
+
+            ViewBag.UltimasAvaliacoes = avaliacoes
+                .Take(5)
+                .ToList();
 
             return View();
         }
@@ -135,6 +161,80 @@ namespace StarGuinchos.Controllers
             return RedirectToAction(nameof(Solicitacoes));
         }
 
+        [HttpGet("admin/avaliacoes")]
+        public IActionResult Avaliacoes(string filtro = "pendente")
+        {
+            var query = _context.Avaliacoes.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro) && filtro.ToLower() != "todas")
+            {
+                query = query.Where(a => a.Status != null && a.Status.ToLower() == filtro.ToLower());
+            }
+
+            var lista = query
+                .OrderByDescending(a => a.DataCriacao)
+                .ToList();
+
+            ViewBag.FiltroAtual = filtro;
+            return View(lista);
+        }
+
+        [HttpPost("admin/avaliacoes/{id}/aprovar")]
+        [ValidateAntiForgeryToken]
+        public IActionResult AprovarAvaliacao(int id)
+        {
+            var avaliacao = _context.Avaliacoes.FirstOrDefault(a => a.Id == id);
+
+            if (avaliacao == null)
+            {
+                return NotFound();
+            }
+
+            avaliacao.Status = "aprovada";
+            _context.SaveChanges();
+
+            TempData["AdminMensagem"] = $"Avaliação #{id} aprovada com sucesso.";
+            return RedirectToAction(nameof(Avaliacoes));
+        }
+
+        [HttpPost("admin/avaliacoes/{id}/recusar")]
+        [ValidateAntiForgeryToken]
+        public IActionResult RecusarAvaliacao(int id)
+        {
+            var avaliacao = _context.Avaliacoes.FirstOrDefault(a => a.Id == id);
+
+            if (avaliacao == null)
+            {
+                return NotFound();
+            }
+
+            avaliacao.Status = "recusada";
+            _context.SaveChanges();
+
+            TempData["AdminMensagem"] = $"Avaliação #{id} recusada com sucesso.";
+            return RedirectToAction(nameof(Avaliacoes));
+        }
+
+        [HttpPost("admin/avaliacoes/{id}/excluir")]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExcluirAvaliacao(int id)
+        {
+            var avaliacao = _context.Avaliacoes.FirstOrDefault(a => a.Id == id);
+
+            if (avaliacao == null)
+            {
+                return NotFound();
+            }
+
+            _context.Avaliacoes.Remove(avaliacao);
+            _context.SaveChanges();
+
+            TempData["AdminMensagem"] = $"Avaliação #{id} excluída com sucesso.";
+            return RedirectToAction(nameof(Avaliacoes));
+        }
+
+
+
         [HttpGet("admin/solicitacoes/{id}/whatsapp")]
         public IActionResult EnviarWhatsapp(int id)
         {
@@ -161,6 +261,8 @@ namespace StarGuinchos.Controllers
             string url = $"https://wa.me/?text={mensagemCodificada}";
 
             return Redirect(url);
+
+
 
 
         }

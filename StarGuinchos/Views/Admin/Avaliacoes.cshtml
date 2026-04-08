@@ -1,0 +1,207 @@
+﻿@model IEnumerable<StarGuinchos.Models.Avaliacao>
+
+@{
+    ViewData["Title"] = "Avaliações";
+    string filtroAtual = ViewBag.FiltroAtual as string ?? "pendente";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+<section class="admin-shell">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__eyebrow">StarGuinchos</span>
+            <h1 class="admin-sidebar__title">Admin</h1>
+            <p class="admin-sidebar__text">Painel operacional</p>
+        </div>
+
+        <nav class="admin-sidebar__nav">
+            <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link">
+                Dashboard
+            </a>
+
+            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link">
+                Solicitações
+            </a>
+
+            <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link active">
+                Avaliações
+            </a>
+        </nav>
+    </aside>
+
+    <main class="admin-main">
+        <header class="admin-header">
+            <div>
+                <span class="admin-header__eyebrow">Reputação e moderação</span>
+                <h2 class="admin-header__title">Avaliações de clientes</h2>
+                <p class="admin-header__text">
+                    Aprove, recuse ou exclua avaliações enviadas. Apenas avaliações aprovadas e autorizadas
+                    devem aparecer no site.
+                </p>
+            </div>
+
+            <div class="admin-header__actions">
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-light">
+                    Voltar ao dashboard
+                </a>
+            </div>
+        </header>
+
+        <section class="admin-panel admin-panel--filters">
+            <div class="admin-panel__header">
+                <h3 class="admin-panel__title">Filtros de moderação</h3>
+            </div>
+
+            <div class="admin-filter-chips">
+                <a asp-controller="Admin"
+                       asp-action="Avaliacoes"
+                       asp-route-filtro="pendente"
+                       class="admin-filter-chip @(filtroAtual == "pendente" ? "admin-filter-chip--active" : "")">
+                    Pendentes
+                </a>
+
+                <a asp-controller="Admin"
+                       asp-action="Avaliacoes"
+                       asp-route-filtro="aprovada"
+                       class="admin-filter-chip @(filtroAtual == "aprovada" ? "admin-filter-chip--active" : "")">
+                    Aprovadas
+                </a>
+
+                <a asp-controller="Admin"
+                       asp-action="Avaliacoes"
+                       asp-route-filtro="recusada"
+                       class="admin-filter-chip @(filtroAtual == "recusada" ? "admin-filter-chip--active" : "")">
+                    Recusadas
+                </a>
+
+                <a asp-controller="Admin"
+                       asp-action="Avaliacoes"
+                       asp-route-filtro="todas"
+                       class="admin-filter-chip @(filtroAtual == "todas" ? "admin-filter-chip--active" : "")">
+                    Todas
+                </a>
+            </div>
+        </section>
+
+        <section class="admin-panel">
+            <div class="admin-panel__header">
+                <h3 class="admin-panel__title">Lista de avaliações</h3>
+                <span class="admin-panel__count">@Model.Count() registro(s)</span>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="admin-reviews-grid">
+                    @foreach (var avaliacao in Model)
+                    {
+                        <article class="admin-review-manage-card">
+                            <div class="admin-review-manage-card__top">
+                                <div>
+                                    <strong class="admin-review-manage-card__name">@avaliacao.Nome</strong>
+                                    <div class="admin-review-manage-card__meta">
+                                        <span>@avaliacao.Telefone</span>
+
+                                        @if (!string.IsNullOrWhiteSpace(avaliacao.Cidade))
+                                        {
+                                            <span>@avaliacao.Cidade</span>
+                                        }
+                                    </div>
+                                </div>
+
+                                <span class="admin-status-badge @GetReviewStatusClass(avaliacao.Status)">
+                                    @avaliacao.Status
+                                </span>
+                            </div>
+
+                            <div class="admin-review-manage-card__stars">
+                                @for (int i = 0; i < avaliacao.Nota; i++)
+                                {
+                                    <span>★</span>
+                                }
+                            </div>
+
+                            <p class="admin-review-manage-card__comment">
+                                @avaliacao.Comentario
+                            </p>
+
+                            <div class="admin-review-manage-card__info">
+                                <span>
+                                    <strong>Autorizou publicação:</strong>
+                                    @(avaliacao.AutorizadoPublicacao ? "Sim" : "Não")
+                                </span>
+
+                                <span>
+                                    <strong>Data:</strong>
+                                    @avaliacao.DataCriacao.ToString("dd/MM/yyyy HH:mm")
+                                </span>
+                            </div>
+
+                            <div class="admin-review-manage-card__actions">
+                                @if (avaliacao.Status != "aprovada")
+                                {
+                                    <form asp-controller="Admin"
+                                          asp-action="AprovarAvaliacao"
+                                          method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@avaliacao.Id" />
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            Aprovar
+                                        </button>
+                                    </form>
+                                }
+
+                                @if (avaliacao.Status != "recusada")
+                                {
+                                    <form asp-controller="Admin"
+                                          asp-action="RecusarAvaliacao"
+                                          method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@avaliacao.Id" />
+                                        <button type="submit" class="btn btn-warning btn-sm">
+                                            Recusar
+                                        </button>
+                                    </form>
+                                }
+
+                                <form asp-controller="Admin"
+                                      asp-action="ExcluirAvaliacao"
+                                      method="post"
+                                      onsubmit="return confirm('Deseja realmente excluir esta avaliação?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@avaliacao.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="admin-empty-state">
+                    <h3>Nenhuma avaliação encontrada</h3>
+                    <p>Não há avaliações para o filtro selecionado.</p>
+                </div>
+            }
+        </section>
+    </main>
+</section>
+
+@functions {
+    public string GetReviewStatusClass(string? status)
+    {
+        if (string.IsNullOrWhiteSpace(status))
+            return "admin-status-badge--novo";
+
+        return status.ToLower() switch
+        {
+            "pendente" => "admin-status-badge--andamento",
+            "aprovada" => "admin-status-badge--concluido",
+            "recusada" => "admin-status-badge--cancelado",
+            _ => "admin-status-badge--novo"
+        };
+    }
+}

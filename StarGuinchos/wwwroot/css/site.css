@@ -596,3 +596,20 @@ main {
             font-size: 0.96rem;
         }
 }
+
+/* =========================================
+   SELECTS — CORREÇÃO GLOBAL DE OPTIONS
+========================================= */
+select,
+option {
+    color: #f8fafc;
+}
+
+select {
+    background-color: #0b0d12;
+}
+
+option {
+    background-color: #0b0d12;
+    color: #f8fafc;
+}

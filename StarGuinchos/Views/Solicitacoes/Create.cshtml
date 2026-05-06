@@ -1,69 +1,179 @@
 ﻿@model StarGuinchos.Models.Solicitacao
 
-<h2>Solicitar Guincho</h2>
-
-<form asp-action="Create" method="post" id="solicitacaoForm">
-    @Html.AntiForgeryToken()
-
-    <label>Nome</label>
-    <input asp-for="Nome" class="form-control" />
-
-    <label>Telefone</label>
-    <input asp-for="Telefone" class="form-control" id="telefone" />
-    <span class="field-error" id="telefoneErro"></span>
-
-    <label>Veículo</label>
-    <input asp-for="Veiculo" class="form-control" />
-
-    <label>Problema</label>
-    <input asp-for="Problema" class="form-control" />
-
-    <div class="form-group location-group">
-        <label asp-for="Ponto_partida">Ponto de partida</label>
-
-        <div class="location-input-wrapper">
-            <input asp-for="Ponto_partida"
-                   class="form-control"
-                   id="pontoPartida"
-                   autocomplete="off"
-                   placeholder="Digite o local de saída" />
-
-            <button type="button" id="usarLocalAtual" class="btn-localizacao">
-                Usar localização atual
-            </button>
-        </div>
-
-        <span class="field-error" id="pontoPartidaErro"></span>
-        <div id="pontoPartidaSuggestions" class="autocomplete-list"></div>
-
-        <input type="hidden" id="pontoPartidaLat" name="PontoPartidaLat" />
-        <input type="hidden" id="pontoPartidaLng" name="PontoPartidaLng" />
-    </div>
-
-    <div class="form-group location-group">
-        <label asp-for="Destino">Destino</label>
-
-        <div class="location-input-wrapper">
-            <input asp-for="Destino"
-                   class="form-control"
-                   id="destino"
-                   autocomplete="off"
-                   placeholder="Digite o destino" />
-        </div>
-
-        <span class="field-error" id="destinoErro"></span>
-        <div id="destinoSuggestions" class="autocomplete-list"></div>
-
-        <input type="hidden" id="destinoLat" name="DestinoLat" />
-        <input type="hidden" id="destinoLng" name="DestinoLng" />
-    </div>
-
-    <button type="submit" id="btnSolicitar">Solicitar</button>
-</form>
+@{
+    ViewData["Title"] = "Solicitar Guincho";
+}
 
 @section Styles {
     <link rel="stylesheet" href="~/css/solicitacao.css" asp-append-version="true" />
 }
+
+<main class="request-page">
+    <section class="request-hero">
+        <div class="container">
+            <div class="request-hero__card">
+                <span class="request-hero__eyebrow">Solicitação de guincho</span>
+
+                <h1 class="request-hero__title">
+                    Precisa de atendimento?
+                </h1>
+
+                <p class="request-hero__text">
+                    Preencha os dados para enviar uma solicitação organizada ou pule o formulário se precisar falar com a equipe agora.
+                </p>
+
+                <form asp-controller="Solicitacoes" asp-action="Rapido" method="post" class="request-fast-form">
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="request-fast-button">
+                        <span>Preciso ser rápido</span>
+                        <strong>Chamar guincho agora</strong>
+                        <small>Pular formulário e abrir WhatsApp</small>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="request-form-section">
+        <div class="container">
+            <form asp-action="Create" method="post" id="solicitacaoForm" class="request-form">
+                @Html.AntiForgeryToken()
+
+                <div class="request-form__header">
+                    <span class="request-form__eyebrow">Dados do atendimento</span>
+                    <h2>Solicitar pelo formulário</h2>
+                    <p>
+                        Informe o básico para que a equipe entenda sua situação e receba tudo pronto no WhatsApp.
+                    </p>
+                </div>
+
+                <div class="request-form__grid">
+                    <div class="request-form__group">
+                        <label asp-for="Nome">Nome</label>
+                        <input asp-for="Nome"
+                               class="request-form__control"
+                               placeholder="Seu nome" />
+                    </div>
+
+                    <div class="request-form__group">
+                        <label asp-for="Telefone">Telefone</label>
+                        <input asp-for="Telefone"
+                               class="request-form__control"
+                               id="telefone"
+                               placeholder="(11) 99999-9999" />
+                        <span class="field-error" id="telefoneErro"></span>
+                    </div>
+                </div>
+
+                <div class="request-form__grid">
+                    <div class="request-form__group">
+                        <label asp-for="Veiculo">Tipo de veículo</label>
+                        <select asp-for="Veiculo" class="request-form__control" id="veiculo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="Carro de passeio">Carro de passeio</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Utilitário">Utilitário</option>
+                            <option value="Caminhonete">Caminhonete</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Van">Van</option>
+                            <option value="Caminhão leve">Caminhão leve</option>
+                            <option value="Caminhão pesado">Caminhão pesado</option>
+                            <option value="Trator / máquina agrícola">Trator / máquina agrícola</option>
+                            <option value="Máquina pesada">Máquina pesada</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                        <span class="field-error" id="veiculoErro"></span>
+                    </div>
+
+                    <div class="request-form__group">
+                        <label asp-for="Problema">Tipo de problema</label>
+                        <select asp-for="Problema" class="request-form__control" id="problema">
+                            <option value="">Selecione uma opção</option>
+                            <option value="Pane mecânica">Pane mecânica</option>
+                            <option value="Pane elétrica">Pane elétrica</option>
+                            <option value="Batida / colisão">Batida / colisão</option>
+                            <option value="Atolamento">Atolamento</option>
+                            <option value="Pneu furado">Pneu furado</option>
+                            <option value="Pane seca">Pane seca</option>
+                            <option value="Veículo não liga">Veículo não liga</option>
+                            <option value="Transporte agendado">Transporte agendado</option>
+                            <option value="Remoção de veículo">Remoção de veículo</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                        <span class="field-error" id="problemaErro"></span>
+                    </div>
+                </div>
+
+                <div class="request-form__group location-group">
+                    <label asp-for="Ponto_partida">Ponto de partida</label>
+
+                    <div class="request-form__cep-row">
+                        <input type="text"
+                               class="request-form__control"
+                               id="cepOrigem"
+                               placeholder="CEP de origem, se souber" />
+
+                        <button type="button" class="request-form__small-button" id="buscarCepOrigem">
+                            Buscar CEP
+                        </button>
+                    </div>
+
+                    <div class="location-input-wrapper">
+                        <input asp-for="Ponto_partida"
+                               class="request-form__control"
+                               id="pontoPartida"
+                               autocomplete="off"
+                               placeholder="Digite o endereço de saída" />
+
+                        <button type="button" id="usarLocalAtual" class="btn-localizacao">
+                            Usar localização atual
+                        </button>
+                    </div>
+
+                    <span class="field-error" id="pontoPartidaErro"></span>
+                    <div id="pontoPartidaSuggestions" class="autocomplete-list"></div>
+
+                    <input type="hidden" id="pontoPartidaLat" name="PontoPartidaLat" />
+                    <input type="hidden" id="pontoPartidaLng" name="PontoPartidaLng" />
+                </div>
+
+                <div class="request-form__group location-group">
+                    <label asp-for="Destino">Destino</label>
+
+                    <div class="request-form__cep-row">
+                        <input type="text"
+                               class="request-form__control"
+                               id="cepDestino"
+                               placeholder="CEP do destino, se souber" />
+
+                        <button type="button" class="request-form__small-button" id="buscarCepDestino">
+                            Buscar CEP
+                        </button>
+                    </div>
+
+                    <div class="location-input-wrapper">
+                        <input asp-for="Destino"
+                               class="request-form__control"
+                               id="destino"
+                               autocomplete="off"
+                               placeholder="Digite o destino" />
+                    </div>
+
+                    <span class="field-error" id="destinoErro"></span>
+                    <div id="destinoSuggestions" class="autocomplete-list"></div>
+
+                    <input type="hidden" id="destinoLat" name="DestinoLat" />
+                    <input type="hidden" id="destinoLng" name="DestinoLng" />
+                </div>
+
+                <button type="submit" id="btnSolicitar" class="request-submit-button">
+                    Salvar solicitação e chamar no WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
 
 @section Scripts {
     <script src="~/js/solicitacao.js" asp-append-version="true"></script>

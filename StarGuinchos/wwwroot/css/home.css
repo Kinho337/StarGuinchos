@@ -431,53 +431,128 @@
         background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.12), transparent 28%), linear-gradient(180deg, rgba(10, 17, 35, 0.92), rgba(5, 10, 22, 0.98));
         border: 1px dashed rgba(203, 213, 245, 0.18);
     }
-    /* =========================
+/* =========================
    NOSSOS ATENDIMENTOS
 ========================= */
-    .home-services-gallery {
-        padding: 88px 0;
-    }
+.home-services-gallery {
+    padding: 88px 0;
+}
 
-    .home-services-gallery__carousel {
-        display: grid;
-        grid-template-columns: 52px minmax(0, 1fr) 52px;
-        align-items: center;
-        gap: 18px;
-    }
+.home-services-gallery__carousel {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 18px;
+}
 
-    .home-services-gallery__viewport {
-        overflow: hidden;
+.home-services-gallery__viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.home-services-gallery__track {
+    display: flex;
+    gap: 18px;
+    transition: transform 0.35s ease;
+    will-change: transform;
+}
+
+.home-services-gallery__item {
+    position: relative;
+    flex: 0 0 calc((100% - 36px) / 3);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 26px;
+    background: rgba(1, 4, 15, 0.84);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+}
+
+.home-services-gallery__link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.home-services-gallery__image-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #020617;
+}
+
+    .home-services-gallery__image-wrap img {
         width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transform-origin: center center;
+        transition: filter 0.25s ease;
     }
 
-    .home-services-gallery__track {
-        display: flex;
-        gap: 18px;
-        transition: transform 0.35s ease;
-        will-change: transform;
+.home-services-gallery__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    min-height: 42%;
+    padding: 72px 18px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient( to top, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0) 100% );
+    pointer-events: none;
+}
+
+    .home-services-gallery__overlay small {
+        display: block;
+        margin-bottom: 6px;
+        color: #eed4a5;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
     }
 
-    .home-services-gallery__item {
-        flex: 0 0 calc((100% - 36px) / 3);
-        overflow: hidden;
-        border-radius: 26px;
-        background: rgba(8, 14, 30, 0.92);
-        border: 1px solid rgba(203, 213, 245, 0.10);
-        aspect-ratio: 0.92 / 1;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+    .home-services-gallery__overlay strong {
+        display: block;
+        color: #ffffff;
+        font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+        font-weight: 900;
+        line-height: 1.25;
+        text-shadow: 0 8px 18px rgba(0, 0, 0, 0.65);
     }
 
-        .home-services-gallery__item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.home-services-gallery__link:hover .home-services-gallery__image-wrap img {
+    filter: brightness(0.86);
+}
 
-    .home-services-gallery__footer {
-        margin-top: 34px;
-        display: flex;
-        justify-content: center;
+.home-services-gallery__empty {
+    margin-top: 34px;
+    padding: 28px;
+    border-radius: 24px;
+    background: rgba(1, 4, 15, 0.76);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+    text-align: center;
+}
+
+    .home-services-gallery__empty p {
+        margin: 0;
+        color: #cbd5f5;
     }
+
+.home-services-gallery__footer {
+    margin-top: 34px;
+    display: flex;
+    justify-content: center;
+}
     /* =========================
    SOBRE NÓS
 ========================= */
@@ -815,6 +890,11 @@
             aspect-ratio: 1 / 1;
         }
 
+        .home-services-gallery__overlay {
+            min-height: 46%;
+            padding: 70px 16px 22px;
+        }
+
         .home-services-gallery .home-carousel__arrow,
         .home-reviews .home-carousel__arrow {
             width: 42px;
@@ -919,3 +999,4 @@
         color: #cbd5f5;
         line-height: 1.8;
     }
+

@@ -205,6 +205,19 @@ main {
         color: #ffffff;
     }
 
+.site-header__link--highlight {
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    background: rgba(203, 213, 245, 0.12);
+    border: 1px solid rgba(203, 213, 245, 0.22);
+    box-shadow: 0 0 18px rgba(37, 99, 235, 0.18);
+}
+
+    .site-header__link--highlight:hover {
+        background: rgba(203, 213, 245, 0.18);
+        border-color: rgba(203, 213, 245, 0.35);
+    }
+
 /* =========================
    RESPONSIVO
 ========================= */
@@ -612,4 +625,402 @@ select {
 option {
     background-color: #0b0d12;
     color: #f8fafc;
+}
+
+.site-footer__social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.site-footer__instagram-icon,
+.site-footer__whatsapp-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+    .site-footer__instagram-icon svg,
+    .site-footer__whatsapp-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        fill: currentColor;
+    }
+/* =========================
+   FOOTER SIMPLIFICADO - PUBLICAÇÃO
+========================= */
+
+.site-footer {
+    background: rgba(1, 4, 15, 0.86);
+    border-top: 1px solid rgba(203, 213, 245, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.site-footer__container {
+    min-height: 126px;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.site-footer__brand-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.site-footer__brand {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.site-footer__logo {
+    width: min(260px, 42vw);
+    max-width: 260px;
+    height: auto;
+    display: block;
+}
+
+.site-footer__copyright {
+    margin: 0;
+    color: #cbd5f5;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.site-footer__links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+    .site-footer__links a {
+        color: #cbd5f5;
+        font-size: 0.92rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+        .site-footer__links a:hover {
+            color: #ffffff;
+            opacity: 0.92;
+        }
+
+.site-footer__text,
+.site-footer__title,
+.site-footer__list,
+.site-footer__column,
+.site-footer__bottom,
+.site-footer__bottom-container {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .site-footer__container {
+        min-height: auto;
+        padding: 24px 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 18px;
+    }
+
+    .site-footer__brand-area {
+        align-items: center;
+    }
+
+    .site-footer__logo {
+        width: min(220px, 70vw);
+    }
+
+    .site-footer__copyright {
+        font-size: 0.72rem;
+        line-height: 1.5;
+    }
+
+    .site-footer__links {
+        justify-content: center;
+        gap: 14px 18px;
+    }
+
+        .site-footer__links a {
+            font-size: 0.86rem;
+        }
+}
+
+/* =========================
+   ADMIN - ATENDIMENTOS
+========================= */
+
+.admin-page {
+    padding: clamp(110px, 12vw, 150px) 0 clamp(70px, 8vw, 110px);
+    min-height: 100vh;
+}
+
+.admin-page__header {
+    margin-bottom: 34px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.admin-page__header--simple {
+    align-items: flex-start;
+}
+
+.admin-page__eyebrow {
+    display: inline-flex;
+    margin-bottom: 12px;
+    color: #eed4a5;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.admin-page__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+}
+
+.admin-page__text {
+    max-width: 680px;
+    margin: 14px 0 0;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.admin-alert {
+    margin-bottom: 24px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-weight: 700;
+}
+
+.admin-alert--success {
+    color: #d1fae5;
+    background: rgba(22, 163, 74, 0.14);
+    border: 1px solid rgba(22, 163, 74, 0.28);
+}
+
+.admin-empty {
+    padding: 34px;
+    border-radius: 24px;
+    background: rgba(1, 4, 15, 0.82);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+}
+
+    .admin-empty h2 {
+        margin: 0 0 8px;
+        color: #ffffff;
+        font-size: 1.4rem;
+        font-weight: 800;
+    }
+
+    .admin-empty p {
+        margin: 0;
+        color: #cbd5f5;
+    }
+
+.admin-attendance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.admin-attendance-card {
+    overflow: hidden;
+    border-radius: 24px;
+    background: rgba(1, 4, 15, 0.84);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+}
+
+.admin-attendance-card__image-wrap {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #020617;
+}
+
+.admin-attendance-card__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transform-origin: center center;
+}
+
+.admin-attendance-card__content {
+    padding: 20px;
+}
+
+.admin-attendance-card__category {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: #eed4a5;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.admin-attendance-card__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.admin-attendance-card__description {
+    margin: 10px 0 14px;
+    color: #cbd5f5;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.admin-attendance-card__date {
+    color: rgba(203, 213, 245, 0.7);
+    font-size: 0.78rem;
+}
+
+.admin-form {
+    max-width: 820px;
+    padding: clamp(24px, 4vw, 38px);
+    border-radius: 28px;
+    background: rgba(1, 4, 15, 0.84);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+}
+
+.admin-form__group {
+    margin-bottom: 22px;
+}
+
+    .admin-form__group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ffffff;
+        font-size: 0.92rem;
+        font-weight: 800;
+    }
+
+.admin-form__control {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(203, 213, 245, 0.16);
+    background: rgba(2, 6, 23, 0.82);
+    color: #ffffff;
+    outline: none;
+}
+
+    .admin-form__control::placeholder {
+        color: rgba(203, 213, 245, 0.48);
+    }
+
+    .admin-form__control:focus {
+        border-color: rgba(238, 212, 165, 0.42);
+        box-shadow: 0 0 0 4px rgba(238, 212, 165, 0.08);
+    }
+
+.admin-form__textarea {
+    resize: vertical;
+}
+
+.admin-form__actions {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+    .admin-page__header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-attendance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .admin-attendance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-form__actions .btn-primary-orange,
+    .admin-form__actions .btn-secondary-dark {
+        width: 100%;
+    }
+}
+
+/* =========================
+   ADMIN - AJUSTE DE ENQUADRAMENTO
+========================= */
+
+.admin-crop-preview {
+    position: relative;
+    width: min(360px, 100%);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 22px;
+    background: rgba(2, 6, 23, 0.88);
+    border: 1px dashed rgba(203, 213, 245, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .admin-crop-preview img {
+        width: 100%;
+        height: 100%;
+        display: none;
+        object-fit: cover;
+        object-position: center center;
+        transform: translate(0%, 0%) scale(1);
+        transform-origin: center center;
+        transition: transform 0.12s ease;
+    }
+
+    .admin-crop-preview span {
+        max-width: 240px;
+        padding: 18px;
+        color: rgba(203, 213, 245, 0.68);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+.admin-form__range {
+    width: 100%;
+    accent-color: #eed4a5;
+}
+
+.admin-form__hint {
+    display: block;
+    margin-top: 8px;
+    color: rgba(203, 213, 245, 0.68);
+    font-size: 0.78rem;
 }

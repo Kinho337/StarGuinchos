@@ -12,6 +12,8 @@ namespace StarGuinchos.Data
 
         public DbSet<Solicitacao> Solicitacoes { get; set; }
         public DbSet<Avaliacao> Avaliacoes { get; set; }
+
+        public DbSet<Atendimento> Atendimentos { get; set; }
     }
 }
 

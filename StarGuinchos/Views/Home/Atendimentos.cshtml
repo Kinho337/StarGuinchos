@@ -1,174 +1,278 @@
-﻿@{
+﻿@model IEnumerable<StarGuinchos.Models.Atendimento>
+@using System.Globalization
+
+@{
     ViewData["Title"] = "Atendimentos";
+
+    var atendimentos = Model?.ToList() ?? new List<StarGuinchos.Models.Atendimento>();
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/atendimentos.css" asp-append-version="true" />
 }
 
-<main class="attendance-page">
+<main class="sg-feed-page">
 
-    <!-- HERO -->
-    <section class="attendance-hero">
-        <div class="attendance-hero__background"></div>
+    <!-- CABEÇALHO -->
+    <section class="sg-feed-header">
+        <div class="container">
+            <div class="sg-feed-header__card">
+                <div class="sg-feed-header__avatar">
+                    <img src="~/images/logo/logo-footer.png" alt="StarGuinchos" />
+                </div>
 
-        <div class="container attendance-hero__container">
-            <div class="attendance-hero__content">
-                <span class="attendance-hero__badge">Registros reais</span>
+                <div class="sg-feed-header__content">
+                    <div class="sg-feed-header__top">
+                        <div>
+                            <span class="sg-feed-header__handle">@@starguinchos.oficial</span>
+                            <h1 class="sg-feed-header__title">Feed de atendimentos</h1>
+                        </div>
 
-                <h1 class="attendance-hero__title">Nossos atendimentos</h1>
+                        <div class="sg-feed-header__actions">
+                            <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                                Solicitar guincho
+                            </a>
 
-                <p class="attendance-hero__text">
-                    Confira alguns registros reais dos serviços prestados pela StarGuinchos.
-                    Uma visão mais próxima da nossa atuação, experiência e rotina de atendimento.
-                </p>
+                            <a href="https://wa.me/5511946999701"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="btn-secondary-dark">
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="attendance-hero__actions">
-                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
-                        Solicitar atendimento
-                    </a>
+                    <p class="sg-feed-header__text">
+                        Confira registros reais dos serviços realizados pela StarGuinchos. Clique em uma publicação para ver a foto ampliada, a descrição do serviço e os detalhes do atendimento.
+                    </p>
 
-                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
-                        Entrar em contato
-                    </a>
+                    <div class="sg-feed-header__stats">
+                        <div class="sg-feed-header__stat">
+                            <strong>@atendimentos.Count</strong>
+                            <span>publicações</span>
+                        </div>
+
+                        <div class="sg-feed-header__stat">
+                            <strong>24h</strong>
+                            <span>atendimento</span>
+                        </div>
+
+                       
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- INTRO -->
-    <section class="attendance-intro">
+    <!-- BARRA DO FEED -->
+    <section class="sg-feed-tabs">
         <div class="container">
-            <div class="attendance-section-heading">
-                <span class="attendance-section-heading__eyebrow">Galeria</span>
-                <h2 class="attendance-section-heading__title">Atuação real, registrada no dia a dia</h2>
-                <p class="attendance-section-heading__text">
-                    Aqui você encontra imagens de atendimentos realizados pela StarGuinchos,
-                    mostrando diferentes contextos, horários e tipos de serviço.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEED ESTILO INSTAGRAM -->
-    <section class="attendance-feed">
-        <div class="container">
-            <div class="attendance-feed__grid">
-                <article class="attendance-post attendance-post--large">
-                    <img src="~/images/atendimentos/atendimento-01.jpg" alt="Atendimento StarGuinchos 1" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Atendimento urbano</span>
-                        <h3 class="attendance-post__title">Serviço realizado com agilidade e segurança</h3>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-02.jpg" alt="Atendimento StarGuinchos 2" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Remoção</span>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-03.jpg" alt="Atendimento StarGuinchos 3" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Operação real</span>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-04.jpg" alt="Atendimento StarGuinchos 4" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Transporte</span>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-05.jpg" alt="Atendimento StarGuinchos 5" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Atendimento noturno</span>
-                    </div>
-                </article>
-
-                <article class="attendance-post attendance-post--wide">
-                    <img src="~/images/atendimentos/atendimento-06.jpg" alt="Atendimento StarGuinchos 6" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Registro de serviço</span>
-                        <h3 class="attendance-post__title">Experiência prática em diferentes cenários de atendimento</h3>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-07.jpg" alt="Atendimento StarGuinchos 7" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Viagem</span>
-                    </div>
-                </article>
-
-                <article class="attendance-post">
-                    <img src="~/images/atendimentos/atendimento-08.jpg" alt="Atendimento StarGuinchos 8" />
-                    <div class="attendance-post__overlay">
-                        <span class="attendance-post__tag">Guincho 24h</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- BLOCOS EXPLICATIVOS -->
-    <section class="attendance-highlights">
-        <div class="container">
-            <div class="attendance-section-heading">
-                <span class="attendance-section-heading__eyebrow">Experiência</span>
-                <h2 class="attendance-section-heading__title">Cada imagem reforça nossa atuação no ramo</h2>
-            </div>
-
-            <div class="attendance-highlights__grid">
-                <article class="attendance-highlight">
-                    <h3 class="attendance-highlight__title">Atendimentos reais</h3>
-                    <p class="attendance-highlight__text">
-                        As imagens mostram parte da rotina de serviços já realizados pela StarGuinchos.
-                    </p>
-                </article>
-
-                <article class="attendance-highlight">
-                    <h3 class="attendance-highlight__title">Diferentes contextos</h3>
-                    <p class="attendance-highlight__text">
-                        Registros de operações urbanas, rodoviárias, noturnas e deslocamentos mais longos.
-                    </p>
-                </article>
-
-                <article class="attendance-highlight">
-                    <h3 class="attendance-highlight__title">Confiança visual</h3>
-                    <p class="attendance-highlight__text">
-                        Uma forma de mostrar ao cliente que a empresa atua de verdade e possui experiência prática.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="attendance-cta">
-        <div class="container">
-            <div class="attendance-cta__card">
-                <h2 class="attendance-cta__title">Precisa de um atendimento como esses?</h2>
-
-                <p class="attendance-cta__text">
-                    Envie sua solicitação e permita que nossa equipe analise o serviço para seguir com o suporte necessário.
-                </p>
-
-                <div class="attendance-cta__actions">
-                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
-                        Solicitar atendimento
-                    </a>
+            <div class="sg-feed-tabs__inner">
+                <div class="sg-feed-tabs__item sg-feed-tabs__item--active">
+                    <span class="sg-feed-tabs__icon">▦</span>
+                    <span>Publicações</span>
                 </div>
-
-                <p class="attendance-cta__contact">
-                    A StarGuinchos atua com agilidade, experiência e atenção em cada atendimento.
-                </p>
             </div>
         </div>
     </section>
 
+    <!-- GRADE -->
+    <section class="sg-feed-grid-section">
+        <div class="container">
+            @if (atendimentos.Any())
+            {
+                <div class="sg-feed-grid">
+                    @foreach (var atendimento in atendimentos)
+                    {
+                        var zoom = atendimento.Zoom <= 0 ? 1.00m : atendimento.Zoom;
+                        var zoomTexto = zoom.ToString(CultureInfo.InvariantCulture);
+
+                        var intensidade = ((double)zoom - 1) * 35;
+                        var translateX = ((50 - atendimento.PosicaoX) / 50.0) * intensidade;
+                        var translateY = ((50 - atendimento.PosicaoY) / 50.0) * intensidade;
+
+                        var translateXTexto = translateX.ToString(CultureInfo.InvariantCulture);
+                        var translateYTexto = translateY.ToString(CultureInfo.InvariantCulture);
+
+                        var transformImagem = $"translate({translateXTexto}%, {translateYTexto}%) scale({zoomTexto})";
+
+                        var descricaoCurta = atendimento.Descricao ?? "";
+                        if (descricaoCurta.Length > 95)
+                        {
+                            descricaoCurta = descricaoCurta.Substring(0, 95) + "...";
+                        }
+
+                        <button type="button"
+                                class="sg-feed-post"
+                                data-bs-toggle="modal"
+                                data-bs-target="#sgFeedModal"
+                                data-image="@atendimento.ImagemUrl"
+                                data-title="@atendimento.Titulo"
+                                data-category="@atendimento.Categoria"
+                                data-description="@atendimento.Descricao"
+                                data-date="@atendimento.DataCadastro.ToString("dd/MM/yyyy")"
+                                data-transform="@transformImagem"
+                                aria-label="Abrir publicação @atendimento.Titulo">
+
+                            <img src="@atendimento.ImagemUrl"
+                                 alt="@atendimento.Titulo"
+                                 class="sg-feed-post__image"
+                                 style="transform: @transformImagem;" />
+
+                            <span class="sg-feed-post__overlay"></span>
+
+                            <span class="sg-feed-post__content">
+                                <small>@atendimento.Categoria</small>
+                                <strong>@atendimento.Titulo</strong>
+                                <em>@descricaoCurta</em>
+                            </span>
+
+                            <span class="sg-feed-post__expand" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7Zm1.5 10.5h7v2h-7v-2Zm0-4h7v2h-7v-2Zm0-4h7v2h-7v-2Z" />
+                                </svg>
+                            </span>
+                        </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="sg-feed-empty">
+                    <span class="sg-feed-empty__icon">+</span>
+                    <h2>Nenhum atendimento cadastrado ainda</h2>
+                    <p>
+                        As fotos cadastradas pela área administrativa aparecerão aqui automaticamente em formato de feed.
+                    </p>
+                </div>
+            }
+        </div>
+    </section>
 </main>
+
+<!-- CHAMADA PARA REDES SOCIAIS -->
+<section class="sg-feed-social">
+    <div class="container">
+        <div class="sg-feed-social__card">
+            <div class="sg-feed-social__content">
+                <span class="sg-feed-social__eyebrow">Redes sociais</span>
+
+                <h2 class="sg-feed-social__title">
+                    Veja mais nas nossas redes sociais
+                </h2>
+
+                <p class="sg-feed-social__text">
+                    Acompanhe outros registros, bastidores e atendimentos reais no Instagram oficial da StarGuinchos.
+                </p>
+            </div>
+
+            <a href="https://www.instagram.com/starguinchos.oficial/?utm_source=ig_web_button_share_sheet"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="sg-feed-social__button"
+                   aria-label="Acessar Instagram oficial da StarGuinchos">
+                <span class="sg-feed-social__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4A5.8 5.8 0 0 1 16.2 22H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3.4A4.6 4.6 0 1 1 7.4 12 4.6 4.6 0 0 1 12 7.4Zm0 2A2.6 2.6 0 1 0 14.6 12 2.6 2.6 0 0 0 12 9.4ZM17.3 6.7a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1Z" />
+                    </svg>
+                </span>
+
+                Instagram oficial
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal fade sg-feed-modal" id="sgFeedModal" tabindex="-1" aria-labelledby="sgFeedModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content sg-feed-modal__content">
+            <button type="button" class="sg-feed-modal__close" data-bs-dismiss="modal" aria-label="Fechar">
+                ×
+            </button>
+
+            <div class="sg-feed-modal__grid">
+                <div class="sg-feed-modal__image-panel">
+                    <img id="sgFeedModalImage" src="" alt="" class="sg-feed-modal__image" />
+                </div>
+
+                <div class="sg-feed-modal__info-panel">
+                    <div class="sg-feed-modal__brand">
+                        <div class="sg-feed-modal__brand-logo">
+                            <img src="~/images/logo/logo-footer.png" alt="StarGuinchos" />
+                        </div>
+
+                        <div class="sg-feed-modal__brand-text">
+                            <strong>StarGuinchos</strong>
+                            <span>@@starguinchos.oficial</span>
+                        </div>
+                    </div>
+
+                    <div class="sg-feed-modal__body">
+                        <span id="sgFeedModalCategory" class="sg-feed-modal__category"></span>
+                        <h2 id="sgFeedModalTitle" class="sg-feed-modal__title"></h2>
+                        <p id="sgFeedModalDescription" class="sg-feed-modal__description"></p>
+                        <span id="sgFeedModalDate" class="sg-feed-modal__date"></span>
+                    </div>
+
+                    <div class="sg-feed-modal__actions">
+                        <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                            Solicitar guincho
+                        </a>
+
+                        <a href="https://wa.me/5511946999701"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-secondary-dark">
+                            Chamar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('sgFeedModal');
+
+            if (!modal) return;
+
+            modal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                if (!button) return;
+
+                const image = button.getAttribute('data-image');
+                const title = button.getAttribute('data-title');
+                const category = button.getAttribute('data-category');
+                const description = button.getAttribute('data-description');
+                const date = button.getAttribute('data-date');
+                const transform = button.getAttribute('data-transform');
+
+                const modalImage = document.getElementById('sgFeedModalImage');
+                const modalTitle = document.getElementById('sgFeedModalTitle');
+                const modalCategory = document.getElementById('sgFeedModalCategory');
+                const modalDescription = document.getElementById('sgFeedModalDescription');
+                const modalDate = document.getElementById('sgFeedModalDate');
+
+                modalImage.src = image;
+                modalImage.alt = title;
+                modalImage.style.transform = transform || 'translate(0%, 0%) scale(1)';
+
+                modalTitle.textContent = title || '';
+                modalCategory.textContent = category || '';
+                modalDescription.textContent = description || '';
+                modalDate.textContent = date ? `Publicado em ${date}` : '';
+            });
+
+            modal.addEventListener('hidden.bs.modal', function () {
+                const modalImage = document.getElementById('sgFeedModalImage');
+                modalImage.src = '';
+                modalImage.alt = '';
+                modalImage.style.transform = 'translate(0%, 0%) scale(1)';
+            });
+        });
+    </script>
+}

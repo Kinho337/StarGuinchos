@@ -25,6 +25,14 @@ namespace StarGuinchos.Controllers
                     .ToListAsync()
             };
 
+            var ultimosAtendimentos = await _context.Atendimentos
+        .Where(a => a.Ativo)
+        .OrderByDescending(a => a.DataCadastro)
+        .Take(6)
+        .ToListAsync();
+
+            ViewBag.UltimosAtendimentos = ultimosAtendimentos;
+
             return View(viewModel);
         }
 
@@ -38,9 +46,14 @@ namespace StarGuinchos.Controllers
             return View();
         }
 
-        public IActionResult Atendimentos()
+        public async Task<IActionResult> Atendimentos()
         {
-            return View();
+            var atendimentos = await _context.Atendimentos
+                .Where(a => a.Ativo)
+                .OrderByDescending(a => a.DataCadastro)
+                .ToListAsync();
+
+            return View(atendimentos);
         }
 
         public IActionResult Sobre()

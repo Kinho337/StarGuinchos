@@ -19,18 +19,22 @@
         </div>
 
         <nav class="admin-sidebar__nav">
-            <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link active">
-                Dashboard
-            </a>
+    <a asp-controller="Admin" asp-action="Index" class="admin-sidebar__link active">
+        Dashboard
+    </a>
 
-            <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link">
-                Solicitações
-            </a>
+    <a asp-controller="Admin" asp-action="Solicitacoes" class="admin-sidebar__link">
+        Solicitações
+    </a>
 
-            <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link">
-                Avaliações
-            </a>
-        </nav>
+    <a asp-controller="Admin" asp-action="Avaliacoes" class="admin-sidebar__link">
+        Avaliações
+    </a>
+
+    <a asp-controller="Admin" asp-action="Atendimentos" class="admin-sidebar__link">
+        Atendimentos
+    </a>
+</nav>
     </aside>
 
     <main class="admin-main">
@@ -50,6 +54,10 @@
 
                 <a asp-controller="Admin" asp-action="Avaliacoes" class="btn btn-primary">
                     Gerenciar avaliações
+                </a>
+
+                <a asp-controller="Admin" asp-action="Atendimentos" class="btn btn-primary">
+                    Gerenciar atendimentos
                 </a>
             </div>
         </header>

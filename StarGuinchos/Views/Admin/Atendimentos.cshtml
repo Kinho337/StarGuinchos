@@ -1,0 +1,85 @@
+﻿@model IEnumerable<StarGuinchos.Models.Atendimento>
+
+@{
+    ViewData["Title"] = "Atendimentos cadastrados";
+}
+
+<section class="admin-page">
+    <div class="container">
+        <div class="admin-page__header">
+            <div>
+                <span class="admin-page__eyebrow">Área administrativa</span>
+                <h1 class="admin-page__title">Atendimentos cadastrados</h1>
+                <p class="admin-page__text">
+                    Gerencie as fotos que aparecem no feed público de atendimentos da StarGuinchos.
+                </p>
+            </div>
+
+            <a asp-controller="Admin" asp-action="CriarAtendimento" class="btn-primary-orange">
+                Adicionar foto
+            </a>
+        </div>
+
+        @if (TempData["MensagemSucesso"] != null)
+        {
+            <div class="admin-alert admin-alert--success">
+                @TempData["MensagemSucesso"]
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="admin-empty">
+                <h2>Nenhum atendimento cadastrado ainda</h2>
+                <p>
+                    Clique em “Adicionar foto” para cadastrar o primeiro atendimento no feed.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="admin-attendance-grid">
+                @foreach (var atendimento in Model)
+                {
+                    <article class="admin-attendance-card">
+                        <div class="admin-attendance-card__image-wrap">
+                            @{
+                                var zoomTexto = atendimento.Zoom.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                                var intensidade = ((double)atendimento.Zoom - 1) * 35;
+                                var translateX = ((50 - atendimento.PosicaoX) / 50.0) * intensidade;
+                                var translateY = ((50 - atendimento.PosicaoY) / 50.0) * intensidade;
+
+                                var translateXTexto = translateX.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                                var translateYTexto = translateY.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                            }
+
+                            <img src="@atendimento.ImagemUrl"
+                                 alt="@atendimento.Titulo"
+                                 class="admin-attendance-card__image"
+                                 style="transform: translate(@translateXTexto%, @translateYTexto%) scale(@zoomTexto);" />
+
+                        </div>
+
+                        <div class="admin-attendance-card__content">
+                            <span class="admin-attendance-card__category">
+                                @atendimento.Categoria
+                            </span>
+
+                            <h2 class="admin-attendance-card__title">
+                                @atendimento.Titulo
+                            </h2>
+
+                            <p class="admin-attendance-card__description">
+                                @atendimento.Descricao
+                            </p>
+
+                            <small class="admin-attendance-card__date">
+                                Cadastrado em @atendimento.DataCadastro.ToString("dd/MM/yyyy HH:mm")
+                            </small>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </div>
+</section>

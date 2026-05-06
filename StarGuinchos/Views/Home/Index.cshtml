@@ -1,4 +1,8 @@
 ﻿@model StarGuinchos.Models.ViewModels.HomeIndexViewModel
+@using StarGuinchos.Models
+@{
+    var ultimosAtendimentos = ViewBag.UltimosAtendimentos as List<Atendimento> ?? new List<Atendimento>();
+}
 
 @{
     ViewData["Title"] = "Início";
@@ -46,9 +50,9 @@
         <div class="container">
             <div class="home-section-heading">
                 <span class="home-section-heading__eyebrow">Nossos diferenciais</span>
-                <h2 class="home-section-heading__title">Atendimento pensado para quem precisa de agilidade e confiança</h2>
+                <h2 class="home-section-heading__title">Guincho rápido, seguro e profissional</h2>
                 <p class="home-section-heading__text">
-                    Estruturamos nossos serviços para oferecer rapidez, segurança e suporte em diferentes tipos de atendimento.
+                    Atendimento direto para emergências, transportes e suporte ao cliente.
                 </p>
             </div>
 
@@ -62,9 +66,9 @@
                         </svg>
                     </div>
 
-                    <h3 class="home-differentials__card-title">Nota fiscal para reembolso</h3>
+                    <h3 class="home-differentials__card-title">Nota fiscal</h3>
                     <p class="home-differentials__card-text">
-                        Emitimos nota fiscal para auxiliar o reembolso do atendimento junto à sua seguradora.
+                        Emitimos nota fiscal para facilitar reembolso e comprovação do atendimento.
                     </p>
                 </article>
 
@@ -77,9 +81,9 @@
                         </svg>
                     </div>
 
-                    <h3 class="home-differentials__card-title">Pane e suporte mecânico</h3>
+                    <h3 class="home-differentials__card-title">Suporte em panes</h3>
                     <p class="home-differentials__card-text">
-                        Contamos com oficinas e profissionais parceiros para ampliar as soluções do seu atendimento.
+                        Atendimento para pane mecânica, elétrica, colisões e transporte agendado.
                     </p>
                 </article>
 
@@ -93,7 +97,7 @@
 
                     <h3 class="home-differentials__card-title">Equipe experiente</h3>
                     <p class="home-differentials__card-text">
-                        Anos de atuação no ramo com atendimento seguro, responsável e profissional.
+                        Serviço feito com cuidado, responsabilidade e atenção ao veículo.
                     </p>
                 </article>
 
@@ -106,9 +110,9 @@
                         </svg>
                     </div>
 
-                    <h3 class="home-differentials__card-title">Cobertura ampliada</h3>
+                    <h3 class="home-differentials__card-title">Cobertura flexível</h3>
                     <p class="home-differentials__card-text">
-                        Atendimentos em São Paulo, região e transportes para outras cidades e estados.
+                        Atendemos São Paulo, região e rotas ida ou volta de outras cidades e estados.
                     </p>
                 </article>
             </div>
@@ -129,14 +133,12 @@
                     <span class="home-section-heading__eyebrow">Cobertura</span>
                     <h2 class="home-section-heading__title">Área de atendimento</h2>
                     <p class="home-section-heading__text">
-                        Atendemos São Paulo e região com agilidade, além de realizarmos remoções e transportes sob demanda
-                        para outras cidades e estados.
+                        Atendemos São Paulo, região e rotas ida ou volta de outras cidades e estados.
                     </p>
                 </div>
 
                 <p class="home-coverage__description">
-                    Também buscamos veículos de fora de São Paulo para trazê-los ao estado e, dependendo da necessidade,
-                    realizamos serviços de dentro para fora, como transportes para outras localidades, incluindo rotas mais longas.
+                    Trabalhamos com guincho emergencial, transporte agendado e remoções conforme disponibilidade da equipe.
                 </p>
 
                 <div class="home-coverage__tags">
@@ -163,49 +165,77 @@
     </section>
 
     <!-- NOSSOS ATENDIMENTOS -->
+
     <section class="home-services-gallery" id="atendimentos">
         <div class="container">
             <div class="home-section-heading">
                 <span class="home-section-heading__eyebrow">Atendimentos reais</span>
-                <h2 class="home-section-heading__title">Nossos atendimentos</h2>
+                <h2 class="home-section-heading__title">Últimos atendimentos</h2>
                 <p class="home-section-heading__text">
-                    Alguns registros reais dos serviços prestados pela StarGuinchos.
+                    Registros recentes dos serviços cadastrados pela equipe da StarGuinchos.
                 </p>
             </div>
 
-            <div class="home-services-gallery__carousel">
-                <button type="button" class="home-carousel__arrow home-carousel__arrow--prev" aria-label="Anterior">
-                    &#10094;
-                </button>
+            @if (ultimosAtendimentos.Any())
+            {
+                <div class="home-services-gallery__carousel">
+                    <button type="button" class="home-carousel__arrow home-carousel__arrow--prev" aria-label="Anterior">
+                        &#10094;
+                    </button>
 
-                <div class="home-services-gallery__viewport">
-                    <div class="home-services-gallery__track">
-                        <article class="home-services-gallery__item">
-                            <img src="~/images/atendimentos/atendimento-01.jpg" alt="Atendimento StarGuinchos 1" />
-                        </article>
+                    <div class="home-services-gallery__viewport">
+                        <div class="home-services-gallery__track">
+                            @foreach (var atendimento in ultimosAtendimentos)
+                            {
+                                var zoom = atendimento.Zoom <= 0 ? 1.00m : atendimento.Zoom;
+                                var zoomTexto = zoom.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                        <article class="home-services-gallery__item">
-                            <img src="~/images/atendimentos/atendimento-02.jpg" alt="Atendimento StarGuinchos 2" />
-                        </article>
+                                var intensidade = ((double)zoom - 1) * 35;
+                                var translateX = ((50 - atendimento.PosicaoX) / 50.0) * intensidade;
+                                var translateY = ((50 - atendimento.PosicaoY) / 50.0) * intensidade;
 
-                        <article class="home-services-gallery__item">
-                            <img src="~/images/atendimentos/atendimento-03.jpg" alt="Atendimento StarGuinchos 3" />
-                        </article>
+                                var translateXTexto = translateX.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                                var translateYTexto = translateY.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                        <article class="home-services-gallery__item">
-                            <img src="~/images/atendimentos/atendimento-04.jpg" alt="Atendimento StarGuinchos 4" />
-                        </article>
+                                <article class="home-services-gallery__item">
+                                    <a asp-controller="Home"
+                                           asp-action="Atendimentos"
+                                           class="home-services-gallery__link"
+                                           aria-label="Ver atendimento @atendimento.Titulo">
+
+                                        <span class="home-services-gallery__image-wrap">
+                                            <img src="@atendimento.ImagemUrl"
+                                                 alt="@atendimento.Titulo"
+                                                 style="transform: translate(@translateXTexto%, @translateYTexto%) scale(@zoomTexto);" />
+
+                                            <span class="home-services-gallery__overlay">
+                                                <small>@atendimento.Categoria</small>
+                                                <strong>@atendimento.Titulo</strong>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </article>
+                            }
+                        </div>
                     </div>
-                </div>
 
-                <button type="button" class="home-carousel__arrow home-carousel__arrow--next" aria-label="Próximo">
-                    &#10095;
-                </button>
-            </div>
+                    <button type="button" class="home-carousel__arrow home-carousel__arrow--next" aria-label="Próximo">
+                        &#10095;
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="home-services-gallery__empty">
+                    <p>
+                        Os atendimentos cadastrados pelo painel administrativo aparecerão aqui.
+                    </p>
+                </div>
+            }
 
             <div class="home-services-gallery__footer">
                 <a asp-controller="Home" asp-action="Atendimentos" class="btn-secondary-outline">
-                    Ver mais atendimentos
+                    Ver todos os atendimentos
                 </a>
             </div>
         </div>
@@ -348,7 +378,7 @@
                 </div>
 
                 <p class="home-cta-final__contact">
-                    Ou entre em contato pelo telefone: <strong>(11) 99999-9999</strong>
+                    Ou entre em contato pelo telefone: <strong>(11) 94699-9701</strong>
                 </p>
             </div>
         </div>

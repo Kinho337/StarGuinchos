@@ -5,7 +5,7 @@ let destinoController = null;
 
 function debounce(fn, delay = 300) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeout);
         timeout = setTimeout(() => fn.apply(this, args), delay);
     };
@@ -34,34 +34,44 @@ function aplicarMascaraTelefone(valor) {
 }
 
 function limparSuggestions(container) {
+    if (!container) return;
+
     container.innerHTML = "";
     container.style.display = "none";
 }
 
 function limparErro(input, erroSpan) {
     if (!input || !erroSpan) return;
+
     input.classList.remove("input-error");
     erroSpan.textContent = "";
 }
 
 function mostrarErro(input, erroSpan, mensagem) {
     if (!input || !erroSpan) return;
+
     input.classList.add("input-error");
     erroSpan.textContent = mensagem;
 }
 
 function validarFormulario() {
     const telefone = document.getElementById("telefone");
+    const veiculo = document.getElementById("veiculo");
+    const problema = document.getElementById("problema");
     const pontoPartida = document.getElementById("pontoPartida");
     const destino = document.getElementById("destino");
 
     const telefoneErro = document.getElementById("telefoneErro");
+    const veiculoErro = document.getElementById("veiculoErro");
+    const problemaErro = document.getElementById("problemaErro");
     const pontoPartidaErro = document.getElementById("pontoPartidaErro");
     const destinoErro = document.getElementById("destinoErro");
 
     let valido = true;
 
     limparErro(telefone, telefoneErro);
+    limparErro(veiculo, veiculoErro);
+    limparErro(problema, problemaErro);
     limparErro(pontoPartida, pontoPartidaErro);
     limparErro(destino, destinoErro);
 
@@ -72,6 +82,16 @@ function validarFormulario() {
         valido = false;
     } else if (telefoneNumeros.length < 10) {
         mostrarErro(telefone, telefoneErro, "Informe um telefone válido.");
+        valido = false;
+    }
+
+    if (!veiculo.value.trim()) {
+        mostrarErro(veiculo, veiculoErro, "Selecione o tipo de veículo.");
+        valido = false;
+    }
+
+    if (!problema.value.trim()) {
+        mostrarErro(problema, problemaErro, "Selecione o tipo de problema.");
         valido = false;
     }
 
@@ -96,6 +116,7 @@ function mostrarSuggestions(container, resultados, input, latField, lngField, er
         semResultado.className = "autocomplete-item";
         semResultado.textContent = "Nenhum endereço encontrado";
         semResultado.style.cursor = "default";
+
         container.appendChild(semResultado);
         container.style.display = "block";
         return;
@@ -111,8 +132,13 @@ function mostrarSuggestions(container, resultados, input, latField, lngField, er
         div.addEventListener("click", () => {
             input.value = texto;
 
-            if (item.lat !== undefined && item.lat !== null) latField.value = item.lat;
-            if (item.lon !== undefined && item.lon !== null) lngField.value = item.lon;
+            if (item.lat !== undefined && item.lat !== null) {
+                latField.value = item.lat;
+            }
+
+            if (item.lon !== undefined && item.lon !== null) {
+                lngField.value = item.lon;
+            }
 
             if (erroSpan) {
                 limparErro(input, erroSpan);
@@ -182,6 +208,43 @@ async function buscarEndereco(texto, container, input, latField, lngField, tipo,
     }
 }
 
+async function buscarCep(cep, inputDestino, erroSpan) {
+    const cepNumeros = somenteNumeros(cep);
+
+    if (cepNumeros.length !== 8) {
+        mostrarErro(inputDestino, erroSpan, "Informe um CEP válido com 8 números.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://viacep.com.br/ws/${cepNumeros}/json/`);
+
+        if (!response.ok) {
+            throw new Error("Erro ao buscar CEP.");
+        }
+
+        const data = await response.json();
+
+        if (data.erro) {
+            mostrarErro(inputDestino, erroSpan, "CEP não encontrado.");
+            return;
+        }
+
+        const endereco = [
+            data.logradouro,
+            data.bairro,
+            data.localidade ? `${data.localidade} - ${data.uf}` : "",
+            data.cep
+        ].filter(Boolean).join(", ");
+
+        inputDestino.value = endereco;
+        limparErro(inputDestino, erroSpan);
+    } catch (error) {
+        console.error("Erro ao buscar CEP:", error);
+        mostrarErro(inputDestino, erroSpan, "Não foi possível buscar o CEP agora.");
+    }
+}
+
 async function usarLocalizacaoAtual() {
     const input = document.getElementById("pontoPartida");
     const latField = document.getElementById("pontoPartidaLat");
@@ -195,6 +258,7 @@ async function usarLocalizacaoAtual() {
     }
 
     const textoOriginal = botao.textContent;
+
     botao.disabled = true;
     botao.textContent = "Obtendo localização...";
 
@@ -230,6 +294,7 @@ async function usarLocalizacaoAtual() {
         (error) => {
             console.error("Erro ao obter localização:", error);
             alert("Não foi possível obter sua localização atual.");
+
             botao.disabled = false;
             botao.textContent = textoOriginal;
         },
@@ -246,10 +311,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSolicitar = document.getElementById("btnSolicitar");
 
     const telefoneInput = document.getElementById("telefone");
+    const veiculoInput = document.getElementById("veiculo");
+    const problemaInput = document.getElementById("problema");
     const pontoPartidaInput = document.getElementById("pontoPartida");
     const destinoInput = document.getElementById("destino");
 
     const telefoneErro = document.getElementById("telefoneErro");
+    const veiculoErro = document.getElementById("veiculoErro");
+    const problemaErro = document.getElementById("problemaErro");
     const pontoPartidaErro = document.getElementById("pontoPartidaErro");
     const destinoErro = document.getElementById("destinoErro");
 
@@ -263,6 +332,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const destinoLng = document.getElementById("destinoLng");
 
     const usarLocalAtualBtn = document.getElementById("usarLocalAtual");
+
+    const cepOrigemInput = document.getElementById("cepOrigem");
+    const cepDestinoInput = document.getElementById("cepDestino");
+
+    const buscarCepOrigemBtn = document.getElementById("buscarCepOrigem");
+    const buscarCepDestinoBtn = document.getElementById("buscarCepDestino");
 
     const buscarOrigemComDebounce = debounce(() => {
         buscarEndereco(
@@ -298,13 +373,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (btnSolicitar) {
             btnSolicitar.disabled = true;
-            btnSolicitar.textContent = "Enviando...";
+            btnSolicitar.textContent = "Salvando e abrindo WhatsApp...";
         }
     });
 
     telefoneInput.addEventListener("input", () => {
         telefoneInput.value = aplicarMascaraTelefone(telefoneInput.value);
         limparErro(telefoneInput, telefoneErro);
+    });
+
+    veiculoInput.addEventListener("change", () => {
+        limparErro(veiculoInput, veiculoErro);
+    });
+
+    problemaInput.addEventListener("change", () => {
+        limparErro(problemaInput, problemaErro);
     });
 
     pontoPartidaInput.addEventListener("input", () => {
@@ -321,14 +404,28 @@ document.addEventListener("DOMContentLoaded", () => {
         buscarDestinoComDebounce();
     });
 
-    usarLocalAtualBtn.addEventListener("click", usarLocalizacaoAtual);
+    if (usarLocalAtualBtn) {
+        usarLocalAtualBtn.addEventListener("click", usarLocalizacaoAtual);
+    }
+
+    if (buscarCepOrigemBtn) {
+        buscarCepOrigemBtn.addEventListener("click", () => {
+            buscarCep(cepOrigemInput.value, pontoPartidaInput, pontoPartidaErro);
+        });
+    }
+
+    if (buscarCepDestinoBtn) {
+        buscarCepDestinoBtn.addEventListener("click", () => {
+            buscarCep(cepDestinoInput.value, destinoInput, destinoErro);
+        });
+    }
 
     document.addEventListener("click", (event) => {
-        if (!pontoPartidaSuggestions.contains(event.target) && event.target !== pontoPartidaInput) {
+        if (pontoPartidaSuggestions && !pontoPartidaSuggestions.contains(event.target) && event.target !== pontoPartidaInput) {
             limparSuggestions(pontoPartidaSuggestions);
         }
 
-        if (!destinoSuggestions.contains(event.target) && event.target !== destinoInput) {
+        if (destinoSuggestions && !destinoSuggestions.contains(event.target) && event.target !== destinoInput) {
             limparSuggestions(destinoSuggestions);
         }
     });

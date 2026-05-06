@@ -1,0 +1,187 @@
+﻿@model StarGuinchos.ViewModels.AtendimentoCreateViewModel
+
+@{
+    ViewData["Title"] = "Adicionar atendimento";
+}
+
+<section class="admin-page">
+    <div class="container">
+        <div class="admin-page__header admin-page__header--simple">
+            <div>
+                <span class="admin-page__eyebrow">Área administrativa</span>
+                <h1 class="admin-page__title">Adicionar foto de atendimento</h1>
+                <p class="admin-page__text">
+                    Cadastre uma foto, título, categoria e descrição para aparecer no feed público.
+                </p>
+            </div>
+        </div>
+
+        <form asp-controller="Admin"
+              asp-action="CriarAtendimento"
+              method="post"
+              enctype="multipart/form-data"
+              class="admin-form">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="admin-form__group">
+                <label asp-for="Titulo">Título do atendimento</label>
+                <input asp-for="Titulo"
+                       class="admin-form__control"
+                       placeholder="Ex: Remoção com guincho plataforma" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="Categoria">Categoria</label>
+                <input asp-for="Categoria"
+                       class="admin-form__control"
+                       placeholder="Ex: Guincho 24 horas" />
+                <span asp-validation-for="Categoria" class="text-danger"></span>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="Descricao">Descrição do serviço</label>
+                <textarea asp-for="Descricao"
+                          class="admin-form__control admin-form__textarea"
+                          rows="5"
+                          placeholder="Descreva brevemente o atendimento realizado."></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="Imagem">Foto do atendimento</label>
+                <input asp-for="Imagem"
+                       type="file"
+                       class="admin-form__control"
+                       accept=".jpg,.jpeg,.png,.webp" />
+                <span asp-validation-for="Imagem" class="text-danger"></span>
+            </div>
+            <div class="admin-form__group">
+                <label>Prévia do enquadramento</label>
+
+                <div class="admin-crop-preview">
+                    <img id="cropPreviewImage" src="" alt="Prévia da imagem" />
+                    <span id="cropPreviewPlaceholder">Selecione uma imagem para ajustar o enquadramento</span>
+                </div>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="PosicaoX">Ajuste horizontal</label>
+                <input asp-for="PosicaoX"
+                       type="range"
+                       min="0"
+                       max="100"
+                       value="50"
+                       class="admin-form__range"
+                       id="cropPositionX" />
+                <small class="admin-form__hint">0 = esquerda, 50 = centro, 100 = direita</small>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="PosicaoY">Ajuste vertical</label>
+                <input asp-for="PosicaoY"
+                       type="range"
+                       min="0"
+                       max="100"
+                       value="50"
+                       class="admin-form__range"
+                       id="cropPositionY" />
+                <small class="admin-form__hint">0 = topo, 50 = centro, 100 = baixo</small>
+            </div>
+
+            <div class="admin-form__group">
+                <label asp-for="Zoom">Zoom da imagem</label>
+                <input asp-for="Zoom"
+                       type="range"
+                       min="1"
+                       max="2.5"
+                       step="0.05"
+                       value="1"
+                       class="admin-form__range"
+                       id="cropZoom" />
+                <small class="admin-form__hint">1 = normal, 2.5 = mais aproximado</small>
+            </div>
+
+            <div class="admin-form__actions">
+                <a asp-controller="Admin" asp-action="Atendimentos" class="btn-secondary-dark">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="btn-primary-orange">
+                    Salvar atendimento
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputImagem = document.querySelector('input[type="file"][name="Imagem"]');
+            const previewImage = document.getElementById('cropPreviewImage');
+            const placeholder = document.getElementById('cropPreviewPlaceholder');
+            const positionX = document.getElementById('cropPositionX');
+            const positionY = document.getElementById('cropPositionY');
+            const cropZoom = document.getElementById('cropZoom');
+
+            function atualizarEnquadramento() {
+                if (!previewImage || !positionX || !positionY || !cropZoom) {
+                    return;
+                }
+
+                const x = Number(positionX.value);
+                const y = Number(positionY.value);
+                const zoom = Number(cropZoom.value);
+
+                const intensidade = (zoom - 1) * 35;
+
+                const translateX = ((50 - x) / 50) * intensidade;
+                const translateY = ((50 - y) / 50) * intensidade;
+
+                previewImage.style.objectPosition = 'center center';
+                previewImage.style.transform = `translate(${translateX}%, ${translateY}%) scale(${zoom})`;
+            }
+
+            if (inputImagem) {
+                inputImagem.addEventListener('change', function () {
+                    const file = inputImagem.files && inputImagem.files[0];
+
+                    if (!file) {
+                        previewImage.src = '';
+                        previewImage.style.display = 'none';
+                        placeholder.style.display = 'block';
+                        return;
+                    }
+
+                    const imageUrl = URL.createObjectURL(file);
+
+                    previewImage.src = imageUrl;
+                    previewImage.style.display = 'block';
+                    placeholder.style.display = 'none';
+
+                    previewImage.onload = function () {
+                        atualizarEnquadramento();
+                    };
+                });
+            }
+
+            if (positionX) {
+                positionX.addEventListener('input', atualizarEnquadramento);
+            }
+
+            if (positionY) {
+                positionY.addEventListener('input', atualizarEnquadramento);
+            }
+
+            if (cropZoom) {
+                cropZoom.addEventListener('input', atualizarEnquadramento);
+            }
+        });
+    </script>
+}

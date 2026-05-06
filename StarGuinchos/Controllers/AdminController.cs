@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StarGuinchos.Data;
+using StarGuinchos.Models;
+using StarGuinchos.ViewModels;
 using System.Net;
+using System.IO;
 
 namespace StarGuinchos.Controllers
 {
@@ -51,6 +55,8 @@ namespace StarGuinchos.Controllers
                 .ToList();
 
             return View();
+
+
         }
 
         [HttpGet("admin/solicitacoes")]
@@ -265,6 +271,86 @@ namespace StarGuinchos.Controllers
 
 
 
+        }
+
+        // =========================
+        // ATENDIMENTOS - FEED ADMIN
+        // =========================
+
+        [HttpGet]
+        public async Task<IActionResult> Atendimentos()
+        {
+            var atendimentos = await _context.Atendimentos
+                .OrderByDescending(a => a.DataCadastro)
+                .ToListAsync();
+
+            return View(atendimentos);
+        }
+
+        [HttpGet]
+        public IActionResult CriarAtendimento()
+        {
+            return View(new AtendimentoCreateViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CriarAtendimento(AtendimentoCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.Imagem == null || model.Imagem.Length == 0)
+            {
+                ModelState.AddModelError("Imagem", "Selecione uma imagem válida.");
+                return View(model);
+            }
+
+            var extensoesPermitidas = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+            var extensao = Path.GetExtension(model.Imagem.FileName).ToLowerInvariant();
+
+            if (!extensoesPermitidas.Contains(extensao))
+            {
+                ModelState.AddModelError("Imagem", "Envie uma imagem nos formatos JPG, JPEG, PNG ou WEBP.");
+                return View(model);
+            }
+
+            var pastaUploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "atendimentos");
+
+            if (!Directory.Exists(pastaUploads))
+            {
+                Directory.CreateDirectory(pastaUploads);
+            }
+
+            var nomeArquivo = $"atendimento-{Guid.NewGuid()}{extensao}";
+            var caminhoFisico = Path.Combine(pastaUploads, nomeArquivo);
+
+            using (var stream = new FileStream(caminhoFisico, FileMode.Create))
+            {
+                await model.Imagem.CopyToAsync(stream);
+            }
+
+            var atendimento = new Atendimento
+            {
+                Titulo = model.Titulo,
+                Categoria = model.Categoria,
+                Descricao = model.Descricao,
+                ImagemUrl = $"/uploads/atendimentos/{nomeArquivo}",
+                PosicaoX = model.PosicaoX,
+                PosicaoY = model.PosicaoY,
+                Zoom = model.Zoom,
+                DataCadastro = DateTime.Now,
+                Ativo = true
+            };
+
+            _context.Atendimentos.Add(atendimento);
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemSucesso"] = "Atendimento cadastrado com sucesso.";
+
+            return RedirectToAction(nameof(Atendimentos));
         }
     }
 }

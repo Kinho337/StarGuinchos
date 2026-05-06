@@ -14,14 +14,14 @@ namespace StarGuinchos.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var avaliacoesAprovadas = await _context.Avaliacoes
+            var avaliacoes = _context.Avaliacoes
                 .Where(a => a.Status == "aprovada" && a.AutorizadoPublicacao)
                 .OrderByDescending(a => a.DataCriacao)
-                .ToListAsync();
+                .ToList();
 
-            return View(avaliacoesAprovadas);
+            return View(avaliacoes);
         }
 
         [HttpGet]

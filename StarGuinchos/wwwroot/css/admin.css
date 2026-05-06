@@ -1323,3 +1323,100 @@ body {
     background: #0b0d12;
     color: #f8fafc;
 }
+
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.admin-stats-grid--reviews {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.admin-stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 20px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(15, 15, 20, 0.96) 0%, rgba(9, 9, 13, 0.98) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+.admin-stat-card__label {
+    display: block;
+    margin-bottom: 12px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.admin-stat-card__number {
+    color: #f8fafc;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.admin-panels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.admin-review-card {
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.admin-review-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.admin-review-card__comment {
+    margin: 0 0 12px;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.admin-review-card__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    color: #94a3b8;
+    font-size: 0.84rem;
+}
+
+@media (max-width: 1400px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .admin-stats-grid--reviews {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .admin-panels-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-stats-grid,
+    .admin-stats-grid--reviews {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-review-card__top {
+        flex-direction: column;
+    }
+}

@@ -142,9 +142,9 @@
                                 {
                                     <form asp-controller="Admin"
                                           asp-action="AprovarAvaliacao"
+                                          asp-route-id="@avaliacao.Id"
                                           method="post">
                                         @Html.AntiForgeryToken()
-                                        <input type="hidden" name="id" value="@avaliacao.Id" />
                                         <button type="submit" class="btn btn-success btn-sm">
                                             Aprovar
                                         </button>
@@ -155,9 +155,9 @@
                                 {
                                     <form asp-controller="Admin"
                                           asp-action="RecusarAvaliacao"
+                                          asp-route-id="@avaliacao.Id"
                                           method="post">
                                         @Html.AntiForgeryToken()
-                                        <input type="hidden" name="id" value="@avaliacao.Id" />
                                         <button type="submit" class="btn btn-warning btn-sm">
                                             Recusar
                                         </button>
@@ -166,10 +166,10 @@
 
                                 <form asp-controller="Admin"
                                       asp-action="ExcluirAvaliacao"
+                                      asp-route-id="@avaliacao.Id"
                                       method="post"
                                       onsubmit="return confirm('Deseja realmente excluir esta avaliação?');">
                                     @Html.AntiForgeryToken()
-                                    <input type="hidden" name="id" value="@avaliacao.Id" />
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         Excluir
                                     </button>

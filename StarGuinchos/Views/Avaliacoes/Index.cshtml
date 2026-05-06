@@ -1,92 +1,68 @@
-﻿@model StarGuinchos.Models.Avaliacao
+﻿@model IEnumerable<StarGuinchos.Models.Avaliacao>
 
 @{
-    ViewData["Title"] = "Avaliar serviço";
+    ViewData["Title"] = "Avaliações";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/avaliacoes-create.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/avaliacoes-index.css" asp-append-version="true" />
 }
 
-<main class="review-form-page">
-    <section class="review-form">
-        <div class="container review-form__container">
-            <div class="review-form__card">
-                <div class="review-form__header">
-                    <span class="review-form__badge">Sua experiência</span>
-                    <h1 class="review-form__title">Avaliar serviço</h1>
-                    <p class="review-form__text">
-                        Envie sua avaliação sobre o atendimento da StarGuinchos.
-                        Após o envio, ela passará por análise antes da publicação.
-                    </p>
+<main class="reviews-page">
+    <section class="reviews-page__hero">
+        <div class="container">
+            <div class="reviews-page__hero-content">
+                <span class="reviews-page__badge">Prova social</span>
+                <h1 class="reviews-page__title">Avaliações</h1>
+                <p class="reviews-page__text">
+                    Veja o que nossos clientes dizem sobre os atendimentos realizados pela StarGuinchos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-page__list">
+        <div class="container">
+            @if (Model != null && Model.Any())
+            {
+                <div class="reviews-page__grid">
+                    @foreach (var avaliacao in Model)
+                    {
+                        <article class="reviews-page__card">
+                            <div class="reviews-page__stars">
+                                @for (int i = 0; i < avaliacao.Nota; i++)
+                                {
+                                    <span>★</span>
+                                }
+                            </div>
+
+                            <p class="reviews-page__comment">@avaliacao.Comentario</p>
+
+                            <div class="reviews-page__footer">
+                                <strong class="reviews-page__name">@avaliacao.Nome</strong>
+
+                                @if (!string.IsNullOrWhiteSpace(avaliacao.Cidade))
+                                {
+                                    <span class="reviews-page__city">@avaliacao.Cidade</span>
+                                }
+                            </div>
+                        </article>
+                    }
                 </div>
+            }
+            else
+            {
+                <div class="reviews-page__empty">
+                    <h2>Ainda não há avaliações publicadas</h2>
+                    <p>Assim que novas avaliações forem aprovadas, elas aparecerão aqui.</p>
+                </div>
+            }
 
-                <form asp-action="Create" method="post" class="review-form__form">
-                    @Html.AntiForgeryToken()
-
-                    <div asp-validation-summary="ModelOnly" class="review-form__validation"></div>
-
-                    <div class="review-form__grid">
-                        <div class="review-form__field">
-                            <label asp-for="Nome"></label>
-                            <input asp-for="Nome" class="review-form__input" />
-                            <span asp-validation-for="Nome" class="review-form__error"></span>
-                        </div>
-
-                        <div class="review-form__field">
-                            <label asp-for="Telefone"></label>
-                            <input asp-for="Telefone" class="review-form__input" />
-                            <span asp-validation-for="Telefone" class="review-form__error"></span>
-                        </div>
-
-                        <div class="review-form__field">
-                            <label asp-for="Cidade"></label>
-                            <input asp-for="Cidade" class="review-form__input" />
-                            <span asp-validation-for="Cidade" class="review-form__error"></span>
-                        </div>
-
-                        <div class="review-form__field">
-                            <label asp-for="Nota"></label>
-                            <select asp-for="Nota" class="review-form__input">
-                                <option value="">Selecione</option>
-                                <option value="5">5 - Excelente</option>
-                                <option value="4">4 - Muito bom</option>
-                                <option value="3">3 - Bom</option>
-                                <option value="2">2 - Regular</option>
-                                <option value="1">1 - Ruim</option>
-                            </select>
-                            <span asp-validation-for="Nota" class="review-form__error"></span>
-                        </div>
-                    </div>
-
-                    <div class="review-form__field">
-                        <label asp-for="Comentario"></label>
-                        <textarea asp-for="Comentario" class="review-form__textarea" rows="6"></textarea>
-                        <span asp-validation-for="Comentario" class="review-form__error"></span>
-                    </div>
-
-                    <div class="review-form__checkbox">
-                        <input asp-for="AutorizadoPublicacao" />
-                        <label asp-for="AutorizadoPublicacao">
-                            Autorizo a publicação desta avaliação no site, após aprovação.
-                        </label>
-                    </div>
-
-                    <div class="review-form__actions">
-                        <button type="submit" class="btn-primary-orange">
-                            Enviar avaliação
-                        </button>
-
-                        <a asp-controller="Avaliacoes" asp-action="Index" class="btn-secondary-outline">
-                            Ver avaliações
-                        </a>
-                    </div>
-                </form>
+            <div class="reviews-page__actions">
+                <a asp-controller="Avaliacoes" asp-action="Create" class="btn-secondary-blue">
+                    Avaliar nosso serviço
+                </a>
             </div>
         </div>
     </section>
 </main>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

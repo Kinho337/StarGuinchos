@@ -13,26 +13,27 @@
     <!-- HERO -->
     <section class="home-hero">
         <div class="home-hero__background"></div>
+        <div class="home-hero__image-layer"></div>
+        <div class="home-hero__overlay"></div>
 
         <div class="container home-hero__container">
             <div class="home-hero__content">
                 <span class="home-hero__badge">Atendimento 24h</span>
 
                 <h1 class="home-hero__title">
-                    Guincho 24 horas com atendimento rápido e seguro
+                    Guincho 24 horas
                 </h1>
 
                 <p class="home-hero__text">
-                    Atendemos São Paulo e região, além de serviços intermunicipais e
-                    interestaduais com suporte profissional e ágil.
+                    Atendimento rápido, seguro e profissional em São Paulo e região.
                 </p>
 
                 <div class="home-hero__actions">
-                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
-                        Solicitar agora
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange home-hero__cta-primary">
+                        Solicitar guincho agora
                     </a>
 
-                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark">
+                    <a asp-controller="Home" asp-action="Contato" class="btn-secondary-dark home-hero__cta-secondary">
                         Ligar agora
                     </a>
                 </div>
@@ -53,23 +54,43 @@
 
             <div class="home-differentials__grid">
                 <article class="home-differentials__card">
-                    <div class="home-differentials__icon"></div>
-                    <h3 class="home-differentials__card-title">Atendimento rápido</h3>
+                    <div class="home-differentials__icon">
+                        <svg class="home-differentials__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14 3H8a2 2 0 0 0-2 2v14l4-2 4 2 4-2 4 2V9l-8-6Z" />
+                            <path d="M9 8h6" />
+                            <path d="M9 12h6" />
+                        </svg>
+                    </div>
+
+                    <h3 class="home-differentials__card-title">Nota fiscal para reembolso</h3>
                     <p class="home-differentials__card-text">
-                        Chegamos com agilidade para reduzir sua espera e dar suporte quando você mais precisa.
+                        Emitimos nota fiscal para auxiliar o reembolso do atendimento junto à sua seguradora.
                     </p>
                 </article>
 
                 <article class="home-differentials__card">
-                    <div class="home-differentials__icon"></div>
-                    <h3 class="home-differentials__card-title">Serviço 24h</h3>
+                    <div class="home-differentials__icon">
+                        <svg class="home-differentials__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14.7 6.3a1 1 0 0 0-1.4 0l-1.2 1.2 4.2 4.2 1.2-1.2a1 1 0 0 0 0-1.4l-2.8-2.8Z" />
+                            <path d="M11 8.7 4 15.7V20h4.3l7-7" />
+                            <path d="M14 17h6" />
+                        </svg>
+                    </div>
+
+                    <h3 class="home-differentials__card-title">Pane e suporte mecânico</h3>
                     <p class="home-differentials__card-text">
-                        Disponibilidade para emergências a qualquer hora do dia ou da noite.
+                        Contamos com oficinas e profissionais parceiros para ampliar as soluções do seu atendimento.
                     </p>
                 </article>
 
                 <article class="home-differentials__card">
-                    <div class="home-differentials__icon"></div>
+                    <div class="home-differentials__icon">
+                        <svg class="home-differentials__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 3l7 3v5c0 5-3.4 8.2-7 10-3.6-1.8-7-5-7-10V6l7-3Z" />
+                            <path d="m9.2 12.2 1.8 1.8 3.8-4" />
+                        </svg>
+                    </div>
+
                     <h3 class="home-differentials__card-title">Equipe experiente</h3>
                     <p class="home-differentials__card-text">
                         Anos de atuação no ramo com atendimento seguro, responsável e profissional.
@@ -77,7 +98,14 @@
                 </article>
 
                 <article class="home-differentials__card">
-                    <div class="home-differentials__icon"></div>
+                    <div class="home-differentials__icon">
+                        <svg class="home-differentials__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 21s6-5.5 6-11a6 6 0 1 0-12 0c0 5.5 6 11 6 11Z" />
+                            <circle cx="12" cy="10" r="2.5" />
+                            <path d="M18.5 18.5 22 22" />
+                        </svg>
+                    </div>
+
                     <h3 class="home-differentials__card-title">Cobertura ampliada</h3>
                     <p class="home-differentials__card-text">
                         Atendimentos em São Paulo, região e transportes para outras cidades e estados.

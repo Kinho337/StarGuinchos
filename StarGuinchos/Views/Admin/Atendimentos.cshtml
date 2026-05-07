@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Atendimentos cadastrados";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
 
 <section class="admin-page">
     <div class="container">
@@ -15,9 +18,16 @@
                 </p>
             </div>
 
+            <a asp-controller="Admin" asp-action="Index" class="btn-secondary-dark">
+                Voltar ao dashboard
+            </a>
+
             <a asp-controller="Admin" asp-action="CriarAtendimento" class="btn-primary-orange">
                 Adicionar foto
             </a>
+
+
+
         </div>
 
         @if (TempData["MensagemSucesso"] != null)
@@ -76,6 +86,29 @@
                             <small class="admin-attendance-card__date">
                                 Cadastrado em @atendimento.DataCadastro.ToString("dd/MM/yyyy HH:mm")
                             </small>
+
+                            <div class="admin-attendance-card__actions">
+                                <a asp-controller="Admin"
+                                       asp-action="EditarAtendimento"
+                                       asp-route-id="@atendimento.Id"
+                                       class="admin-action-btn admin-action-btn--edit">
+                                    Editar
+                                </a>
+
+                                <form asp-controller="Admin"
+                                      asp-action="ExcluirAtendimento"
+                                      asp-route-id="@atendimento.Id"
+                                      method="post"
+                                      class="admin-attendance-card__form"
+                                      onsubmit="return confirm('Deseja realmente excluir este atendimento? Esta ação não pode ser desfeita.');">
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit" class="admin-action-btn admin-action-btn--delete">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+
                         </div>
                     </article>
                 }

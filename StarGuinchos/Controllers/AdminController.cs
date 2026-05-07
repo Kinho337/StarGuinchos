@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StarGuinchos.Data;
 using StarGuinchos.Models;
 using StarGuinchos.ViewModels;
-using System.Net;
 using System.IO;
+using System.Net;
 
 namespace StarGuinchos.Controllers
 {
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         [HttpGet("admin")]
@@ -55,12 +58,10 @@ namespace StarGuinchos.Controllers
                 .ToList();
 
             return View();
-
-
         }
 
         [HttpGet("admin/solicitacoes")]
-        public IActionResult Solicitacoes(string busca, string status, DateTime? data)
+        public IActionResult Solicitacoes(string? busca, string? status, DateTime? data)
         {
             var query = _context.Solicitacoes.AsQueryable();
 
@@ -83,12 +84,16 @@ namespace StarGuinchos.Controllers
                             .Contains(buscaTelefone)
                     )
                 );
-        }
+            }
 
             if (!string.IsNullOrWhiteSpace(status))
             {
                 status = status.Trim().ToLower();
-                query = query.Where(s => s.Status_solicitacao != null && s.Status_solicitacao.ToLower() == status);
+
+                query = query.Where(s =>
+                    s.Status_solicitacao != null &&
+                    s.Status_solicitacao.ToLower() == status
+                );
             }
 
             if (data.HasValue)
@@ -96,7 +101,10 @@ namespace StarGuinchos.Controllers
                 var diaInicio = data.Value.Date;
                 var diaFim = diaInicio.AddDays(1);
 
-                query = query.Where(s => s.Data_solicitacao >= diaInicio && s.Data_solicitacao < diaFim);
+                query = query.Where(s =>
+                    s.Data_solicitacao >= diaInicio &&
+                    s.Data_solicitacao < diaFim
+                );
             }
 
             var lista = query
@@ -110,7 +118,7 @@ namespace StarGuinchos.Controllers
             return View(lista);
         }
 
-        [HttpGet("admin/solicitacoes/{id}")]
+        [HttpGet("admin/solicitacoes/{id:int}")]
         public IActionResult Detalhes(int id)
         {
             var solicitacao = _context.Solicitacoes.FirstOrDefault(s => s.Id == id);
@@ -123,7 +131,7 @@ namespace StarGuinchos.Controllers
             return View(solicitacao);
         }
 
-        [HttpPost("admin/solicitacoes/{id}/status")]
+        [HttpPost("admin/solicitacoes/{id:int}/status")]
         [ValidateAntiForgeryToken]
         public IActionResult AtualizarStatus(int id, string novoStatus)
         {
@@ -143,13 +151,14 @@ namespace StarGuinchos.Controllers
             }
 
             solicitacao.Status_solicitacao = novoStatus.ToLower();
+
             _context.SaveChanges();
 
             TempData["AdminMensagem"] = $"Status da solicitação #{solicitacao.Id} atualizado para '{solicitacao.Status_solicitacao}'.";
             return RedirectToAction(nameof(Solicitacoes));
         }
 
-        [HttpPost("admin/solicitacoes/{id}/excluir")]
+        [HttpPost("admin/solicitacoes/{id:int}/excluir")]
         [ValidateAntiForgeryToken]
         public IActionResult Excluir(int id)
         {
@@ -174,7 +183,10 @@ namespace StarGuinchos.Controllers
 
             if (!string.IsNullOrWhiteSpace(filtro) && filtro.ToLower() != "todas")
             {
-                query = query.Where(a => a.Status != null && a.Status.ToLower() == filtro.ToLower());
+                query = query.Where(a =>
+                    a.Status != null &&
+                    a.Status.ToLower() == filtro.ToLower()
+                );
             }
 
             var lista = query
@@ -182,10 +194,11 @@ namespace StarGuinchos.Controllers
                 .ToList();
 
             ViewBag.FiltroAtual = filtro;
+
             return View(lista);
         }
 
-        [HttpPost("admin/avaliacoes/{id}/aprovar")]
+        [HttpPost("admin/avaliacoes/{id:int}/aprovar")]
         [ValidateAntiForgeryToken]
         public IActionResult AprovarAvaliacao(int id)
         {
@@ -197,13 +210,14 @@ namespace StarGuinchos.Controllers
             }
 
             avaliacao.Status = "aprovada";
+
             _context.SaveChanges();
 
             TempData["AdminMensagem"] = $"Avaliação #{id} aprovada com sucesso.";
             return RedirectToAction(nameof(Avaliacoes));
         }
 
-        [HttpPost("admin/avaliacoes/{id}/recusar")]
+        [HttpPost("admin/avaliacoes/{id:int}/recusar")]
         [ValidateAntiForgeryToken]
         public IActionResult RecusarAvaliacao(int id)
         {
@@ -215,13 +229,14 @@ namespace StarGuinchos.Controllers
             }
 
             avaliacao.Status = "recusada";
+
             _context.SaveChanges();
 
             TempData["AdminMensagem"] = $"Avaliação #{id} recusada com sucesso.";
             return RedirectToAction(nameof(Avaliacoes));
         }
 
-        [HttpPost("admin/avaliacoes/{id}/excluir")]
+        [HttpPost("admin/avaliacoes/{id:int}/excluir")]
         [ValidateAntiForgeryToken]
         public IActionResult ExcluirAvaliacao(int id)
         {
@@ -239,9 +254,7 @@ namespace StarGuinchos.Controllers
             return RedirectToAction(nameof(Avaliacoes));
         }
 
-
-
-        [HttpGet("admin/solicitacoes/{id}/whatsapp")]
+        [HttpGet("admin/solicitacoes/{id:int}/whatsapp")]
         public IActionResult EnviarWhatsapp(int id)
         {
             var solicitacao = _context.Solicitacoes.FirstOrDefault(s => s.Id == id);
@@ -250,7 +263,6 @@ namespace StarGuinchos.Controllers
             {
                 return NotFound();
             }
-
 
             string mensagem =
                 $"🚨 NOVA SOLICITAÇÃO DE GUINCHO\n\n" +
@@ -267,17 +279,13 @@ namespace StarGuinchos.Controllers
             string url = $"https://wa.me/?text={mensagemCodificada}";
 
             return Redirect(url);
-
-
-
-
         }
 
         // =========================
         // ATENDIMENTOS - FEED ADMIN
         // =========================
 
-        [HttpGet]
+        [HttpGet("admin/atendimentos")]
         public async Task<IActionResult> Atendimentos()
         {
             var atendimentos = await _context.Atendimentos
@@ -287,13 +295,13 @@ namespace StarGuinchos.Controllers
             return View(atendimentos);
         }
 
-        [HttpGet]
+        [HttpGet("admin/atendimentos/novo")]
         public IActionResult CriarAtendimento()
         {
             return View(new AtendimentoCreateViewModel());
         }
 
-        [HttpPost]
+        [HttpPost("admin/atendimentos/novo")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CriarAtendimento(AtendimentoCreateViewModel model)
         {
@@ -317,7 +325,7 @@ namespace StarGuinchos.Controllers
                 return View(model);
             }
 
-            var pastaUploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "atendimentos");
+            var pastaUploads = Path.Combine(_environment.WebRootPath, "uploads", "atendimentos");
 
             if (!Directory.Exists(pastaUploads))
             {
@@ -327,7 +335,7 @@ namespace StarGuinchos.Controllers
             var nomeArquivo = $"atendimento-{Guid.NewGuid()}{extensao}";
             var caminhoFisico = Path.Combine(pastaUploads, nomeArquivo);
 
-            using (var stream = new FileStream(caminhoFisico, FileMode.Create))
+            await using (var stream = new FileStream(caminhoFisico, FileMode.Create))
             {
                 await model.Imagem.CopyToAsync(stream);
             }
@@ -349,6 +357,145 @@ namespace StarGuinchos.Controllers
             await _context.SaveChangesAsync();
 
             TempData["MensagemSucesso"] = "Atendimento cadastrado com sucesso.";
+            TempData["AdminMensagem"] = "Atendimento cadastrado com sucesso.";
+
+            return RedirectToAction(nameof(Atendimentos));
+        }
+
+        [HttpGet("admin/atendimentos/{id:int}/editar")]
+        public async Task<IActionResult> EditarAtendimento(int id)
+        {
+            var atendimento = await _context.Atendimentos.FindAsync(id);
+
+            if (atendimento == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AtendimentoEditViewModel
+            {
+                Id = atendimento.Id,
+                Titulo = atendimento.Titulo,
+                Categoria = atendimento.Categoria,
+                Descricao = atendimento.Descricao,
+                ImagemUrlAtual = atendimento.ImagemUrl,
+                PosicaoX = atendimento.PosicaoX,
+                PosicaoY = atendimento.PosicaoY,
+                Zoom = (double)atendimento.Zoom
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("admin/atendimentos/{id:int}/editar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarAtendimento(int id, AtendimentoEditViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return BadRequest();
+            }
+
+            var atendimento = await _context.Atendimentos.FindAsync(id);
+
+            if (atendimento == null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.ImagemUrlAtual = atendimento.ImagemUrl;
+                return View(model);
+            }
+
+            atendimento.Titulo = model.Titulo;
+            atendimento.Categoria = model.Categoria ?? string.Empty;
+            atendimento.Descricao = model.Descricao;
+            atendimento.PosicaoX = model.PosicaoX;
+            atendimento.PosicaoY = model.PosicaoY;
+            atendimento.Zoom = (decimal)model.Zoom;
+
+            if (model.Imagem != null && model.Imagem.Length > 0)
+            {
+                var extensoesPermitidas = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+                var extensao = Path.GetExtension(model.Imagem.FileName).ToLowerInvariant();
+
+                if (!extensoesPermitidas.Contains(extensao))
+                {
+                    ModelState.AddModelError(nameof(model.Imagem), "Envie uma imagem nos formatos JPG, JPEG, PNG ou WEBP.");
+                    model.ImagemUrlAtual = atendimento.ImagemUrl;
+                    return View(model);
+                }
+
+                var pastaUploads = Path.Combine(_environment.WebRootPath, "uploads", "atendimentos");
+
+                if (!Directory.Exists(pastaUploads))
+                {
+                    Directory.CreateDirectory(pastaUploads);
+                }
+
+                var nomeArquivo = $"atendimento-{Guid.NewGuid()}{extensao}";
+                var caminhoFisico = Path.Combine(pastaUploads, nomeArquivo);
+
+                await using (var stream = new FileStream(caminhoFisico, FileMode.Create))
+                {
+                    await model.Imagem.CopyToAsync(stream);
+                }
+
+                if (!string.IsNullOrWhiteSpace(atendimento.ImagemUrl))
+                {
+                    var caminhoAntigo = Path.Combine(
+                        _environment.WebRootPath,
+                        atendimento.ImagemUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar)
+                    );
+
+                    if (System.IO.File.Exists(caminhoAntigo))
+                    {
+                        System.IO.File.Delete(caminhoAntigo);
+                    }
+                }
+
+                atendimento.ImagemUrl = $"/uploads/atendimentos/{nomeArquivo}";
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemSucesso"] = "Atendimento atualizado com sucesso.";
+            TempData["AdminMensagem"] = "Atendimento atualizado com sucesso.";
+
+            return RedirectToAction(nameof(Atendimentos));
+        }
+
+        [HttpPost("admin/atendimentos/{id:int}/excluir")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExcluirAtendimento(int id)
+        {
+            var atendimento = await _context.Atendimentos.FindAsync(id);
+
+            if (atendimento == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrWhiteSpace(atendimento.ImagemUrl))
+            {
+                var caminhoArquivo = Path.Combine(
+                    _environment.WebRootPath,
+                    atendimento.ImagemUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar)
+                );
+
+                if (System.IO.File.Exists(caminhoArquivo))
+                {
+                    System.IO.File.Delete(caminhoArquivo);
+                }
+            }
+
+            _context.Atendimentos.Remove(atendimento);
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemSucesso"] = "Atendimento excluído com sucesso.";
+            TempData["AdminMensagem"] = "Atendimento excluído com sucesso.";
 
             return RedirectToAction(nameof(Atendimentos));
         }

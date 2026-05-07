@@ -1,7 +1,7 @@
-﻿@model StarGuinchos.ViewModels.AtendimentoCreateViewModel
+﻿@model StarGuinchos.ViewModels.AtendimentoEditViewModel
 
 @{
-    ViewData["Title"] = "Adicionar atendimento";
+    ViewData["Title"] = "Editar atendimento";
 }
 
 @section Styles {
@@ -14,9 +14,9 @@
         <header class="admin-edit-header">
             <div>
                 <span class="admin-page__eyebrow">Área administrativa</span>
-                <h1 class="admin-edit-header__title">Adicionar atendimento</h1>
+                <h1 class="admin-edit-header__title">Editar atendimento</h1>
                 <p class="admin-edit-header__text">
-                    Cadastre uma nova foto de atendimento para aparecer na área pública da StarGuinchos.
+                    Atualize as informações, substitua a imagem e ajuste o enquadramento da foto exibida no site.
                 </p>
             </div>
 
@@ -32,49 +32,57 @@
         </header>
 
         <form asp-controller="Admin"
-              asp-action="CriarAtendimento"
+              asp-action="EditarAtendimento"
+              asp-route-id="@Model.Id"
               method="post"
               enctype="multipart/form-data"
               class="admin-edit-layout">
 
             @Html.AntiForgeryToken()
 
+            <input type="hidden" asp-for="Id" />
+
             <aside class="admin-edit-preview-card">
                 <div class="admin-edit-preview-card__top">
                     <div>
                         <span class="admin-edit-preview-card__label">Pré-visualização</span>
-                        <h2 class="admin-edit-preview-card__title">Nova imagem</h2>
+                        <h2 class="admin-edit-preview-card__title">Imagem do atendimento</h2>
                     </div>
                 </div>
 
                 <div class="admin-edit-preview">
-                    <img id="attendancePreviewImage"
-                         src=""
-                         alt="Pré-visualização da imagem"
-                         style="display: none; object-position: @Model.PosicaoX% @Model.PosicaoY%; transform: scale(@Model.Zoom.ToString(System.Globalization.CultureInfo.InvariantCulture));" />
-
-                    <div id="attendancePreviewEmpty" class="admin-edit-preview__empty">
-                        Selecione uma imagem para visualizar
-                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.ImagemUrlAtual))
+                    {
+                        <img id="attendancePreviewImage"
+                             src="@Model.ImagemUrlAtual"
+                             alt="Imagem atual do atendimento"
+                             style="object-position: @Model.PosicaoX% @Model.PosicaoY%; transform: scale(@Model.Zoom.ToString(System.Globalization.CultureInfo.InvariantCulture));" />
+                    }
+                    else
+                    {
+                        <div class="admin-edit-preview__empty">
+                            Nenhuma imagem cadastrada
+                        </div>
+                    }
                 </div>
 
                 <div class="admin-edit-current-info">
-                    <span>Status da imagem</span>
-                    <strong id="attendancePreviewStatus">Nenhum arquivo selecionado</strong>
+                    <span>Imagem atual</span>
+                    <strong>@(!string.IsNullOrWhiteSpace(Model.ImagemUrlAtual) ? "Arquivo carregado" : "Sem imagem")</strong>
                 </div>
 
                 <div class="admin-edit-note">
                     <strong>Dica:</strong>
-                    escolha uma imagem bem nítida e use os controles de posição e zoom para destacar o veículo no card público.
+                    use os controles de posição e zoom para deixar o caminhão ou veículo bem enquadrado no card público.
                 </div>
             </aside>
 
             <main class="admin-edit-form-card">
                 <div class="admin-edit-form-card__header">
-                    <span class="admin-edit-form-card__badge">Cadastro</span>
+                    <span class="admin-edit-form-card__badge">Informações</span>
                     <h2>Dados do atendimento</h2>
                     <p>
-                        As informações abaixo serão exibidas junto com a foto no site.
+                        Esses dados aparecem na área pública de atendimentos realizados.
                     </p>
                 </div>
 
@@ -82,13 +90,13 @@
 
                 <div class="admin-form-grid">
                     <div class="admin-field admin-field--full">
-                        <label asp-for="Imagem">Foto do atendimento</label>
+                        <label asp-for="Imagem">Substituir imagem</label>
 
                         <label class="admin-file-upload">
                             <input asp-for="Imagem" type="file" accept=".jpg,.jpeg,.png,.webp" id="Imagem" />
                             <span class="admin-file-upload__icon">+</span>
                             <span>
-                                <strong>Selecionar foto</strong>
+                                <strong>Selecionar nova foto</strong>
                                 <small>JPG, JPEG, PNG ou WEBP</small>
                             </span>
                         </label>
@@ -156,7 +164,7 @@
                     </a>
 
                     <button type="submit" class="admin-action-btn admin-action-btn--save">
-                        Cadastrar atendimento
+                        Salvar alterações
                     </button>
                 </div>
             </main>
@@ -171,8 +179,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             const imageInput = document.getElementById("Imagem");
             const previewImage = document.getElementById("attendancePreviewImage");
-            const previewEmpty = document.getElementById("attendancePreviewEmpty");
-            const previewStatus = document.getElementById("attendancePreviewStatus");
 
             const posicaoX = document.getElementById("PosicaoX");
             const posicaoY = document.getElementById("PosicaoY");
@@ -211,24 +217,11 @@
 
                     reader.onload = function (event) {
                         previewImage.src = event.target.result;
-                        previewImage.style.display = "block";
-
-                        if (previewEmpty) {
-                            previewEmpty.style.display = "none";
-                        }
-
-                        if (previewStatus) {
-                            previewStatus.textContent = file.name;
-                        }
-
-                        updatePreview();
                     };
 
                     reader.readAsDataURL(file);
                 });
             }
-
-            updatePreview();
         });
     </script>
 }

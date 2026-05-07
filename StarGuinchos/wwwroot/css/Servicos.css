@@ -157,8 +157,45 @@
     height: 52px;
     border-radius: 18px;
     margin-bottom: 22px;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 36%), linear-gradient(135deg, rgba(238, 212, 165, 0.24), rgba(59, 130, 246, 0.24));
-    border: 1px solid rgba(238, 212, 165, 0.14);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.22), transparent 36%), linear-gradient(135deg, rgba(238, 212, 165, 0.26), rgba(59, 130, 246, 0.24));
+    border: 1px solid rgba(238, 212, 165, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #eed4a5;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.04);
+}
+
+    .services-card__icon::before {
+        display: block;
+    }
+
+.services-card:nth-child(1) .services-card__icon::before {
+    content: "24h";
+}
+
+.services-card:nth-child(2) .services-card__icon::before {
+    content: "↗";
+}
+
+.services-card:nth-child(3) .services-card__icon::before {
+    content: "!";
+}
+
+.services-card:nth-child(4) .services-card__icon::before {
+    content: "SP";
+}
+
+.services-card:nth-child(5) .services-card__icon::before {
+    content: "BR";
+}
+
+.services-card:nth-child(6) .services-card__icon::before {
+    content: "✓";
 }
 
 .services-card__title {

@@ -3,8 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StarGuinchos</title>
+    @{
+        var pageTitle = ViewData["Title"]?.ToString() ?? "Guincho 24 Horas em São Paulo";
+        var pageDescription = ViewData["Description"]?.ToString() ?? "Guincho 24 horas em São Paulo e região. Atendimento rápido para pane mecânica, elétrica, batida, atolamento, transporte e remoção de veículos.";
+        var canonicalUrl = ViewData["Canonical"]?.ToString() ?? "https://starguinchos.tech/";
+    }
 
+    <title>@pageTitle | StarGuinchos</title>
+
+    <meta name="description" content="@pageDescription" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="@canonicalUrl" />
+
+    <meta property="og:title" content="@pageTitle | StarGuinchos" />
+    <meta property="og:description" content="@pageDescription" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@canonicalUrl" />
+    <meta property="og:site_name" content="StarGuinchos" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@pageTitle | StarGuinchos" />
+    <meta name="twitter:description" content="@pageDescription" />
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StarGuinchos.styles.css" asp-append-version="true" />

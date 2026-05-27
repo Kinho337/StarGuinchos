@@ -354,82 +354,134 @@
     box-shadow: 0 28px 50px rgba(0, 0, 0, 0.22);
     background: linear-gradient(180deg, rgba(12, 20, 42, 0.96), rgba(5, 12, 28, 0.98));
 }
-    /* =========================
+/* =========================
    COBERTURA / MAPA
 ========================= */
-    .home-coverage {
-        padding: 88px 0;
+
+.home-coverage {
+    padding: 88px 0;
+}
+
+.home-coverage__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: 34px;
+    align-items: stretch;
+}
+
+.home-coverage__content,
+.home-coverage__map-card {
+    border-radius: 30px;
+    background: linear-gradient(180deg, rgba(8, 14, 30, 0.92), rgba(3, 8, 20, 0.96));
+    border: 1px solid rgba(203, 213, 245, 0.10);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.16);
+}
+
+.home-coverage__content {
+    padding: clamp(28px, 4vw, 38px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-coverage__description {
+    margin: 0;
+    color: #cbd5f5;
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+.home-coverage__tags {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.home-coverage__tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(203, 213, 245, 0.14);
+    color: #dbe5ff;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.home-coverage__actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.home-coverage__map-card {
+    padding: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.home-coverage__map-header {
+    min-height: 72px;
+    padding: 0 6px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .home-coverage__map-header span {
+        display: block;
+        margin-bottom: 4px;
+        color: #eed4a5;
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
-    .home-coverage__container {
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-        gap: 34px;
-        align-items: stretch;
+    .home-coverage__map-header strong {
+        display: block;
+        color: #ffffff;
+        font-size: clamp(1.2rem, 2vw, 1.6rem);
+        font-weight: 900;
+        line-height: 1.12;
     }
 
-    .home-coverage__content, .home-coverage__map-card {
-        border-radius: 30px;
-        background: linear-gradient(180deg, rgba(8, 14, 30, 0.92), rgba(3, 8, 20, 0.95));
-        border: 1px solid rgba(203, 213, 245, 0.10);
-        box-shadow: 0 24px 44px rgba(0, 0, 0, 0.16);
-    }
+.home-coverage__map-frame {
+    position: relative;
+    width: 100%;
+    min-height: 430px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #020617;
+    border: 1px solid rgba(203, 213, 245, 0.12);
+}
 
-    .home-coverage__content {
-        padding: 36px 34px;
-    }
-
-    .home-coverage__description {
-        margin: 0;
-        color: #cbd5f5;
-        font-size: 1rem;
-        line-height: 1.85;
-    }
-
-    .home-coverage__tags {
-        margin-top: 28px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    .home-coverage__tag {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 38px;
-        padding: 0 16px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(203, 213, 245, 0.14);
-        color: #dbe5ff;
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-
-    .home-coverage__actions {
-        margin-top: 30px;
-    }
-
-    .home-coverage__map-card {
-        padding: 20px;
-        display: flex;
-        min-height: 100%;
-    }
-
-    .home-coverage__map-placeholder {
+    .home-coverage__map-frame iframe {
         width: 100%;
-        min-height: 520px;
-        border-radius: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #cbd5f5;
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: center;
-        background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.12), transparent 28%), linear-gradient(180deg, rgba(10, 17, 35, 0.92), rgba(5, 10, 22, 0.98));
-        border: 1px dashed rgba(203, 213, 245, 0.18);
+        height: 100%;
+        min-height: 430px;
+        display: block;
+        border: 0;
+        filter: saturate(0.92) contrast(1.02) brightness(0.92);
+    }
+
+.home-coverage__map-footer {
+    padding: 16px 6px 2px;
+}
+
+    .home-coverage__map-footer p {
+        margin: 0;
+        color: rgba(203, 213, 245, 0.76);
+        font-size: 0.88rem;
+        line-height: 1.6;
     }
 /* =========================
    NOSSOS ATENDIMENTOS
@@ -809,6 +861,28 @@
     @media (max-width: 768px) {
         .home-hero {
             padding: 72px 0 56px;
+
+            .home-coverage__map-card {
+                padding: 14px;
+                border-radius: 26px;
+            }
+
+            .home-coverage__map-frame {
+                min-height: 340px;
+                border-radius: 20px;
+            }
+
+                .home-coverage__map-frame iframe {
+                    min-height: 340px;
+                }
+
+            .home-coverage__actions {
+                justify-content: center;
+            }
+
+                .home-coverage__actions .btn-primary-orange {
+                    width: 100%;
+                }
         }
 
         .home-differentials,
@@ -869,10 +943,7 @@
             padding: 14px;
         }
 
-        .home-coverage__map-placeholder {
-            min-height: 320px;
-            border-radius: 20px;
-        }
+       
         /* GALERIA DE ATENDIMENTOS */
         .home-services-gallery__carousel {
             grid-template-columns: 42px minmax(0, 1fr) 42px;
@@ -1000,3 +1071,129 @@
         line-height: 1.8;
     }
 
+/* =========================
+   CARROSSÉIS MODERNOS - TOUCH / MOBILE
+========================= */
+
+.home-services-gallery__viewport,
+.home-reviews__viewport {
+    width: 100%;
+    overflow: hidden;
+}
+
+.home-services-gallery__track,
+.home-reviews__track {
+    display: flex !important;
+    gap: 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    transition: none !important;
+    transform: none !important;
+    scrollbar-width: none;
+    padding: 4px 2px 10px;
+}
+
+    .home-services-gallery__track::-webkit-scrollbar,
+    .home-reviews__track::-webkit-scrollbar {
+        display: none;
+    }
+
+.home-services-gallery__item,
+.home-reviews__card {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.home-services-gallery__item {
+    flex: 0 0 calc((100% - 36px) / 3);
+}
+
+.home-reviews__card {
+    flex: 0 0 calc((100% - 36px) / 3);
+    min-width: calc((100% - 36px) / 3);
+}
+
+.home-services-gallery__carousel,
+.home-reviews__carousel {
+    position: relative;
+}
+
+.home-carousel__arrow {
+    z-index: 5;
+}
+
+/* Indicador visual de carrossel moderno */
+.home-services-gallery__viewport::after,
+.home-reviews__viewport::after {
+    content: "";
+    display: block;
+    height: 1px;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .home-services-gallery__item,
+    .home-reviews__card {
+        flex-basis: calc((100% - 18px) / 2);
+        min-width: calc((100% - 18px) / 2);
+    }
+}
+
+/* Mobile: sem setas, desliza com dedo */
+@media (max-width: 768px) {
+    .home-services-gallery__carousel,
+    .home-reviews__carousel {
+        display: block;
+    }
+
+    .home-services-gallery__viewport,
+    .home-reviews__viewport {
+        overflow: visible;
+    }
+
+    .home-services-gallery__track,
+    .home-reviews__track {
+        gap: 14px;
+        padding: 4px 18px 14px;
+        margin-left: -18px;
+        margin-right: -18px;
+        scroll-padding-left: 18px;
+    }
+
+    .home-services-gallery__item {
+        flex: 0 0 82%;
+        min-width: 82%;
+        max-width: 82%;
+        border-radius: 24px;
+    }
+
+    .home-reviews__card {
+        flex: 0 0 86%;
+        min-width: 86%;
+        max-width: 86%;
+        border-radius: 24px;
+    }
+
+    .home-services-gallery .home-carousel__arrow,
+    .home-reviews .home-carousel__arrow {
+        display: none !important;
+    }
+}
+
+/* Celulares menores */
+@media (max-width: 480px) {
+    .home-services-gallery__item {
+        flex-basis: 88%;
+        min-width: 88%;
+        max-width: 88%;
+    }
+
+    .home-reviews__card {
+        flex-basis: 90%;
+        min-width: 90%;
+        max-width: 90%;
+    }
+}

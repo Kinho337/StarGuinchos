@@ -1,5 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Área de atendimento";
+    ViewData["Title"] = "Área de Atendimento de Guincho em São Paulo";
+    ViewData["Description"] = "Confira a área de atendimento da StarGuinchos. Guincho 24 horas em São Paulo, região e rotas sob consulta para transporte e remoção de veículos.";
+    ViewData["Canonical"] = "https://starguinchos.tech/Home/AreaDeAtendimento";
 }
 
 @section Styles {
@@ -66,8 +68,28 @@
             </div>
 
             <div class="coverage-map__visual">
-                <div class="coverage-map__placeholder">
-                    <span>Mapa da área de atendimento</span>
+                <div class="coverage-map-card">
+                    <div class="coverage-map-card__header">
+                        <div>
+                            <span>Mapa de referência</span>
+                            <strong>São Paulo e região</strong>
+                        </div>
+                    </div>
+
+                    <div class="coverage-map-card__frame">
+                        <iframe title="Mapa da área de atendimento da StarGuinchos"
+                                src="https://www.google.com/maps?q=S%C3%A3o%20Paulo%20SP&output=embed"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <div class="coverage-map-card__footer">
+                        <p>
+                            Atendimento conforme disponibilidade, distância, tipo de veículo e condições do serviço.
+                            Atendemos São Paulo, região metropolitana, litoral e transportes interestaduais sob consulta.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

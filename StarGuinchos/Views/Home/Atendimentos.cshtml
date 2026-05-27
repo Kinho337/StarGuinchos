@@ -2,7 +2,9 @@
 @using System.Globalization
 
 @{
-    ViewData["Title"] = "Atendimentos";
+    ViewData["Title"] = "Atendimentos de Guincho em São Paulo";
+    ViewData["Description"] = "Veja registros reais de atendimentos da StarGuinchos: remoção de veículos, transporte, guincho plataforma, pane mecânica, pane elétrica e serviços 24 horas.";
+    ViewData["Canonical"] = "https://starguinchos.tech/Home/Atendimentos";
 
     var atendimentos = Model?.ToList() ?? new List<StarGuinchos.Models.Atendimento>();
 }

@@ -1,161 +1,122 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    setupServicesGalleryCarousel();
-    setupReviewsMobileCarousel();
+    setupScrollCarousel({
+        carouselSelector: ".home-services-gallery__carousel",
+        trackSelector: ".home-services-gallery__track",
+        itemSelector: ".home-services-gallery__item",
+        prevSelector: ".home-carousel__arrow--prev",
+        nextSelector: ".home-carousel__arrow--next",
+        loop: true
+    });
 
-    function setupServicesGalleryCarousel() {
-        const carousel = document.querySelector(".home-services-gallery__carousel");
-        if (!carousel) return;
+    setupScrollCarousel({
+        carouselSelector: ".home-reviews__carousel",
+        trackSelector: ".home-reviews__track",
+        itemSelector: ".home-reviews__card",
+        prevSelector: ".home-carousel__arrow--prev",
+        nextSelector: ".home-carousel__arrow--next",
+        loop: true
+    });
+});
 
-        const viewport = carousel.querySelector(".home-services-gallery__viewport");
-        const track = carousel.querySelector(".home-services-gallery__track");
-        const items = Array.from(carousel.querySelectorAll(".home-services-gallery__item"));
-        const prevButton = carousel.querySelector(".home-carousel__arrow--prev");
-        const nextButton = carousel.querySelector(".home-carousel__arrow--next");
+function setupScrollCarousel(config) {
+    const carousels = document.querySelectorAll(config.carouselSelector);
 
-        if (!viewport || !track || !items.length || !prevButton || !nextButton) return;
+    carousels.forEach(function (carousel) {
+        const track = carousel.querySelector(config.trackSelector);
+        const prevButton = carousel.querySelector(config.prevSelector);
+        const nextButton = carousel.querySelector(config.nextSelector);
 
-        let currentIndex = 0;
-
-        function getVisibleItems() {
-            if (window.innerWidth <= 768) return 1;
-            if (window.innerWidth <= 1200) return 2;
-            return 3;
-        }
+        if (!track) return;
 
         function getGap() {
-            if (window.innerWidth <= 768) return 0;
-            return 18;
+            const styles = window.getComputedStyle(track);
+            return parseFloat(styles.columnGap || styles.gap || 0);
         }
 
-        function getItemStep() {
-            const firstItem = items[0];
-            if (!firstItem) return 0;
-
-            const itemWidth = firstItem.getBoundingClientRect().width;
-            return itemWidth + getGap();
+        function getItems() {
+            return Array.from(track.querySelectorAll(config.itemSelector));
         }
 
-        function getMaxIndex() {
-            const visibleItems = getVisibleItems();
-            return Math.max(items.length - visibleItems, 0);
-        }
+        function getScrollAmount() {
+            const firstItem = track.querySelector(config.itemSelector);
 
-        function updateCarousel() {
-            const maxIndex = getMaxIndex();
-
-            if (currentIndex > maxIndex) {
-                currentIndex = maxIndex;
+            if (!firstItem) {
+                return track.clientWidth * 0.85;
             }
 
-            const step = getItemStep();
-            const translateX = currentIndex * step;
-
-            track.style.transform = `translateX(-${translateX}px)`;
-
-            prevButton.disabled = currentIndex === 0;
-            nextButton.disabled = currentIndex >= maxIndex;
+            return firstItem.getBoundingClientRect().width + getGap();
         }
 
-        prevButton.addEventListener("click", function () {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
-
-        nextButton.addEventListener("click", function () {
-            const maxIndex = getMaxIndex();
-
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-
-        window.addEventListener("resize", updateCarousel);
-        updateCarousel();
-    }
-
-    function setupReviewsMobileCarousel() {
-        const carousel = document.querySelector(".home-reviews__carousel");
-        if (!carousel) return;
-
-        const viewport = carousel.querySelector(".home-reviews__viewport");
-        const track = carousel.querySelector(".home-reviews__track");
-        const cards = Array.from(carousel.querySelectorAll(".home-reviews__card"));
-        const prevButton = carousel.querySelector(".home-carousel__arrow--prev");
-        const nextButton = carousel.querySelector(".home-carousel__arrow--next");
-
-        if (!viewport || !track || !cards.length || !prevButton || !nextButton) return;
-
-        let currentIndex = 0;
-
-        function isMobile() {
-            return window.innerWidth <= 768;
+        function getMaxScrollLeft() {
+            return Math.max(track.scrollWidth - track.clientWidth, 0);
         }
 
-        function getCardWidth() {
-            const firstCard = cards[0];
-            if (!firstCard) return 0;
-            return firstCard.getBoundingClientRect().width;
+        function isAtStart() {
+            return track.scrollLeft <= 4;
         }
 
-        function getMaxIndex() {
-            return Math.max(cards.length - 1, 0);
+        function isAtEnd() {
+            return track.scrollLeft >= getMaxScrollLeft() - 4;
         }
 
-        function updateCarousel() {
-            if (isMobile()) {
-                const cardWidth = getCardWidth();
-                const translateX = currentIndex * cardWidth;
+        function scrollToStart() {
+            track.scrollTo({
+                left: 0,
+                behavior: "smooth"
+            });
+        }
 
-                track.style.transform = `translateX(-${translateX}px)`;
-                prevButton.style.display = "inline-flex";
-                nextButton.style.display = "inline-flex";
-                prevButton.disabled = currentIndex === 0;
-                nextButton.disabled = currentIndex === getMaxIndex();
-            } else {
-                currentIndex = 0;
-                track.style.transform = "";
-                prevButton.style.display = "none";
-                nextButton.style.display = "none";
+        function scrollToEnd() {
+            track.scrollTo({
+                left: getMaxScrollLeft(),
+                behavior: "smooth"
+            });
+        }
+
+        function updateButtons() {
+            if (!prevButton || !nextButton) return;
+
+            if (config.loop) {
                 prevButton.disabled = false;
                 nextButton.disabled = false;
+                return;
             }
+
+            prevButton.disabled = isAtStart();
+            nextButton.disabled = isAtEnd();
         }
 
-        prevButton.addEventListener("click", function () {
-            if (!isMobile()) return;
+        if (prevButton) {
+            prevButton.addEventListener("click", function () {
+                if (config.loop && isAtStart()) {
+                    scrollToEnd();
+                    return;
+                }
 
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
+                track.scrollBy({
+                    left: -getScrollAmount(),
+                    behavior: "smooth"
+                });
+            });
+        }
 
-        nextButton.addEventListener("click", function () {
-            if (!isMobile()) return;
+        if (nextButton) {
+            nextButton.addEventListener("click", function () {
+                if (config.loop && isAtEnd()) {
+                    scrollToStart();
+                    return;
+                }
 
-            if (currentIndex < getMaxIndex()) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
+                track.scrollBy({
+                    left: getScrollAmount(),
+                    behavior: "smooth"
+                });
+            });
+        }
 
-        window.addEventListener("resize", updateCarousel);
-        updateCarousel();
-    
+        track.addEventListener("scroll", updateButtons, { passive: true });
+        window.addEventListener("resize", updateButtons);
 
-        nextButton.addEventListener("click", function () {
-            if (!isMobile()) return;
-
-            if (currentIndex < getMaxIndex()) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-
-        window.addEventListener("resize", updateCarousel);
-        updateCarousel();
-    }
-});
+        updateButtons();
+    });
+}

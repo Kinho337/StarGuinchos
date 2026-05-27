@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
 
     <!-- DIFERENCIAIS -->
     <section class="home-differentials" id="servicos">
@@ -127,39 +127,65 @@
     </section>
 
     <!-- ÁREA DE ATENDIMENTO -->
+    <!-- ÁREA DE ATENDIMENTO -->
     <section class="home-coverage" id="area-atendimento">
         <div class="container home-coverage__container">
             <div class="home-coverage__content">
                 <div class="home-section-heading home-section-heading--left">
-                    <span class="home-section-heading__eyebrow">Cobertura</span>
-                    <h2 class="home-section-heading__title">Área de atendimento</h2>
+                    <span class="home-section-heading__eyebrow">Área de atendimento</span>
+
+                    <h2 class="home-section-heading__title">
+                        Guincho 24 horas em São Paulo e região
+                    </h2>
+
                     <p class="home-section-heading__text">
-                        Atendemos São Paulo, região e rotas ida ou volta de outras cidades e estados.
+                        Atendimento para São Paulo, regiões próximas, litoral e transportes para outras cidades ou estados sob consulta.
                     </p>
                 </div>
 
                 <p class="home-coverage__description">
-                    Trabalhamos com guincho emergencial, transporte agendado e remoções conforme disponibilidade da equipe.
+                    A StarGuinchos atua com remoção, transporte e socorro veicular em situações como pane mecânica,
+                    pane elétrica, batida, atolamento e transporte agendado. Informe origem e destino para avaliarmos
+                    a melhor forma de atendimento.
                 </p>
 
                 <div class="home-coverage__tags">
-                    <span class="home-coverage__tag">São Paulo e região</span>
-                    <span class="home-coverage__tag">Transporte intermunicipal</span>
-                    <span class="home-coverage__tag">Transporte interestadual</span>
-                    <span class="home-coverage__tag">Serviços sob análise</span>
+                    <span class="home-coverage__tag">São Paulo</span>
+                    <span class="home-coverage__tag">Zona Oeste</span>
+                    <span class="home-coverage__tag">Região metropolitana</span>
+                    <span class="home-coverage__tag">Litoral sob consulta</span>
+                    <span class="home-coverage__tag">Interestadual sob consulta</span>
+                    <span class="home-coverage__tag">Atendimento 24h</span>
                 </div>
 
                 <div class="home-coverage__actions">
-                    <a asp-controller="Home" asp-action="AreaDeAtendimento" class="btn-secondary-outline">
-                        Ver área de atendimento completa
+                    <a asp-controller="Solicitacoes" asp-action="Create" class="btn-primary-orange">
+                        Solicitar guincho agora
                     </a>
                 </div>
             </div>
 
             <div class="home-coverage__map-card">
-                <div class="home-coverage__map-placeholder">
-                    <!-- Futuramente aqui entra o mapa/API -->
-                    <span>Mapa da área de atendimento</span>
+                <div class="home-coverage__map-header">
+                    <div>
+                        <span>Mapa de referência</span>
+                        <strong>São Paulo e região</strong>
+                    </div>
+                </div>
+
+                <div class="home-coverage__map-frame">
+                    <iframe title="Mapa da área de atendimento da StarGuinchos"
+                            src="https://www.google.com/maps?q=S%C3%A3o%20Paulo%20SP&output=embed"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <div class="home-coverage__map-footer">
+                    <p>
+                        A área exata de atendimento pode variar conforme distância, disponibilidade da equipe,
+                        tipo de veículo e condições do serviço.
+                    </p>
                 </div>
             </div>
         </div>

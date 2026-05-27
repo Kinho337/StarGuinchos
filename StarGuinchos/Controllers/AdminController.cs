@@ -6,9 +6,13 @@ using StarGuinchos.Models;
 using StarGuinchos.ViewModels;
 using System.IO;
 using System.Net;
+using StarGuinchos.Filters;
 
 namespace StarGuinchos.Controllers
 {
+
+
+    [AdminAuthorize]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;

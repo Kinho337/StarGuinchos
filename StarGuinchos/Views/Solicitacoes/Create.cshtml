@@ -24,15 +24,19 @@
                     Preencha os dados para enviar uma solicitação organizada ou pule o formulário se precisar falar com a equipe agora.
                 </p>
 
-                <form asp-controller="Solicitacoes" asp-action="Rapido" method="post" class="request-fast-form">
-                    @Html.AntiForgeryToken()
+                @{
+                    var mensagemRapida = "Olá, preciso de um guincho agora.";
+                    var linkWhatsappRapido = "https://wa.me/5511946999701?text=" + Uri.EscapeDataString(mensagemRapida);
+                }
 
-                    <button type="submit" class="request-fast-button">
-                        <span>Preciso ser rápido</span>
-                        <strong>Chamar guincho agora</strong>
-                        <small>Pular formulário e abrir WhatsApp</small>
-                    </button>
-                </form>
+                <a href="@linkWhatsappRapido"
+                   target="_blank"
+                   rel="noopener"
+                   class="request-fast-form request-fast-button">
+                    <span>Preciso ser rápido</span>
+                    <strong>Chamar guincho agora</strong>
+                    <small>Pular formulário e abrir WhatsApp</small>
+                </a>
             </div>
         </div>
     </section>
